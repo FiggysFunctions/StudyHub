@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<meta name="theme-color" content="#161E2B">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<title>Study Hub</title>
+<link rel="stylesheet" href="assets/styles.css">
+</head>
+<body>
+  <div class="hub-hero">
+    <div class="brand-row">
+      <svg class="glyph" width="34" height="34" viewBox="0 0 30 30" fill="none" aria-hidden="true">
+        <rect x="7" y="7" width="16" height="16" rx="1.5" stroke="currentColor" stroke-width="1.5"/>
+        <path d="M15 2.5 V6 M15 24 V27.5 M2.5 15 H6 M24 15 H27.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+        <path d="M11 11 L19 19 M19 11 L11 19" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" opacity="0.55"/>
+      </svg>
+      <span class="brand-name">Study Hub</span>
+    </div>
+    <div class="eyebrow">Personal course intranet</div>
+    <h1>Your subjects</h1>
+    <p>An offline, interlinked set of notes, equations, glossaries and assessment trackers — one space per subject. Pick a subject to dive in, or add a new one as the semester unfolds.</p>
+  </div>
+
+  <div id="subjGrid" class="subj-grid"></div>
+
+  <p class="hub-foot">Everything here runs from local files — no internet needed. To learn how to add weeks, equations, glossary terms or whole new subjects, open the <a href="README.html">editing guide</a>.</p>
+
+<script>
+/* ============================================================
+   YOUR SUBJECTS — edit this list as you add courses.
+   `path` points at each subject's dashboard (index.html).
+   To add a subject: duplicate the mech2430 folder, rename it,
+   edit its subject.js, then add a line here.
+   ============================================================ */
+window.HUB = {
+  subjects: [
+    {
+      code: "MECH2430",
+      title: "Mechanics of Solids 1",
+      blurb: "Stress & strain in 3D, elasticity, axial/torsion/bending/combined loading, pressure vessels and failure theories.",
+      term: "Semester 2, 2025",
+      /* tally is display-only text — remember to bump it when you add
+         weeks/equations (the subject dashboard shows live counts). */
+      tally: "9 weeks · 57 equations",
+      path: "mech2430/index.html"
+    }
+    // ,{ code:"NEXT1010", title:"…", blurb:"…", term:"…", tally:"…", path:"next1010/index.html" }
+  ]
+};
+</script>
+<script src="assets/hub.js"></script>
+</body>
+</html>

@@ -1,0 +1,167 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<meta name="theme-color" content="#161E2B">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<title>How to edit &amp; extend · Study Hub</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30' fill='none'%3E%3Crect x='8' y='8' width='14' height='14' rx='1' fill='%231E2839' stroke='%233C72B8' stroke-width='1.4'/%3E%3Cg stroke='%23C9763F' stroke-width='1.4' stroke-linecap='round'%3E%3Cpath d='M15 7V2.5'/%3E%3Cpath d='M13.2 4.2 15 2.5l1.8 1.7'/%3E%3Cpath d='M15 23v4.5'/%3E%3Cpath d='M13.2 25.8 15 27.5l1.8-1.7'/%3E%3Cpath d='M23 15h4.5'/%3E%3Cpath d='M25.8 13.2 27.5 15l-1.7 1.8'/%3E%3Cpath d='M7 15H2.5'/%3E%3Cpath d='M4.2 13.2 2.5 15l1.7 1.8'/%3E%3C/g%3E%3C/svg%3E">
+<link rel="stylesheet" href="assets/styles.css">
+<link rel="stylesheet" href="assets/katex/katex.min.css">
+</head>
+<body>
+  <div class="page">
+    <div class="content">
+      <div class="crumb"><a href="index.html">Study hub</a> / How to edit</div>
+      <div class="eyebrow">Guide</div>
+      <h1 class="title">Editing &amp; extending your hub</h1>
+      <p class="lede">This whole site is plain HTML, CSS and JavaScript that runs from your own files — no internet, no build step, no server. To change anything you open a file in a text editor, edit it, and refresh the page in your browser. Here is everything you need.</p>
+
+      <div class="guide-toc">
+        <strong>In this guide</strong>
+        <ol>
+          <li><a href="#open">Opening the site</a></li>
+          <li><a href="#layout">How the files are arranged</a></li>
+          <li><a href="#math">Writing equations</a></li>
+          <li><a href="#week">Adding a week of notes</a></li>
+          <li><a href="#equation">Adding an equation</a></li>
+          <li><a href="#glossary">Adding a glossary term</a></li>
+          <li><a href="#assessment">Adding / adjusting assessments</a></li>
+          <li><a href="#dates">Setting the date anchor</a></li>
+          <li><a href="#subject">Adding a whole new subject</a></li>
+          <li><a href="#phone">Using it on your phone (install as an app)</a></li>
+        </ol>
+      </div>
+
+      <h2 id="open">1 · Opening the site</h2>
+      <p>Double-click <code>index.html</code> in the top folder and it opens in your browser. Every page links to the others, so from there you can reach any subject. Because it is all local, you can keep the folder in Dropbox, a USB stick, or anywhere you like. To edit, open any <code>.html</code> or <code>.js</code> file in a plain-text editor (VS Code, Notepad++, Sublime, even Notepad). Save, then refresh the browser tab to see the change.</p>
+      <div class="note"><span class="k">Good to know</span> Adjustable dates are stored by your browser for the downloaded site. If you move the folder to a very different location the saved dates may reset — re-enter your Week 1 Monday on the Assessments page, or use its <strong>Export / Import settings</strong> buttons to carry your dates across.</div>
+
+      <h2 id="layout">2 · How the files are arranged</h2>
+      <pre><code>study-hub/
+  index.html          <span class="c">&larr; hub home, lists your subjects</span>
+  README.html         <span class="c">&larr; this guide</span>
+  assets/             <span class="c">&larr; shared styling + engine (rarely touched)</span>
+    styles.css
+    hub.js
+    katex/  fonts/
+  mech2430/           <span class="c">&larr; one folder per subject</span>
+    subject.js        <span class="c">&larr; the data: equations, glossary, assessments</span>
+    index.html        <span class="c">&larr; subject dashboard</span>
+    equations.html  glossary.html  assessments.html  search.html
+    week-01.html      <span class="c">&larr; your weekly notes</span>
+    _template.html    <span class="c">&larr; copy this to start a new week</span></code></pre>
+      <p>The pages in a subject (equations, glossary, assessments, search, dashboard) build themselves automatically from <code>subject.js</code>. That one file is where most of your editing happens. The weekly notes pages (<code>week-01.html</code> …) are normal HTML you write by hand.</p>
+
+      <h2 id="math">3 · Writing equations</h2>
+      <p>Anywhere on a page — in notes, glossary definitions, equation entries — just type LaTeX between dollar signs and it renders automatically:</p>
+      <pre><code>$\sigma = P/A$            <span class="c">inline, sits in the sentence</span>
+$$\tau = \frac{T\rho}{J}$$  <span class="c">a centred block on its own line</span></code></pre>
+      <p>For example <code>$\sigma = E\varepsilon$</code> shows as <span>$\sigma = E\varepsilon$</span>. Inside <code>subject.js</code> the equation <code>latex</code> values are written with the helper <code>R\`…\`</code> (a raw string) so you can use single backslashes like <code>\frac</code> and <code>\sigma</code> normally.</p>
+
+      <h2 id="week">4 · Adding a week of notes</h2>
+      <p>Two steps. First, copy <code>_template.html</code> to a new file such as <code>week-02.html</code> and write your notes in it. Then register it in <code>subject.js</code> by adding an entry to the <code>pages</code> array so it appears in the sidebar, dashboard and search:</p>
+      <pre><code>pages: [
+  { f:"week-01.html", week:1, t:"Stress, Strain &amp; Elasticity", … },
+  <span class="c">// add this:</span>
+  { f:"week-02.html", week:2,
+    t:"Torsion of Circular Shafts",
+    summary:"One line shown on cards and in search.",
+    keywords:"torsion shear shaft polar moment angle of twist",
+    related:[
+      { type:"eq",  label:"Torsion formula", href:"equations.html#eq-torsion-stress" },
+      { type:"def", label:"Polar moment",    href:"glossary.html#g-polar-moment" }
+    ]
+  }
+]</code></pre>
+      <p>The <code>keywords</code> string is what search matches on, so list the terms you might look for. To link to a glossary term or equation inside your notes, use:</p>
+      <pre><code>&lt;a class="gloss" href="glossary.html#g-stress"&gt;stress&lt;/a&gt;
+&lt;a class="eqref" href="equations.html#eq-normal-stress"&gt;normal stress&lt;/a&gt;</code></pre>
+      <p>Both jump to the target page <em>and</em> show a hover preview of the definition or rendered equation.</p>
+
+      <h2 id="equation">5 · Adding an equation</h2>
+      <p>Add an object to the <code>equations</code> array in <code>subject.js</code>. The <code>cat</code> groups it on the Equations page; the <code>id</code> is what you link to with <code>#eq-…</code>:</p>
+      <pre><code>{ id:"eq-torsion-stress", cat:"Torsional loading",
+  name:"Torsional shear stress",
+  latex: R`\tau = \dfrac{T\,\rho}{J}`,
+  desc:"Shear stress at radius ρ in a circular shaft.",
+  vars:[
+    { sym:R`\tau`, mean:"shear stress" },
+    { sym:"T",     mean:"applied torque" },
+    { sym:R`\rho`, mean:"radial distance from centre" },
+    { sym:"J",     mean:"polar second moment of area" }
+  ],
+  links:[ { label:"Week 2", href:"week-02.html" } ],
+  keywords:"torsion shaft shear polar"
+}</code></pre>
+
+      <h2 id="glossary">6 · Adding a glossary term</h2>
+      <p>Add to the <code>glossary</code> array. Definitions are HTML, so inline math with <code>\(…\)</code> works inside them. <code>see</code> holds cross-links shown as “See also”:</p>
+      <pre><code>{ id:"g-polar-moment", term:"Polar second moment of area", sym:"J",
+  def:"Geometric property measuring a section's resistance to twisting, \\(J=\\int r^2\\,dA\\).",
+  see:[ { label:"Torsion formula", href:"equations.html#eq-torsion-stress" } ]
+}</code></pre>
+
+      <h2 id="assessment">7 · Adding / adjusting assessments</h2>
+      <p>Each entry in the <code>assessments</code> array becomes a card. Dates are <em>not</em> hard-coded — you give the teaching week and an optional day offset, and the page works out the real date from your Week 1 Monday:</p>
+      <pre><code>{ id:"a-quiz2", name:"Quiz 2", type:"In-class quiz", weight:"25%",
+  weekLabel:"Week 8 tutorial",
+  dueWeek:8,          <span class="c">// teaching week it falls in</span>
+  dueOffsetDays:0,    <span class="c">// 0 = Monday of that week, 4 = Friday</span>
+  covers:"Weeks 5–7",
+  desc:"Short description.",
+  study:[ "Bullet of what to revise", "Another bullet" ],
+  weeks:[5,6,7],      <span class="c">// content weeks → auto-linked chips</span>
+  related:[ { label:"Stress transformation", href:"week-06.html" } ]
+}</code></pre>
+      <p>The <code>weeks</code> numbers automatically become links to the matching weekly pages. On the Assessments page you can also override any single date with the date picker, or mark a task complete — those are saved in your browser.</p>
+
+      <h2 id="dates">8 · Setting the date anchor</h2>
+      <p>Open <strong>Assessments</strong> and set the <em>Week 1 Monday</em> date at the top to the real first Monday of your semester. Every quiz, the report, and the weekly content all shift to match. You can do this purely in the browser — no file editing — and it sticks. (You can also change the starting default in <code>subject.js</code> under <code>meta.weekOneMonday</code>.)</p>
+      <div class="note"><span class="k">Moving machines?</span> The anchor date, any due dates you've adjusted, and your "completed" ticks are saved by the browser, not in the files. To carry them to another browser or computer, click <strong>Export settings</strong> on the Assessments page (it downloads a small <code>.json</code> file), then <strong>Import settings</strong> on the other machine.</div>
+
+      <h2 id="subject">9 · Adding a whole new subject</h2>
+      <p>The easiest path: duplicate the entire <code>mech2430</code> folder and rename it (e.g. <code>phys1210</code>). Inside the copy, open <code>subject.js</code> and edit the <code>meta</code>, then clear out the example <code>equations</code>, <code>glossary</code>, <code>assessments</code> and <code>pages</code> and fill in your own. Finally, add the subject to the list in the top-level <code>index.html</code>:</p>
+      <pre><code>window.HUB = {
+  subjects: [
+    { code:"MECH2430", title:"Mechanics of Solids 1", … , path:"mech2430/index.html" },
+    <span class="c">// add this:</span>
+    { code:"PHYS1210", title:"Physics 1",
+      blurb:"Short description for the card.",
+      term:"Semester 2, 2025", tally:"0 weeks",
+      path:"phys1210/index.html" }
+  ]
+};</code></pre>
+      <p>That is the whole system. Because everything is plain files, you can always open a page's source to see exactly how it was done and copy the pattern.</p>
+
+      <h2 id="phone">10 · Using it on your phone (install as an app)</h2>
+      <p>The hub is a <em>progressive web app</em>: once it's reachable over the web, you can install it to your phone's home screen and it works fully offline — its service worker (<code>sw.js</code>) downloads the entire site to the phone on first visit.</p>
+      <p><strong>Step 1 — put the folder online.</strong> Any static host works; GitHub Pages is free and simple:</p>
+      <ol>
+        <li>Create a repository on <a href="https://github.com">github.com</a> (it can be private-source only on paid plans for Pages — a free account means the files are publicly viewable, so keep that in mind).</li>
+        <li>Upload the <em>contents</em> of this <code>study-hub</code> folder to the repository (so <code>index.html</code> sits at the top level).</li>
+        <li>In the repository: Settings → Pages → Source: <em>Deploy from a branch</em> → branch <code>main</code>, folder <code>/ (root)</code> → Save.</li>
+        <li>After a minute your site is live at <code>https://&lt;username&gt;.github.io/&lt;repo&gt;/</code>.</li>
+      </ol>
+      <p>(Netlify Drop is even quicker — drag the folder onto <code>app.netlify.com/drop</code> — but GitHub doubles as your backup and makes updates a simple re-upload.)</p>
+      <p><strong>Step 2 — install on the phone.</strong> Open the URL once while online, then:</p>
+      <ul>
+        <li><strong>iPhone / iPad (Safari):</strong> Share button → <em>Add to Home Screen</em>.</li>
+        <li><strong>Android (Chrome):</strong> ⋮ menu → <em>Add to Home screen</em> (or tap the "Install app" prompt).</li>
+      </ul>
+      <p>It now opens full-screen from its own icon and works with no connection — on the train, in the exam-hall corridor, anywhere.</p>
+      <div class="note"><span class="k">Updating content</span> When you edit existing files and re-upload, phones pick up the changes automatically next time they're online (pages are fetched network-first). If you <em>add or remove</em> files — a new week page, a new subject — run <code>node tools/build-sw.js</code> first so the offline cache list includes them, then upload.</div>
+      <div class="note"><span class="k">Still works locally</span> None of this changes local use: double-clicking <code>index.html</code> works exactly as before. The app machinery only activates when the site is served over the web.</div>
+
+      <div class="note"><span class="k">Backups</span> It is just a folder — zip it occasionally, or keep it in version control / cloud sync, and you will never lose your notes.</div>
+    </div>
+  </div>
+<script src="assets/katex/katex.min.js"></script>
+<script src="assets/katex/auto-render.min.js"></script>
+<script src="assets/hub.js"></script>
+</body>
+</html>
