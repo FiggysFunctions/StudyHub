@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="manifest" href="../manifest.webmanifest">
+<link rel="apple-touch-icon" href="../icons/apple-touch-icon.png">
+<meta name="theme-color" content="#161E2B">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<title>Week 9 — Failure Criteria · MECH2430</title>
+<link rel="stylesheet" href="../assets/styles.css">
+<link rel="stylesheet" href="../assets/katex/katex.min.css">
+</head>
+<body>
+<div class="shell">
+  <main class="main">
+    <div class="page has-rail">
+      <div class="content">
+        <div class="crumb"><a href="../index.html">Study hub</a> / <a href="index.html">MECH2430</a> / Week 9</div>
+        <div class="eyebrow">Week 9 · Lecture notes</div>
+        <h1 class="title">Failure Criteria</h1>
+        <p class="lede">Material strength is measured with specific tests — tensile, compression, three-point bending, torsion — but a real component is almost never loaded exactly like one of those tests. This week answers the central design question: given a general stress state from a Week-6 combined-loading calculation, <em>will the material fail?</em> The answer needs invariant measures and different criteria for ductile and brittle materials.</p>
+
+        <h2 id="why">Why we need failure criteria</h2>
+        <p>To decide whether an applied stress state is as severe as the yield state measured in a tensile test, we have to compare the two — but each state "looks different" depending on the coordinate system used to view it. The components <span>$\sigma_x, \sigma_y, \tau_{xy}$</span> all change when the axes rotate (Week 7), so comparing raw components is meaningless.</p>
+        <p>The comparison must instead be made with <strong>invariant</strong> measures — quantities that do not depend on the viewing axes: <a class="gloss" href="glossary.html#g-principal">principal stresses</a>, the <a class="gloss" href="glossary.html#g-max-shear">maximum shear stress</a>, strain energy, or tensor invariants. Each failure criterion below is built from one of these invariants, and which criterion applies depends on whether the material fails in a <a class="gloss" href="glossary.html#g-ductile-brittle">ductile or brittle</a> manner.</p>
+        <p>For ductile materials there are two commonly used criteria: <strong>maximum shearing stress</strong> (failure based on an implied shear strength) and <strong>maximum distortion energy</strong> (failure based on the energy used to deform the shape). Brittle materials behave differently and get their own criteria at the end.</p>
+
+        <h2 id="tresca">Maximum shear stress — the Tresca criterion</h2>
+        <p>Yield in a ductile material is predominantly due to <em>shear</em>. Even in a tensile test, where only axial load is applied, ductile specimens fail by shearing along oblique planes (necking). Atoms are not pulled apart — failure happens when lattice planes in the crystal <em>slide</em> across each other.</p>
+        <p>That physics suggests the criterion: <strong>failure occurs if the maximum shearing stress exceeds the maximum shearing stress in a tensile test sample at yield.</strong> In a tensile test at yield, Mohr's circle runs from <span>$0$</span> to <span>$\sigma_y$</span>, so the maximum shear there is</p>
+        <div class="eqbox">$$\tau_{\max}\Big|_{\text{tensile yield}} = \frac{\sigma_y}{2}$$</div>
+        <p>and the <a class="gloss" href="glossary.html#g-tresca">Tresca criterion</a> for any stress state reads <a class="eqref" href="equations.html#eq-tresca">$\tau_{\max} < \sigma_y/2$</a>.</p>
+
+        <h2 id="three-cases">The three plane-stress cases and the safe hexagon</h2>
+        <p>Recall from Week 7 that the <em>true</em> maximum shear is half the spread of the extreme principal stresses, <a class="eqref" href="equations.html#eq-max-shear-3d">$\tau_{\max}=(\sigma_1-\sigma_3)/2$</a>, and that in plane stress one principal stress is always zero. That gives three cases:</p>
+        <div class="eqbox">$$
+        \begin{aligned}
+        0 < \sigma_2 < \sigma_1 &\quad\Rightarrow\quad \tau_{\max} = \frac{\sigma_1}{2} \;\;\text{(out of plane)}\\[2pt]
+        \sigma_3 < 0 < \sigma_1 &\quad\Rightarrow\quad \tau_{\max} = \frac{\sigma_1-\sigma_3}{2} \;\;\text{(in plane)}\\[2pt]
+        \sigma_3 < \sigma_2 < 0 &\quad\Rightarrow\quad \tau_{\max} = \frac{|\sigma_3|}{2} \;\;\text{(out of plane)}
+        \end{aligned}
+        $$</div>
+        <div class="note"><span class="k">Watch out</span> The out-of-plane cases are the classic trap. If both in-plane principal stresses have the same sign, the governing Mohr's circle is the one through <span>$\sigma=0$</span> — applying <span>$(\sigma_1-\sigma_2)/2$</span> blindly <em>under</em>-predicts the shear and is unconservative.</div>
+        <p>Plotting the condition <span>$\tau_{\max} < \sigma_y/2$</span> on principal-stress axes <span>$(\sigma_1, \sigma_2)$</span> traces out the <strong>Tresca hexagon</strong>: a square of side <span>$2\sigma_y$</span> in the same-sign quadrants (where only the larger magnitude matters), cut by the 45° lines <span>$\sigma_1-\sigma_2 = \pm\sigma_y$</span> in the mixed-sign quadrants (where the spread matters). Stress states inside the hexagon are safe.</p>
+
+        <h2 id="strain-energy">Strain energy, hydrostatic and deviatoric parts</h2>
+        <p>The second ductile criterion is built on energy. Elastic strain energy per unit volume — the area under the <span>$\sigma$</span>–<span>$\epsilon$</span> triangle — is</p>
+        <div class="eqbox">$$\frac{dU}{dv} = \tfrac12\,\boldsymbol{\sigma}:\boldsymbol{\epsilon} = \tfrac12\left(\sigma_{xx}\epsilon_{xx}+\sigma_{yy}\epsilon_{yy}+\sigma_{zz}\epsilon_{zz}+2\tau_{xy}\gamma_{xy}+2\tau_{xz}\gamma_{xz}+2\tau_{yz}\gamma_{yz}\right)$$</div>
+        <p>Any stress state splits into a <a class="gloss" href="glossary.html#g-hydrostatic">hydrostatic part</a> — the mean stress <span>$\bar\sigma = (\sigma_{xx}+\sigma_{yy}+\sigma_{zz})/3$</span> acting equally in all directions, which changes <em>volume</em> (<span>$\partial V = 3\bar\epsilon V$</span>) but not shape — and a <strong>deviatoric</strong> remainder <span>$\boldsymbol\sigma^*$</span>, which changes <em>shape</em> at constant volume (<span>$\partial V = 0$</span>). See the <a class="eqref" href="equations.html#eq-hydrostatic-deviatoric">decomposition</a> on the equation sheet.</p>
+        <p>Written in principal directions with Hooke's law, the strain energy separates cleanly along the same split — the energy to change the volume, and the energy to <a class="gloss" href="glossary.html#g-distortion-energy">distort the shape</a>:</p>
+        <div class="eqbox">$$\frac{dU_v}{dv} = \frac{3(1-2\nu)}{2E}\,\bar\sigma^2
+        \qquad\qquad
+        \frac{dU_d}{dv} = \frac{(1+\nu)}{3E}\Big[(\sigma_1-\sigma_2)^2+(\sigma_1-\sigma_3)^2+(\sigma_2-\sigma_3)^2\Big]$$</div>
+        <p>Full derivation on the sheet: <a class="eqref" href="equations.html#eq-distortion-energy">strain &amp; distortion energy</a>.</p>
+
+        <h2 id="von-mises">Maximum distortion energy — the von Mises criterion</h2>
+        <p>Since ductile yield is a shape-change process, use distortion energy as the yardstick. At the point of yield in a tensile test (<span>$\sigma_1 = \sigma_y$</span>, <span>$\sigma_2=\sigma_3=0$</span>):</p>
+        <div class="eqbox">$$\frac{dU_d}{dv}\bigg|_{\text{yield}} = 2\,\frac{(1+\nu)}{3E}\,\sigma_y^2$$</div>
+        <p>Equating any state's distortion energy to this value, the material constants cancel and the criterion collapses to a single equivalent stress. Define the <strong>von Mises stress</strong>:</p>
+        <div class="eqbox">$$\sigma_{vm} = \sqrt{\tfrac12\Big[(\sigma_1-\sigma_2)^2+(\sigma_1-\sigma_3)^2+(\sigma_2-\sigma_3)^2\Big]}$$</div>
+        <p><strong>Yield has occurred if <span>$\sigma_{vm} > \sigma_y$</span>.</strong> For plane stress (<span>$\sigma_3 = 0$</span>) the <a class="gloss" href="glossary.html#g-vonmises">von Mises</a> stress simplifies to the two workhorse forms — in principal directions and in general directions:</p>
+        <div class="eqbox">$$\sigma_{vm} = \sqrt{\sigma_1^2+\sigma_2^2-\sigma_1\sigma_2}
+        \qquad\qquad
+        \sigma_{vm} = \sqrt{\sigma_x^2+\sigma_y^2-\sigma_x\sigma_y+3\tau_{xy}^2}$$</div>
+        <p>The general-directions form is the practical one: it takes a stress element straight from a combined-loading calculation with <em>no need to find principals first</em>. Full statement: <a class="eqref" href="equations.html#eq-von-mises">von Mises criterion</a>.</p>
+
+        <h2 id="comparison">Tresca vs von Mises — ellipse, hexagon, pure shear</h2>
+        <p>Plotted on principal-stress axes, the von Mises criterion is an <strong>ellipse</strong> circumscribing the Tresca hexagon — the two agree at the six corners (uniaxial and equal-biaxial states) and von Mises allows slightly more everywhere else, so Tresca is the conservative choice. In full 3D the surfaces extend into an infinite hexagonal prism and cylinder about the <em>hydrostatic axis</em> <span>$\sigma_1=\sigma_2=\sigma_3$</span>.</p>
+        <p>The largest disagreement is <strong>pure shear</strong> (<span>$\sigma_1 = -\sigma_2 = \tau$</span>). Tresca predicts yield at <span>$\tau_y = 0.5\,\sigma_y$</span>; von Mises at</p>
+        <div class="eqbox">$$\tau_y = \frac{\sigma_y}{\sqrt{3}} \approx 0.577\,\sigma_y$$</div>
+        <p>For most materials the measured ratio is <span>$\tau_y/\sigma_y \approx 0.5$</span>–<span>$0.6$</span>, so von Mises generally fits the data better while Tresca errs on the safe side.</p>
+        <div class="note"><span class="k">Think about it</span> What hydrostatic stress is required to cause failure? Under pure hydrostatic loading <span>$\sigma_1=\sigma_2=\sigma_3$</span>, every difference term in <span>$\sigma_{vm}$</span> vanishes: the distortion energy is zero no matter how large the pressure. Von Mises therefore predicts that hydrostatic stress alone <em>never</em> causes yield — the yield surface is open along the hydrostatic axis. This is why the criterion depends only on the deviatoric part of the stress.</div>
+
+        <h2 id="brittle">Failure of brittle materials — Coulomb's criterion</h2>
+        <p>Brittle materials fail suddenly by fracture or rupture <em>without any evidence of yielding</em>. Tested in tension or compression, a brittle specimen fails abruptly at its <a class="gloss" href="glossary.html#g-ultimate">ultimate strength</a> <span>$\sigma_u$</span>. The simplest criterion for a plane stress state is <strong>Coulomb's criterion</strong>: failure occurs when the magnitude of either principal stress reaches the ultimate stress,</p>
+        <div class="eqbox">$$|\sigma_1| < \sigma_u \quad\text{and}\quad |\sigma_2| < \sigma_u$$</div>
+        <p>which draws a simple square safe zone on principal-stress axes. See <a class="eqref" href="equations.html#eq-coulomb">Coulomb's criterion</a>.</p>
+
+        <h2 id="microcracks">Why brittle materials are weaker in tension</h2>
+        <p>The problem with Coulomb's criterion is that it assumes the strength in tension equals the strength in compression — but brittle materials are usually much <strong>weaker in tension</strong> (think about a piece of chalk). Why?</p>
+        <p><strong>Micro-cracks!</strong> A small crack has no effect in compression — it simply closes up — but acts like an intense <a class="gloss" href="glossary.html#g-stress-concentration">stress concentration</a> during tension, letting fracture start well below the nominal ultimate stress. Hence the two distinct ultimate strengths, tensile <span>$\sigma_{UT}$</span> and compressive <span>$\sigma_{UC}$</span>, with <span>$\sigma_{UT} < \sigma_{UC}$</span> typically.</p>
+
+        <h2 id="mohr-criterion">Mohr's criterion</h2>
+        <p>The effect of micro-cracks is captured by <a class="gloss" href="glossary.html#g-mohr-criterion">Mohr's criterion</a>, which is essentially an <strong>envelope of all available test data</strong>. Say we have a tension test (<span>$\sigma_{UT}$</span>), a compression test (<span>$\sigma_{UC}$</span>) and a torsion test (<span>$\tau_U$</span>): plot each failure state as a Mohr's circle in the <span>$\sigma$</span>–<span>$\tau$</span> plane and sketch the envelope that just contains them (any additional test data can be added). A stress state is safe while its own Mohr's circle fits inside the envelope.</p>
+        <p>In the absence of torsion data, estimate the envelope by <strong>straight lines tangent</strong> to the tension and compression circles — usually a conservative estimate. On principal-stress axes the resulting safe zone matches Coulomb's square where the principal stresses share a sign, but is cut back by sloping lines in the mixed-sign quadrants. The fourth-quadrant boundary is the line</p>
+        <div class="eqbox">$$\sigma_2 = \frac{\sigma_{UC}}{\sigma_{UT}}\,\sigma_1 - \sigma_{UC}$$</div>
+        <p>Failure-load problems (e.g. the cast-aluminium torsion rods of Beer 7.95/7.96) are solved by intersecting this line with the <em>load path</em> — the known ratio between <span>$\sigma_1$</span> and <span>$\sigma_2$</span> as the load grows — then converting the failing principal state back to the torque or force. Full statement: <a class="eqref" href="equations.html#eq-mohr-criterion">Mohr's criterion</a>.</p>
+        <div class="note"><span class="k">Don't confuse the Mohrs</span> <em>Mohr's circle</em> (Week 7) is the transformation tool; <em>Mohr's criterion</em> (this week) is a brittle failure envelope drawn <em>using</em> Mohr's circles. Same Otto Mohr, different jobs.</div>
+
+        <h2 id="safety">Safety factors and combined loading</h2>
+        <p>Each criterion gives a <a class="gloss" href="glossary.html#g-fos">factor of safety</a>. For von Mises it is simply</p>
+        <div class="eqbox">$$\text{SF} = \frac{\sigma_y}{\sigma_{vm}}$$</div>
+        <p>For Tresca on the hexagon (or Mohr's criterion on its envelope), scale the stress state radially from the origin until it hits the boundary: the safety factor is the ratio of the boundary state's magnitude to the applied state's magnitude along that load path.</p>
+        <p>The typical exam problem chains Weeks 6, 7 and 9 together. A round bar under bending, axial load, torsion and transverse shear (<span>$P/A$</span>, <span>$My/I$</span>, <span>$Tr/J$</span>, <span>$VQ/It$</span>) must be checked at <em>multiple candidate points</em>: at the top of the section the axial and bending stresses add (<span>$\sigma = P/A + My/I$</span>) while only the torsional shear acts; at the side of the section only <span>$P/A$</span> acts normally but the torsional and transverse shears combine (<span>$\tau = Tr/J + VQ/It$</span>). Compute <span>$\sigma_{vm} = \sqrt{\sigma^2 + 3\tau^2}$</span> at each point — the <strong>worst case governs</strong>, and it is often <em>not</em> the point with the biggest normal stress. Build the stress elements with <a class="eqref" href="equations.html#eq-combined-stress">superposition</a> exactly as in Week 6.</p>
+
+        <div class="note"><span class="k">Where this leads</span> Failure criteria are the payoff of everything so far: Weeks 1–6 build the stress state at a point, Week 7 rotates it into invariant form, and this week judges it against the material. Next: thin-walled pressure vessels — a beautifully simple biaxial stress state to practise these criteria on — then beam deflections. Quiz&nbsp;3 (Week&nbsp;12) covers Weeks 9–11.</div>
+      </div>
+
+      <aside class="rail">
+        <h4>On this page</h4>
+        <ul>
+          <li><a href="#why">Why failure criteria</a></li>
+          <li><a href="#tresca">Tresca criterion</a></li>
+          <li><a href="#three-cases">Three cases &amp; hexagon</a></li>
+          <li><a href="#strain-energy">Strain &amp; distortion energy</a></li>
+          <li><a href="#von-mises">von Mises criterion</a></li>
+          <li><a href="#comparison">Tresca vs von Mises</a></li>
+          <li><a href="#brittle">Brittle: Coulomb</a></li>
+          <li><a href="#microcracks">Micro-cracks</a></li>
+          <li><a href="#mohr-criterion">Mohr's criterion</a></li>
+          <li><a href="#safety">Safety factors</a></li>
+        </ul>
+        <h4>Key equations</h4>
+        <ul>
+          <li><span class="tag">eq</span><a href="equations.html#eq-tresca">Tresca criterion</a></li>
+          <li><span class="tag">eq</span><a href="equations.html#eq-von-mises">von Mises criterion</a></li>
+          <li><span class="tag">eq</span><a href="equations.html#eq-distortion-energy">Distortion energy</a></li>
+          <li><span class="tag">eq</span><a href="equations.html#eq-mohr-criterion">Mohr's criterion</a></li>
+        </ul>
+        <h4>Related</h4>
+        <ul>
+          <li><span class="tag">def</span><a href="glossary.html#g-hydrostatic">Hydrostatic / deviatoric</a></li>
+          <li><span class="tag">def</span><a href="glossary.html#g-ductile-brittle">Ductile vs brittle</a></li>
+          <li><span class="tag">eq</span><a href="equations.html#eq-max-shear-3d">Max shear in 3D</a></li>
+          <li><span class="tag">eq</span><a href="equations.html#eq-combined-stress">Superposition (Week 6)</a></li>
+          <li><span class="tag">flag</span><a href="assessments.html#a-quiz3">Quiz 3 (W9–11)</a></li>
+        </ul>
+      </aside>
+    </div>
+  </main>
+</div>
+<script src="../assets/katex/katex.min.js"></script>
+<script src="../assets/katex/auto-render.min.js"></script>
+<script src="subject.js"></script>
+<script src="../assets/hub.js"></script>
+</body>
+</html>

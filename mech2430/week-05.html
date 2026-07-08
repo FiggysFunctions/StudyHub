@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="manifest" href="../manifest.webmanifest">
+<link rel="apple-touch-icon" href="../icons/apple-touch-icon.png">
+<meta name="theme-color" content="#161E2B">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<title>Week 5 — Transverse Loading &amp; Shear in Beams · MECH2430</title>
+<link rel="stylesheet" href="../assets/styles.css">
+<link rel="stylesheet" href="../assets/katex/katex.min.css">
+</head>
+<body>
+<div class="shell">
+  <main class="main">
+    <div class="page has-rail">
+      <div class="content">
+        <div class="crumb"><a href="../index.html">Study hub</a> / <a href="index.html">MECH2430</a> / Week 5</div>
+        <div class="eyebrow">Week 5 · Lecture notes</div>
+        <h1 class="title">Transverse Loading &amp; Shear in Beams</h1>
+        <p class="lede">Real beams rarely see pure bending: a transverse load produces a shear force <span>$V$</span> alongside the bending moment <span>$M$</span>. This week is about the shear stresses that <span>$V$</span> creates — why they must also act <em>along</em> the beam, how to compute them with <span>$VQ/I$</span>, how they size the nails and glue in built-up beams, and what happens to shear once a section starts to yield.</p>
+
+        <h2 id="transverse">Transverse loading: shear plus bending</h2>
+        <p>Cut a beam carrying a transverse load <span>$P$</span> at a distance <span>$x$</span> from the load and equilibrium of the free body demands both an internal moment and an internal shear force:</p>
+        <div class="eqbox">$$M = Px \qquad V = P$$</div>
+        <p>The sign convention: <span>$V$</span> is positive when it acts downward on the left-hand side of the section. Summing the stresses over the cross-section, the vertical shear stresses must balance the shear force, <span>$\int_A \tau_{xy}\,dA = -V$</span>, while the horizontal ones sum to zero, <span>$\int_A \tau_{xz}\,dA = 0$</span> — but note that an <em>average</em> of zero does not mean <span>$\tau_{xz}=0$</span> everywhere. We will meet significant <span>$\tau_{xz}$</span> in flanges later.</p>
+
+        <h2 id="longitudinal">Longitudinal shear: the plank picture</h2>
+        <p>Because the <a class="gloss" href="glossary.html#g-stress-tensor">stress tensor</a> is symmetric, a vertical shear stress <span>$\tau_{xy}$</span> at a point must be accompanied by an equal shear stress <span>$\tau_{yx}$</span> on the horizontal plane through the same point. <strong>Transverse loading therefore produces longitudinal shear stresses.</strong></p>
+        <p>The classic demonstration: bend a stack of loose planks and they slide over one another — each plank bends independently. Clamp them together and the sliding is prevented; the clamping surfaces are now carrying longitudinal shear. Nails, bolts and glue in a built-up beam are doing exactly this clamping job, which is why we need to know how much shear they must resist.</p>
+
+        <h2 id="horizontal">Shear force on a horizontal plane</h2>
+        <p>To quantify that longitudinal shear, cut a horizontal plane through a beam at height <span>$y_1$</span> and consider the equilibrium of the material above it (area <span>$A'$</span>). The bending stresses <span>$\sigma_x = Mxy/I$</span> on the end faces don't balance unless a longitudinal shear force <span>$H$</span> acts on the cut plane:</p>
+        <div class="eqbox">$$\sum F_x:\quad 0 = H - \int_{A'} \sigma_x\,dA \;\;\Rightarrow\;\; H = \frac{VQ}{I}\,x$$</div>
+        <p>where the integral of <span>$y$</span> over the cut-off area is the <a class="gloss" href="glossary.html#g-first-moment">first moment of area</a>:</p>
+        <div class="eqbox">$$Q = \int_{A'} y\,dA = A'\bar{y}$$</div>
+        <p><span>$Q$</span> is the workhorse of this whole week: the area beyond the cut times the distance from its centroid to the neutral axis. It is zero at the top and bottom faces (no area beyond the cut) and largest at the neutral axis. Full form on the sheet: <a class="eqref" href="equations.html#eq-shear-horizontal">shear on a horizontal plane</a>. Crucially, nothing in the derivation requires the cut to be horizontal — the same equilibrium argument works on <em>any</em> longitudinal surface, planar or not, which we exploit below.</p>
+
+        <h2 id="shear-flow">Shear flow and built-up beams</h2>
+        <p>Dividing <span>$H$</span> by the length <span>$x$</span> gives the longitudinal shear force <em>per unit length</em> of beam — the <a class="gloss" href="glossary.html#g-shear-flow">shear flow</a>:</p>
+        <div class="eqbox">$$q = \frac{H}{x} = \frac{VQ}{I}$$</div>
+        <p>Shear flow is what sizes the joints of a <a class="gloss" href="glossary.html#g-built-up">built-up member</a>. Discrete fasteners spaced <span>$s$</span> apart must each carry the flow accumulated over one spacing, shared between however many parallel rows <span>$n$</span> cross the joint:</p>
+        <div class="eqbox">$$F = \frac{q\,s}{n} = \frac{VQ}{I}\cdot\frac{s}{n}$$</div>
+        <p>See <a class="eqref" href="equations.html#eq-fastener-force">fastener force</a>. When taking <span>$Q$</span>, use the first moment of the <em>piece being held on</em> by the joint.</p>
+        <div class="note"><span class="k">Worked example</span> Two 150&nbsp;×&nbsp;50&nbsp;mm boards are nailed top and bottom with two rows of nails at 150&nbsp;mm spacing, carrying <span>$V = 3$</span>&nbsp;kN. With <span>$I = \tfrac{1}{12}(150)(100^3) = 12.5\times10^6$</span>&nbsp;mm⁴ and <span>$Q = 150\times50\times25 = 187.5\times10^3$</span>&nbsp;mm³, the shear flow is <span>$q = VQ/I = 45$</span>&nbsp;kN/m. In one metre there are <span>$2\times(1/0.15) = 13.33$</span> nails, so each nail resists <span>$45/13.33 = 3.375$</span>&nbsp;kN — identical to <span>$F = qs/n$</span> with <span>$s=0.15$</span>&nbsp;m, <span>$n=2$</span>.</div>
+        <p>The tutorial problems run the same logic in every direction: given an allowable nail force, find the allowable <span>$V$</span> (Beer 6.1, 6.3, 6.5) or the largest permissible spacing <span>$s$</span> (6.29); given bolt diameter and allowable stress, convert allowable stress → allowable force → allowable shear (6.5, 6.7, 6.45, 6.46).</p>
+
+        <h2 id="shear-stress">Shear stress: <span>$VQ/It$</span></h2>
+        <p>Spread the shear flow over the width <span>$t$</span> of the cut and you get the average longitudinal <a class="gloss" href="glossary.html#g-shear-stress">shear stress</a> — which, by symmetry of the stress tensor, equals the transverse shear stress at the same point:</p>
+        <div class="eqbox">$$\tau_{xy} = \tau_{yx} = \frac{\Delta H}{\Delta A} = \frac{VQ}{It}$$</div>
+        <p>Four notes worth memorising (see <a class="eqref" href="equations.html#eq-shear-stress-transverse">transverse shear stress</a>):</p>
+        <p>① The shear stress on a horizontal plane equals the shear stress on the transverse plane. ② Shear stress is <em>zero on the top and bottom faces</em> — they are free surfaces. ③ The maximum does <strong>not</strong> necessarily occur on the neutral axis: <span>$\tau$</span> depends on both <span>$Q$</span> <em>and</em> <span>$t$</span>, and a narrow width can beat a large <span>$Q$</span>. ④ There is little variation across the width provided the section is narrow compared with its depth.</p>
+        <div class="note"><span class="k">Watch out</span> In glued box beams (tutorial 6.30) and bolted assemblies, <span>$t$</span> is the <em>total</em> width of material actually cut — e.g. two 20&nbsp;mm walls give <span>$t = 40$</span>&nbsp;mm. Forgetting to double the thickness at a two-sided joint halves your answer.</div>
+
+        <h2 id="rectangular">Rectangular sections</h2>
+        <p>For a <span>$b \times h$</span> rectangle (half-height <span>$Y$</span>), <span>$Q = \tfrac12 b(Y^2 - y^2)$</span> and <span>$I = \tfrac23 bY^3$</span>, so the distribution is parabolic:</p>
+        <div class="eqbox">$$\tau_{xy} = \frac{3}{2}\frac{V}{A}\left(1 - \frac{y^2}{Y^2}\right) \qquad \tau_{\max} = \frac{3}{2}\frac{V}{A}$$</div>
+        <p>Zero at top and bottom, peaking on the neutral axis at 1.5 times the average <span>$V/A$</span>. If <span>$b \le \tfrac14 h$</span> the stress varies less than 20% from the average across the width, so the formula is a good pointwise estimate for slender sections. See <a class="eqref" href="equations.html#eq-shear-rect">rectangular-section shear</a>.</p>
+
+        <h2 id="other-sections">Sections where the peak leaves the neutral axis</h2>
+        <p>For non-rectangular shapes, evaluate <span>$\tau = VQ/It$</span> as a function of position and look for the true maximum. A triangular section (base 40&nbsp;mm, height 50&nbsp;mm, <span>$I = \tfrac{1}{36}bh^3$</span>) under 100&nbsp;kN is the lecture example: both <span>$Q$</span> and <span>$t$</span> vary with the distance <span>$x$</span> from the apex, and the maximum of 150&nbsp;MPa lands at <span>$x = 25$</span>&nbsp;mm — <em>halfway down, not on the neutral axis</em> (which sits at 33.3&nbsp;mm from the apex). This is note ③ above in action.</p>
+
+        <h2 id="ibeam">Wide-flange I-beams</h2>
+        <p>Run the same process on an I-section and the shear stress is small and roughly uniform in the flanges but large and nearly constant down the web. Two design consequences: it is usually assumed that <strong>the web carries the entire shear load</strong> (so <span>$\tau_{\text{ave}} \approx V/A_{\text{web}}$</span>), and yet the <em>horizontal</em> component of shear in the flange still has a significant value — which the vertical-plane analysis below picks up.</p>
+
+        <h2 id="arbitrary">Shear on arbitrary and vertical planes</h2>
+        <p>Because the horizontal-plane derivation only used equilibrium of the material beyond a longitudinal cut, the identical result holds for a cut on <em>any</em> longitudinal surface:</p>
+        <div class="eqbox">$$q = \frac{H}{x} = \frac{VQ}{I} \qquad\qquad \tau_{xz} = \tau_{zx} \approx \tau_{\text{ave}} = \frac{VQ}{It}$$</div>
+        <p>Cut a <em>vertical</em> longitudinal plane through the flange of an I-beam, take <span>$Q$</span> of the flange material beyond it, and you get the horizontal shear stress <span>$\tau_{xz}$</span> there. Non-planar cuts work too: in the glued four-board beam of the lecture example (<span>$V = 850$</span>&nbsp;kN), the glue line at the top joint is found from a straight cut (using symmetry, each of B and B′ takes half the flow of the whole flange: <span>$q_B = 1314$</span>&nbsp;kN/m), while the lower joint C needs a <em>non-planar</em> section wrapped around the small board (<span>$q_C = 49.8$</span>&nbsp;kN/m).</p>
+
+        <h2 id="thin-walled">Shear-flow distribution in thin-walled sections</h2>
+        <p>Tracking <span>$q = VQ/I$</span> around a thin-walled section reveals a consistent pattern, using the channel of the lecture example (<span>$V = 20$</span>&nbsp;kN):</p>
+        <p>Starting where the section ends (a free edge) or on the axis of symmetry, <span>$Q = 0$</span> so <span>$q = 0$</span>. Moving <em>along a flange</em>, <span>$Q$</span> grows in proportion to the length swept, so <span>$q$</span> increases <strong>linearly</strong> (in the channel: <span>$q_x = 806.2x$</span>&nbsp;kN/m, reaching 160&nbsp;kN/m at the corner). Turning <em>down a web or leg</em>, the swept area's centroid distance changes with height, so <span>$q$</span> varies <strong>parabolically</strong>. Because <span>$t$</span> is constant around such a section, the shear-stress picture is the same shape (peaking at 16&nbsp;MPa in the example).</p>
+        <p>Integrating <span>$\tau$</span> over each region gives the resultant force it carries — 14.5&nbsp;kN along each half-flange and 9.1&nbsp;kN down each leg in the example — and these resultants are what give rise to the shear-centre ideas met in later courses. They also confirm the vertical resultants sum back to the applied <span>$V$</span>.</p>
+
+        <h2 id="plastic">Plastic deformation and the plastic hinge</h2>
+        <p>As a transverse load grows, yield begins where <span>$M$</span> is largest — the root of a cantilever — once <span>$PL \ge M_y$</span>, and the plastic zones spread toward the loaded end. For a rectangular section the elastoplastic relation from Week&nbsp;3 applies at each position <span>$x$</span>:</p>
+        <div class="eqbox">$$Px = \tfrac{3}{2}M_y\left(1 - \tfrac{1}{3}\frac{y_y^2}{Y^2}\right)$$</div>
+        <p>When the elastic core vanishes (<span>$y_y = 0$</span>) the section reaches the <a class="gloss" href="glossary.html#g-plastic-hinge">plastic hinge</a> condition, <span>$PL = M_p = \tfrac32 M_y$</span> — the largest load the beam can support based on normal stress (see <a class="eqref" href="equations.html#eq-bending-plastic-rect">elastoplastic bending</a>).</p>
+        <div class="note"><span class="k">Key insight</span> In the plastic zones the normal stress is constant at <span>$\sigma_y$</span>, so the equilibrium argument gives <span>$\Delta H = 0$</span>: <strong>the plastic zone contains no shear stress</strong>. All the vertical shear must be supported by the shrinking elastic zone — shear stresses there rise faster than the load.</div>
+
+        <h2 id="general">General loading and superposition</h2>
+        <p>A real member may carry normal loads, torsion, bending and transverse shear all at once. Because every relation this term is linear (below yield), the stress state is found by the <a class="gloss" href="glossary.html#g-superposition">principle of superposition</a>: compute the stresses from each load case separately — <span>$P/A$</span>, <span>$Tr/J$</span>, <span>$My/I$</span>, <span>$VQ/It$</span> — and add the components acting on the same planes. Combining and interpreting those combined states (principal stresses, Mohr's circle) is precisely where Weeks 6–7 go next.</p>
+
+        <div class="note"><span class="k">Where this leads</span> <span>$VQ/I$</span> and <span>$VQ/It$</span> complete the stress toolbox: axial, torsional, bending and now transverse shear. Superposing them gives a full 2D stress state at a point, and transforming that state is the subject of the coming weeks. Quiz&nbsp;2 (Week&nbsp;8) covers Weeks&nbsp;5–7 — the tutorial problems on nailed, bolted and glued built-up beams (Beer Ch.&nbsp;6) are ideal practice.</div>
+      </div>
+
+      <aside class="rail">
+        <h4>On this page</h4>
+        <ul>
+          <li><a href="#transverse">Transverse loading</a></li>
+          <li><a href="#longitudinal">Longitudinal shear</a></li>
+          <li><a href="#horizontal">Horizontal plane: H</a></li>
+          <li><a href="#shear-flow">Shear flow &amp; built-up beams</a></li>
+          <li><a href="#shear-stress">Shear stress VQ/It</a></li>
+          <li><a href="#rectangular">Rectangular sections</a></li>
+          <li><a href="#other-sections">Peak off the N.A.</a></li>
+          <li><a href="#ibeam">Wide-flange I-beams</a></li>
+          <li><a href="#arbitrary">Arbitrary &amp; vertical planes</a></li>
+          <li><a href="#thin-walled">Thin-walled distribution</a></li>
+          <li><a href="#plastic">Plastic hinge</a></li>
+          <li><a href="#general">General loading</a></li>
+        </ul>
+        <h4>Key equations</h4>
+        <ul>
+          <li><span class="tag">eq</span><a href="equations.html#eq-shear-flow">Shear flow (VQ/I)</a></li>
+          <li><span class="tag">eq</span><a href="equations.html#eq-shear-stress-transverse">Shear stress (VQ/It)</a></li>
+          <li><span class="tag">eq</span><a href="equations.html#eq-fastener-force">Fastener force</a></li>
+          <li><span class="tag">eq</span><a href="equations.html#eq-shear-rect">Rectangular shear</a></li>
+        </ul>
+        <h4>Related</h4>
+        <ul>
+          <li><span class="tag">def</span><a href="glossary.html#g-first-moment">First moment Q</a></li>
+          <li><span class="tag">def</span><a href="glossary.html#g-built-up">Built-up member</a></li>
+          <li><span class="tag">def</span><a href="glossary.html#g-plastic-hinge">Plastic hinge</a></li>
+          <li><span class="tag">flag</span><a href="assessments.html#a-quiz2">Quiz 2 (W5–7)</a></li>
+        </ul>
+      </aside>
+    </div>
+  </main>
+</div>
+<script src="../assets/katex/katex.min.js"></script>
+<script src="../assets/katex/auto-render.min.js"></script>
+<script src="subject.js"></script>
+<script src="../assets/hub.js"></script>
+</body>
+</html>

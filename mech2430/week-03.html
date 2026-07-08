@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="manifest" href="../manifest.webmanifest">
+<link rel="apple-touch-icon" href="../icons/apple-touch-icon.png">
+<meta name="theme-color" content="#161E2B">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<title>Week 3 — Bending · MECH2430</title>
+<link rel="stylesheet" href="../assets/styles.css">
+<link rel="stylesheet" href="../assets/katex/katex.min.css">
+</head>
+<body>
+<div class="shell">
+  <main class="main">
+    <div class="page has-rail">
+      <div class="content">
+        <div class="crumb"><a href="../index.html">Study hub</a> / <a href="index.html">MECH2430</a> / Week 3</div>
+        <div class="eyebrow">Week 3 · Lecture notes</div>
+        <h1 class="title">Bending</h1>
+        <p class="lede">How beams carry transverse loads. We build the elastic <strong>flexure formula</strong> from the geometry of a bent beam, learn to find the second moment of area of real cross-sections, then extend the ideas to composite beams, to sections that have yielded, and to loads applied off the centroid. The whole chapter runs on one principle: strain comes from geometry, stress comes from the material — and superposition ties everything together.</p>
+
+        <h2 id="pure-bending">From transverse loading to pure bending</h2>
+        <p>Bending occurs whenever a member carries <em>transverse</em> or <em>eccentric</em> loads — the loads try to curve it rather than simply stretch it. A general transverse load produces both a shear force and a bending moment that vary along the beam. To make the problem tractable we first study the clean reference case of <a class="gloss" href="glossary.html#g-pure-bending">pure bending</a>: a segment carrying a <strong>constant</strong> moment with no shear force (a flat region of the shear diagram). Everything else is then handled by <a class="gloss" href="glossary.html#g-superposition">superposition</a> of pure-bending results.</p>
+        <p>For a beam segment in pure bending, summing the internal stresses over the cross-section must reproduce the applied couple and nothing else:</p>
+        <div class="eqbox">$$\int_A \sigma_x\,dA = 0, \qquad \int_A z\,\sigma_x\,dA = 0, \qquad \int_A -y\,\sigma_x\,dA = M$$</div>
+        <p>These three conditions are not enough on their own — the problem is statically indeterminate — so, exactly as with axial load and torsion, we have to look at the <strong>deformation</strong>.</p>
+
+        <h2 id="geometry">Deformation, the neutral axis and bending strain</h2>
+        <p>Assume the beam bends into a circular arc of <a class="gloss" href="glossary.html#g-radius-curvature">radius of curvature</a> <span>$\rho$</span>, and that plane cross-sections stay plane. Fibres on the outside of the bend stretch, fibres on the inside shorten, and somewhere in between is a surface that neither stretches nor shortens — the <a class="gloss" href="glossary.html#g-neutral-axis">neutral axis</a>. Measuring <span>$y$</span> from that axis, the arc length of a fibre gives a strain that is purely geometric:</p>
+        <div class="eqbox">$$\varepsilon_x = -\frac{y}{\rho}$$</div>
+        <p>So <strong>strain varies linearly</strong> with distance from the neutral axis, with the maximum at the extreme fibre. This result depends only on geometry, so it holds whether or not the material has yielded — a fact we lean on heavily later. See <a class="eqref" href="equations.html#eq-bending-strain">bending strain</a>.</p>
+
+        <h2 id="flexure">Elastic behaviour and the flexure formula</h2>
+        <p>In the elastic range <a class="gloss" href="glossary.html#g-hooke">Hooke's law</a> converts the linear strain into a linear stress, <span>$\sigma_x = E\varepsilon_x = -\tfrac{y}{\rho}E$</span>. Substituting into the force condition <span>$\int_A \sigma_x\,dA = 0$</span> gives <span>$\int_A y\,dA = 0$</span>, which is exactly the statement that <strong>the neutral axis passes through the centroid</strong> of the section. Substituting the same stress into the moment condition and collecting the geometry into a single integral gives the <a class="eqref" href="equations.html#eq-bending-stress">flexure formula</a>:</p>
+        <div class="eqbox">$$\sigma_x = \frac{My}{I}, \qquad I = \int_A y^2\,dA$$</div>
+        <p>The integral <span>$I$</span> is the <a class="gloss" href="glossary.html#g-second-moment">second moment of area</a> about the neutral axis. It is the single geometric number that sets how stiff and how strong a section is in bending — putting material far from the neutral axis (deep sections, I-beams) makes <span>$I$</span> large.</p>
+
+        <h2 id="second-moment">Second moment of area and the parallel-axis theorem</h2>
+        <p>For a rectangle of width <span>$b$</span> and depth <span>$d$</span> about its own centroid, integrating <span>$y^2$</span> gives the result you will use constantly:</p>
+        <div class="eqbox">$$I_{\text{rect}} = \frac{bd^3}{12}$$</div>
+        <p>Real sections — H-shapes, channels, I-beams — are assembled from rectangles. To combine them, shift each piece's second moment from its own centroid onto the section's neutral axis with the <a class="eqref" href="equations.html#eq-parallel-axis">parallel-axis theorem</a>:</p>
+        <div class="eqbox">$$I = I_0 + A d^2$$</div>
+        <p>Two habits pay off in the tutorial problems. For a symmetric H- or I-section you can often take a big outer rectangle and <em>subtract</em> the two side notches. For an unsymmetric channel you must first locate the centroid (<span>$\bar y = \sum A_i y_i / \sum A_i$</span>) before applying the parallel-axis theorem — the neutral axis is not at mid-height.</p>
+        <div class="note"><span class="k">Watch out</span> A rectangle's second moment goes as depth <em>cubed</em>: <span>$bd^3/12$</span> about the axis parallel to the width. Bending a section about the "hard" axis (large depth) versus the "easy" axis changes <span>$I$</span> dramatically — Prob. 4.5 vs 4.6 is exactly this comparison on the same H-section.</div>
+
+        <h2 id="curvature">Curvature and flexural rigidity</h2>
+        <p>The deformation of a beam is captured by the curvature <span>$1/\rho$</span> of its neutral axis. Combining <span>$\varepsilon_{\max}=Y/\rho$</span> with <span>$\sigma_{\max}=MY/I$</span> and Hooke's law gives</p>
+        <div class="eqbox">$$\frac{1}{\rho} = \frac{M}{EI}$$</div>
+        <p>The product <span>$EI$</span> is the <a class="gloss" href="glossary.html#g-flexural-rigidity">flexural rigidity</a> — the bending analogue of axial rigidity <span>$EA$</span> and torsional rigidity <span>$GJ$</span>. A large <span>$EI$</span> means the beam stays straight under load. See <a class="eqref" href="equations.html#eq-beam-deflection">curvature / beam deflection</a>. (In Prob. 4.22 this relation runs backwards: a rod coiled to a known radius has its stress and moment fixed by <span>$\rho$</span>.)</p>
+
+        <h2 id="anticlastic">Transverse (anticlastic) deformation</h2>
+        <p>Bending also deforms the cross-section sideways. Fibres above the neutral axis are in compression, so by <a class="gloss" href="glossary.html#g-poisson">Poisson's ratio</a> they expand across the width; fibres below stretch axially and contract across the width. The section therefore curves gently in the <em>opposite</em> sense to the main bending — a saddle shape called <a class="gloss" href="glossary.html#g-anticlastic">anticlastic curvature</a>, with radius</p>
+        <div class="eqbox">$$\frac{1}{\rho'} = \frac{\nu}{\rho}$$</div>
+        <p>Full form on the sheet: <a class="eqref" href="equations.html#eq-anticlastic">anticlastic curvature</a>.</p>
+
+        <h2 id="composite">Composite beams and transformed sections</h2>
+        <p>Everything up to Hooke's law holds regardless of material, so for a <a class="gloss" href="glossary.html#g-composite-beam">composite beam</a> (timber bolted to an aluminium plate, reinforced concrete, laminates) strain is still linear across the whole section — but stress jumps at the material boundary because <span>$E$</span> jumps. The trick is to <strong>transform</strong> the section into an equivalent one made of a single reference material using the modular ratio</p>
+        <div class="eqbox">$$n = \frac{E_2}{E_1}$$</div>
+        <p>Replace the second material with a strip of the reference material that is <span>$n$</span> times as <em>wide</em> (never taller — the depth carries the strain distribution and must not change). Analyse the all-one-material transformed section with the ordinary flexure formula, then recover the true stress in the transformed region by multiplying the computed stress by <span>$n$</span>:</p>
+        <div class="eqbox">$$\sigma_2 = n\,\sigma_{\text{transf}}$$</div>
+        <p>The neutral axis passes through the centroid of the <em>transformed</em> section. In Question 3 the stiff aluminium (<span>$E=73$</span> GPa) becomes a much wider band of timber (<span>$E=8$</span> GPa) with <span>$n\approx 9.1$</span>; the same physical strain then produces roughly nine times the stress in the aluminium. See <a class="eqref" href="equations.html#eq-transformed-section">transformed section</a>.</p>
+
+        <h2 id="elastoplastic">Elastoplastic bending</h2>
+        <p>Load a beam past first yield and the outer fibres reach <span>$\sigma_y$</span> while a strip near the neutral axis is still elastic — an <a class="gloss" href="glossary.html#g-elastoplastic">elastic core</a>. Strain is still linear (geometry), but the stress distribution flattens to <span>$\pm\sigma_y$</span> in the yielded zones. The moment at which yield <em>first</em> occurs comes straight from the flexure formula:</p>
+        <div class="eqbox">$$M_y = \frac{\sigma_y I}{Y}$$</div>
+        <p>Beyond that, integrate the actual stress block. For a general symmetric section, treat the elastic core through its own <span>$I$</span> and each fully plastic zone as a resultant force <span>$\sigma_y A$</span> acting at its centroid:</p>
+        <div class="eqbox">$$M = \sigma_y\!\left(\frac{I_{\text{elastic}}}{y_y} + \sum_{\text{plastic}} A\bar{y}\right)$$</div>
+        <p>For the special case of a <strong>rectangle</strong> this integrates to a closed form:</p>
+        <div class="eqbox">$$M = \tfrac{3}{2}M_y\!\left(1 - \tfrac13\frac{y_y^{2}}{Y^{2}}\right)$$</div>
+        <p>As the elastic core vanishes the moment approaches the fully plastic moment <span>$M_p$</span>. The ratio <span>$M_p/M_y$</span> is the <a class="gloss" href="glossary.html#g-shape-factor">shape factor</a>, which depends only on shape — exactly <span>$1.5$</span> for a rectangle, less for an I-beam whose area already sits far from the neutral axis. See <a class="eqref" href="equations.html#eq-yield-moment">moment at first yield</a> and <a class="eqref" href="equations.html#eq-bending-plastic-rect">elastoplastic bending</a>.</p>
+        <div class="note"><span class="k">Watch out</span> The tidy <span>$\tfrac32 M_y$</span> formula is for rectangles only. For the I-beam in Prob. 4.74 you cannot use it — build the fully plastic moment from flange and web resultants directly.</div>
+
+        <h2 id="residual">Residual stress and curvature</h2>
+        <p>When the moment is removed, unloading happens <em>elastically</em> — the material springs back along a straight <span>$\sigma = My/I$</span> line using the same <span>$M$</span>. The leftover locked-in state is the loading distribution minus that elastic unloading distribution:</p>
+        <div class="eqbox">$$\sigma_{\text{resid}} = \sigma_{\text{load}} - \sigma_{\text{unload}}$$</div>
+        <p>This <a class="gloss" href="glossary.html#g-residual-stress">residual stress</a> is self-equilibrating, and the beam keeps a permanent curvature (springback). The permanent radius follows from the difference of curvatures:</p>
+        <div class="eqbox">$$\frac{1}{\rho_{\text{resid}}} = \frac{1}{\rho_L} - \frac{1}{\rho_{UL}}$$</div>
+        <p>This is the direct analogue of the permanent twist left in a shaft loaded past yield in Week 2. Full form: <a class="eqref" href="equations.html#eq-residual-curvature">residual curvature</a>.</p>
+
+        <h2 id="eccentric">Eccentric axial loading</h2>
+        <p>Finally, superposition lets us handle a load applied off the centroid. An axial force <span>$P$</span> at eccentricity <span>$d$</span> is statically equivalent to a centric force <span>$P$</span> plus a couple <span>$M = Pd$</span>. Add the uniform axial stress and the linear bending stress:</p>
+        <div class="eqbox">$$\sigma_x = \frac{P}{A} - \frac{My}{I}$$</div>
+        <p>This is the model for clamps, hooks and offset columns — Prob. 4.113 (the G-clamp) is worked exactly this way. See <a class="eqref" href="equations.html#eq-eccentric-axial">eccentric axial loading</a>.</p>
+
+        <div class="note"><span class="k">Where this leads</span> Bending completes the trio of basic load cases — axial (Week&nbsp;1), torsion (Week&nbsp;2), bending (Week&nbsp;3) — and all three share the same skeleton: linear strain from geometry, stress from the material, and superposition for everything else. Next we add the shear force that accompanies real transverse loads. Quiz&nbsp;1 (Week&nbsp;4) covers Weeks&nbsp;1–3, and the flexure formula and second moment of area are the most heavily tested part.</div>
+      </div>
+
+      <aside class="rail">
+        <h4>On this page</h4>
+        <ul>
+          <li><a href="#pure-bending">Pure bending</a></li>
+          <li><a href="#geometry">Neutral axis &amp; strain</a></li>
+          <li><a href="#flexure">Flexure formula</a></li>
+          <li><a href="#second-moment">Second moment of area</a></li>
+          <li><a href="#curvature">Curvature &amp; rigidity</a></li>
+          <li><a href="#anticlastic">Anticlastic curvature</a></li>
+          <li><a href="#composite">Composite beams</a></li>
+          <li><a href="#elastoplastic">Elastoplastic bending</a></li>
+          <li><a href="#residual">Residual stress</a></li>
+          <li><a href="#eccentric">Eccentric loading</a></li>
+        </ul>
+        <h4>Key equations</h4>
+        <ul>
+          <li><span class="tag">eq</span><a href="equations.html#eq-bending-stress">Flexure formula (My/I)</a></li>
+          <li><span class="tag">eq</span><a href="equations.html#eq-parallel-axis">Parallel-axis theorem</a></li>
+          <li><span class="tag">eq</span><a href="equations.html#eq-beam-deflection">Curvature (1/ρ = M/EI)</a></li>
+          <li><span class="tag">eq</span><a href="equations.html#eq-transformed-section">Transformed section</a></li>
+          <li><span class="tag">eq</span><a href="equations.html#eq-bending-plastic-rect">Elastoplastic bending</a></li>
+        </ul>
+        <h4>Related</h4>
+        <ul>
+          <li><span class="tag">def</span><a href="glossary.html#g-neutral-axis">Neutral axis</a></li>
+          <li><span class="tag">def</span><a href="glossary.html#g-flexural-rigidity">Flexural rigidity</a></li>
+          <li><span class="tag">def</span><a href="glossary.html#g-composite-beam">Composite beam</a></li>
+          <li><span class="tag">def</span><a href="glossary.html#g-shape-factor">Shape factor</a></li>
+          <li><span class="tag">flag</span><a href="assessments.html#a-quiz1">Quiz 1 (W1–3)</a></li>
+        </ul>
+      </aside>
+    </div>
+  </main>
+</div>
+<script src="../assets/katex/katex.min.js"></script>
+<script src="../assets/katex/auto-render.min.js"></script>
+<script src="subject.js"></script>
+<script src="../assets/hub.js"></script>
+</body>
+</html>

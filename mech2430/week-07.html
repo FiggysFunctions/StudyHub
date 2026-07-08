@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="manifest" href="../manifest.webmanifest">
+<link rel="apple-touch-icon" href="../icons/apple-touch-icon.png">
+<meta name="theme-color" content="#161E2B">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<title>Week 7 — Transformation of Stress &amp; Strain · MECH2430</title>
+<link rel="stylesheet" href="../assets/styles.css">
+<link rel="stylesheet" href="../assets/katex/katex.min.css">
+</head>
+<body>
+<div class="shell">
+  <main class="main">
+    <div class="page has-rail">
+      <div class="content">
+        <div class="crumb"><a href="../index.html">Study hub</a> / <a href="index.html">MECH2430</a> / Week 7</div>
+        <div class="eyebrow">Week 7 · Lecture notes</div>
+        <h1 class="title">Transformation of Stress &amp; Strain</h1>
+        <p class="lede">Week 6 gave us the stress at a point by superposition — but the answer came attached to whatever axes we happened to cut along. This week asks the deeper question: given <span>$\sigma_x$</span>, <span>$\sigma_y$</span>, <span>$\tau_{xy}$</span> on one set of axes, what does the <em>same</em> stress state look like on rotated axes? The answer is the transformation equations, their graphical form (Mohr's circle), and the special orientations that matter most: principal planes and maximum-shear planes. The same machinery then transfers to strain, which is what we can actually measure.</p>
+
+        <h2 id="plane-stress">Plane stress</h2>
+        <p>Real components carry <a class="gloss" href="glossary.html#g-combined-loading">combined loading</a> — normal loads, torsion, bending, transverse shear — and by the principle of <a class="gloss" href="glossary.html#g-superposition">superposition</a> the stresses simply add. The question that remains is <em>how different kinds of stress combine</em> at a point, and we start by considering a material stressed in only two dimensions. This condition is <a class="gloss" href="glossary.html#g-plane-stress">plane stress</a>:</p>
+        <div class="eqbox">$$\sigma_z = \tau_{xz} = \tau_{yz} = 0$$</div>
+        <p>It holds on any free surface and through thin plates — and it is exactly the state a Week-6 calculation leaves you with: a little square element carrying <span>$\sigma_x$</span>, <span>$\sigma_y$</span> and <span>$\tau_{xy}$</span>.</p>
+
+        <h2 id="transformation">Transformation of plane stress</h2>
+        <p>Cut the element on a plane whose normal makes an angle <span>$\theta$</span> with the <span>$x$</span>-axis and sum forces on the resulting wedge (each stress times its face area). Solving the two equilibrium equations and tidying with double-angle identities gives the <a class="eqref" href="equations.html#eq-stress-transformation">stress-transformation equations</a>:</p>
+        <div class="eqbox">$$\begin{aligned}
+          \sigma_{x'} &= \frac{\sigma_x+\sigma_y}{2} + \frac{\sigma_x-\sigma_y}{2}\cos 2\theta + \tau_{xy}\sin 2\theta\\[4pt]
+          \sigma_{y'} &= \frac{\sigma_x+\sigma_y}{2} - \frac{\sigma_x-\sigma_y}{2}\cos 2\theta - \tau_{xy}\sin 2\theta\\[4pt]
+          \tau_{x'y'} &= -\frac{\sigma_x-\sigma_y}{2}\sin 2\theta + \tau_{xy}\cos 2\theta
+        \end{aligned}$$</div>
+        <p>Two structural features are worth memorising. The expression for <span>$\sigma_{y'}$</span> is just <span>$\sigma_{x'}$</span> with <span>$\theta$</span> replaced by <span>$\theta+90^\circ$</span>, and adding them shows the sum is <em>invariant</em>: <span>$\sigma_{x'}+\sigma_{y'}=\sigma_x+\sigma_y$</span> for every <span>$\theta$</span>. That invariance is a free arithmetic check on any hand calculation.</p>
+
+        <h2 id="mohr">Mohr's circle</h2>
+        <p>The transformation equations are parametric equations of a circle. Eliminate <span>$\theta$</span> (square and add) to get</p>
+        <div class="eqbox">$$\left(\sigma_{x'}-\sigma_{\text{ave}}\right)^2 + \tau_{x'y'}^2 = R^2,\qquad
+          \sigma_{\text{ave}} = \frac{\sigma_x+\sigma_y}{2},\qquad
+          R = \sqrt{\left(\frac{\sigma_x-\sigma_y}{2}\right)^{2}+\tau_{xy}^{2}}$$</div>
+        <p>— a circle of centre <span>$(\sigma_{\text{ave}},0)$</span> and radius <span>$R$</span> in the <span>$(\sigma,\tau)$</span> plane. <a class="gloss" href="glossary.html#g-mohr">Mohr's circle</a> represents <em>all the different ways of viewing the same stress state</em>: every point on it is the normal-and-shear pair on some plane through the material point. See <a class="eqref" href="equations.html#eq-mohr-circle">Mohr's circle</a> on the equation sheet.</p>
+        <p>Two rules make it work in practice:</p>
+        <p><strong>Angles are doubled.</strong> Coordinate directions an angle <span>$\theta$</span> apart in the material sit <span>$2\theta$</span> apart on the circle. Rotating the element <span>$30^\circ$</span> anticlockwise moves its stress points <span>$60^\circ$</span> around the circle.</p>
+        <p><strong>Note the polarity.</strong> The sign tip used in this course: <em>counter-clockwise shear is positive and is plotted below the line; clockwise is negative and plotted above</em>. So plot the <span>$x$</span>-face point at <span>$(\sigma_x, \tau_{xy})$</span> and the <span>$y$</span>-face point at <span>$(\sigma_y, \tau_{yx})$</span> with signs assigned that way — the two points are diametrically opposite, and the line joining them fixes the circle.</p>
+        <div class="note"><span class="k">Exam workflow</span> From <span>$(\sigma_x,\tau)$</span> and <span>$(\sigma_y,\tau)$</span>: centre <span>$\bar\sigma=(\sigma_x+\sigma_y)/2$</span>, radius <span>$R$</span> by Pythagoras on the half-difference and the shear. Then <span>$\sigma_1=\bar\sigma+R$</span>, <span>$\sigma_2=\bar\sigma-R$</span>, and <span>$\tan 2\theta_p$</span> from the little triangle. For a rotated element, step <span>$2\theta$</span> around the circle and read off <span>$\sigma_{x'}=\bar\sigma\pm R\sin/\cos(\cdot)$</span> as the geometry dictates — exactly the Week-7 worked solutions.</div>
+
+        <h2 id="tensor-approach">Or… work with the stress tensor</h2>
+        <p>There is a slicker route using the definition of stress as a tensor from Week 1. In 2D,</p>
+        <div class="eqbox">$$\boldsymbol{\sigma}=\begin{bmatrix}\sigma_{xx} &amp; \tau_{xy}\\ \tau_{xy} &amp; \sigma_{yy}\end{bmatrix},\qquad
+          \frac{d\tilde f}{dA}=\boldsymbol{\sigma}\,\tilde n$$</div>
+        <p>The <a class="gloss" href="glossary.html#g-stress-tensor">stress tensor</a> maps the unit normal <span>$\tilde n$</span> of any plane to the <em>traction</em> — the force concentration — acting on that plane. Dot the traction back onto the normal and tangent unit vectors to split it into components:</p>
+        <div class="eqbox">$$\sigma_{x'x'} = \tilde n^{T}\boldsymbol{\sigma}\,\tilde n,\qquad
+          \tau_{x'y'} = \tilde t^{T}\boldsymbol{\sigma}\,\tilde n,\qquad
+          \sigma_{y'y'} = \tilde t^{T}\boldsymbol{\sigma}\,\tilde t$$</div>
+        <p>with <span>$\tilde n=(\cos\theta,\ \sin\theta)$</span> and <span>$\tilde t=(-\sin\theta,\ \cos\theta)$</span>. Three small matrix products reproduce the transformation equations exactly — often the fastest hand method for a single angle. See <a class="eqref" href="equations.html#eq-traction">traction &amp; the stress tensor</a>.</p>
+
+        <h2 id="principal">Principal planes and principal stresses</h2>
+        <p>The extreme normal stresses sit where the circle crosses the <span>$\sigma$</span>-axis — where shear is zero. These are the <a class="gloss" href="glossary.html#g-principal">principal stresses</a>, acting on the <em>principal planes</em>:</p>
+        <div class="eqbox">$$\sigma_{\max,\min} = \frac{\sigma_x+\sigma_y}{2} \pm \sqrt{\left(\frac{\sigma_x-\sigma_y}{2}\right)^{2}+\tau_{xy}^{2}} = \sigma_{\text{ave}}\pm R,
+          \qquad \tan 2\theta_p = \frac{2\tau_{xy}}{\sigma_x-\sigma_y}$$</div>
+        <p>In tensor language this has a beautiful reading: a principal plane is one where the traction is purely normal — a scalar multiple of the normal vector, <span>$\boldsymbol{\sigma}\tilde n_p = \sigma_p\,\tilde n_p$</span>. That is an <strong>eigenvalue problem</strong>: principal stresses are the eigenvalues of the stress tensor, principal directions its eigenvectors. See <a class="eqref" href="equations.html#eq-principal-stress">principal stresses</a>.</p>
+
+        <h2 id="max-shear">Maximum in-plane shear</h2>
+        <p>The largest in-plane shear stress is the top (and bottom) of the circle — the radius itself — reached on planes <span>$45^\circ$</span> from the principal planes (<span>$2\theta = 90^\circ$</span> on the circle). The normal stress there is not zero but <span>$\sigma_{\text{ave}}$</span>:</p>
+        <div class="eqbox">$$\tau_{\max,\text{in-plane}} = R = \sqrt{\left(\frac{\sigma_x-\sigma_y}{2}\right)^{2}+\tau_{xy}^{2}},\qquad \theta_s = \theta_p + 45^\circ$$</div>
+        <p>See <a class="eqref" href="equations.html#eq-max-shear-stress">maximum in-plane shear</a> — and note the qualifier "in-plane", because of what comes next.</p>
+
+        <h2 id="three-d">3D Mohr's circles and the out-of-plane trap</h2>
+        <p>"It can be shown" that rotating an element about any one of its principal axes behaves exactly like plane stress, which leads to the three-dimensional picture: <strong>three</strong> Mohr's circles drawn between the three principal stresses, ordered by convention</p>
+        <div class="eqbox">$$\sigma_3 \le \sigma_2 \le \sigma_1$$</div>
+        <p>All achievable <span>$(\sigma,\tau)$</span> states lie between the circles; the true maximum shear is the radius of the <em>biggest</em> circle:</p>
+        <div class="eqbox">$$\tau_{\max} = \frac{\sigma_1-\sigma_3}{2}$$</div>
+        <p>Here is the trap. In plane stress the <span>$z$</span>-axis is automatically a principal axis with principal stress <strong>zero</strong>, so there are three cases (see <a class="eqref" href="equations.html#eq-max-shear-3d">max shear in 3D</a>):</p>
+        <div class="eqbox">$$\begin{aligned}
+          0 &lt; \sigma_2 &lt; \sigma_1 &amp;\quad\Rightarrow\quad \tau_{\max}=\tfrac{\sigma_1}{2}\ \text{(out of plane)}\\[2pt]
+          \sigma_3 &lt; 0 &lt; \sigma_1 &amp;\quad\Rightarrow\quad \tau_{\max}=\tfrac{\sigma_1-\sigma_3}{2}\ \text{(in plane)}\\[2pt]
+          \sigma_3 &lt; \sigma_2 &lt; 0 &amp;\quad\Rightarrow\quad \tau_{\max}=\tfrac{|\sigma_3|}{2}\ \text{(out of plane)}
+        \end{aligned}$$</div>
+        <div class="note"><span class="k">Watch out</span> If both in-plane principal stresses come out positive, what you have been calling "<span>$\sigma_2$</span>" is really the middle stress and the zero out-of-plane stress is <span>$\sigma_3$</span>. The maximum shear then lives on a plane rotated <span>$45^\circ$</span> about an <em>in-plane</em> axis, and equals <span>$\sigma_1/2$</span> — bigger than the in-plane radius <span>$R$</span>. This exact step appears in the Fig. 7.13 and Fig. 7.34 tutorial problems, and it is what the <a class="gloss" href="glossary.html#g-tresca">Tresca criterion</a> needs later.</div>
+
+        <h2 id="plane-strain">Plane strain and strain transformation</h2>
+        <p>By analogy with plane stress, <a class="gloss" href="glossary.html#g-plane-strain">plane strain</a> means no strain in planes normal to <span>$z$</span>:</p>
+        <div class="eqbox">$$\varepsilon_z = \gamma_{xz} = \gamma_{yz} = 0$$</div>
+        <p>Strain transforms between coordinate systems in exactly the same pattern as stress, with one crucial substitution: <span>$\gamma/2$</span> plays the role of <span>$\tau$</span> (these are <em>not</em> numerically the same equations as before!):</p>
+        <div class="eqbox">$$\begin{aligned}
+          \varepsilon_{x'} &= \frac{\varepsilon_x+\varepsilon_y}{2} + \frac{\varepsilon_x-\varepsilon_y}{2}\cos 2\theta + \frac{\gamma_{xy}}{2}\sin 2\theta\\[4pt]
+          \frac{\gamma_{x'y'}}{2} &= -\frac{\varepsilon_x-\varepsilon_y}{2}\sin 2\theta + \frac{\gamma_{xy}}{2}\cos 2\theta
+        \end{aligned}$$</div>
+        <p>So there is a <a class="eqref" href="equations.html#eq-strain-transformation">Mohr's circle for plane strain</a> too, with centre <span>$\varepsilon_{\text{ave}}=(\varepsilon_x+\varepsilon_y)/2$</span> and radius <span>$R=\sqrt{\left(\tfrac{\varepsilon_x-\varepsilon_y}{2}\right)^2+\left(\tfrac{\gamma_{xy}}{2}\right)^2}$</span>, giving <a class="eqref" href="equations.html#eq-principal-strain">principal strains</a> and their directions.</p>
+        <div class="note"><span class="k">Question to ponder</span> Are principal stresses and principal strains in the same directions? For an isotropic material, yes — Hooke's law couples normal strains only to normal stresses, so a shear-free orientation for stress is shear-free for strain too.</div>
+
+        <h2 id="rosette">Measuring strain: gauges and rosettes</h2>
+        <p>Stress is difficult to measure (unless you only want an average); strain is easy. A <a class="gloss" href="glossary.html#g-strain-gauge">strain gauge</a> is a zig-zag wire bonded to the surface: stretch it and Poisson's ratio thins the wire, its resistance rises, and a Wheatstone bridge reads the change with great sensitivity. But one gauge only measures normal strain along its own axis.</p>
+        <p>To recover the full in-plane strain state, a <a class="gloss" href="glossary.html#g-strain-rosette">strain rosette</a> mounts two or three gauges at known angles (<span>$90^\circ$</span>, <span>$45^\circ$</span> and <span>$60^\circ$</span> patterns are standard). Write the first strain-transformation equation for each gauge direction:</p>
+        <div class="eqbox">$$\varepsilon_i = \varepsilon_x\cos^2\theta_i + \varepsilon_y\sin^2\theta_i + \gamma_{xy}\sin\theta_i\cos\theta_i \qquad (i = 1,2,3)$$</div>
+        <p>and solve the three equations simultaneously for <span>$\varepsilon_x$</span>, <span>$\varepsilon_y$</span>, <span>$\gamma_{xy}$</span> — or go straight to principal strains if you prefer. Tutorial problem 7.144 (the <span>$15^\circ/30^\circ/45^\circ$</span> rosette) is exactly this. See <a class="eqref" href="equations.html#eq-strain-rosette">strain rosette</a>.</p>
+
+        <h2 id="worked">The Week 7 problem patterns</h2>
+        <p>The tutorial and worked solutions rehearse three recurring patterns:</p>
+        <p><strong>Pure transformation</strong> (Probs 7.5–7.13): given a stress element, find principal planes/stresses, a rotated element, or maximum shear. Draw the circle, find <span>$\bar\sigma$</span> and <span>$R$</span>, read everything off — then sketch the answer as a rotated stress element with the angle marked.</p>
+        <p><strong>Combined loading first, transformation second</strong> (Probs 7.24–7.26, 7.53: the lever, post and axle problems): the Week-6 recipe produces <span>$\sigma$</span> and <span>$\tau$</span> at the point — internal resultants at the cut, then <span>$P/A$</span>, <span>$My/I$</span>, <span>$Tr/J$</span>, <span>$VQ/It$</span> superposed — and this week's machinery converts that element into principal stresses and maximum shear. This is the full pipeline Quiz 2 examines.</p>
+        <p><strong>The out-of-plane check</strong> (Probs 7.66, 7.69): "consider both in-plane and out-of-plane shearing stresses" — apply the three-case rule above before declaring <span>$\tau_{\max}$</span>.</p>
+
+        <div class="note"><span class="k">Where this leads</span> Principal stresses and maximum shear are the inputs to the failure criteria (Tresca and von Mises) and to pressure-vessel design in the coming weeks. Quiz&nbsp;2 (Week&nbsp;8) covers Weeks 5–7: transverse shear, combined loading and everything on this page.</div>
+      </div>
+
+      <aside class="rail">
+        <h4>On this page</h4>
+        <ul>
+          <li><a href="#plane-stress">Plane stress</a></li>
+          <li><a href="#transformation">Transformation equations</a></li>
+          <li><a href="#mohr">Mohr's circle</a></li>
+          <li><a href="#tensor-approach">Stress-tensor route</a></li>
+          <li><a href="#principal">Principal stresses</a></li>
+          <li><a href="#max-shear">Max in-plane shear</a></li>
+          <li><a href="#three-d">3D circles &amp; the trap</a></li>
+          <li><a href="#plane-strain">Plane strain</a></li>
+          <li><a href="#rosette">Gauges &amp; rosettes</a></li>
+          <li><a href="#worked">Problem patterns</a></li>
+        </ul>
+        <h4>Key equations</h4>
+        <ul>
+          <li><span class="tag">eq</span><a href="equations.html#eq-stress-transformation">Stress transformation</a></li>
+          <li><span class="tag">eq</span><a href="equations.html#eq-mohr-circle">Mohr's circle</a></li>
+          <li><span class="tag">eq</span><a href="equations.html#eq-principal-stress">Principal stresses</a></li>
+          <li><span class="tag">eq</span><a href="equations.html#eq-max-shear-3d">Max shear in 3D</a></li>
+          <li><span class="tag">eq</span><a href="equations.html#eq-strain-rosette">Strain rosette</a></li>
+        </ul>
+        <h4>Related</h4>
+        <ul>
+          <li><span class="tag">def</span><a href="glossary.html#g-plane-stress">Plane stress</a></li>
+          <li><span class="tag">def</span><a href="glossary.html#g-mohr">Mohr's circle</a></li>
+          <li><span class="tag">def</span><a href="glossary.html#g-max-shear">Max shearing stress</a></li>
+          <li><span class="tag">def</span><a href="glossary.html#g-strain-rosette">Strain rosette</a></li>
+          <li><span class="tag">flag</span><a href="assessments.html#a-quiz2">Quiz 2 (W5–7)</a></li>
+        </ul>
+      </aside>
+    </div>
+  </main>
+</div>
+<script src="../assets/katex/katex.min.js"></script>
+<script src="../assets/katex/auto-render.min.js"></script>
+<script src="subject.js"></script>
+<script src="../assets/hub.js"></script>
+</body>
+</html>

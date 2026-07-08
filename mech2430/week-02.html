@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="manifest" href="../manifest.webmanifest">
+<link rel="apple-touch-icon" href="../icons/apple-touch-icon.png">
+<meta name="theme-color" content="#161E2B">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<title>Week 2 — Torsion · MECH2430</title>
+<link rel="stylesheet" href="../assets/styles.css">
+<link rel="stylesheet" href="../assets/katex/katex.min.css">
+</head>
+<body>
+<div class="shell">
+  <main class="main">
+    <div class="page has-rail">
+      <div class="content">
+        <div class="crumb"><a href="../index.html">Study hub</a> / <a href="index.html">MECH2430</a> / Week 2</div>
+        <div class="eyebrow">Week 2 · Lecture notes</div>
+        <h1 class="title">Torsion</h1>
+        <p class="lede">Last week we stretched and compressed; this week we twist. A torque applied about the axis of a shaft produces a distribution of shear stress across its cross-section. The theory tracks axial loading almost line for line — a strain that grows with position, Hooke's law, a section property, and a deflection formula — so lean on that analogy throughout. The new ingredients are the polar moment of area and, in place of a stretch, an angle of twist.</p>
+
+        <h2 id="torque-shear">Torque and shear stress</h2>
+        <p>Consider a small patch of area <span>$dA$</span> on the cross-section of a shaft carrying a torque <span>$T$</span>. The shear stress <span>$\tau$</span> acting on it contributes a small force <span>$dF = \tau\,dA$</span>, and because that force acts at a radius <span>$r$</span> from the axis it contributes a moment <span>$r\,dF$</span> about it. Summing over the whole section, the internal torque is the moment of the shear-stress distribution:</p>
+        <div class="eqbox">$$T = \int_A r\,\tau\,dA$$</div>
+        <p>By the same argument used for a scissored pin last week, an equal shear stress must act on the <em>longitudinal</em> planes of the shaft as well as the transverse one — shear stress always comes in complementary pairs. Knowing <span>$T$</span> alone is not enough to find <span>$\tau$</span>: the equation above is one relation between a whole distribution of unknown stresses, so like the indeterminate problems of Week 1 we must look at the deformation to make progress.</p>
+
+        <h2 id="twist-geometry">Twist geometry and shear strain</h2>
+        <p>For a <em>circular</em> shaft a crucial simplification holds: every cross-section stays plane and simply rotates, like the cards in a twisted deck. If the far end rotates through an angle of twist <span>$\phi$</span> over a length <span>$L$</span>, a fibre at radius <span>$r$</span> is sheared through</p>
+        <div class="eqbox">$$\gamma = \frac{r\phi}{L}, \qquad \gamma_{\max} = \frac{R\phi}{L}, \qquad \gamma = \frac{r}{R}\,\gamma_{\max}$$</div>
+        <p>so the <a class="gloss" href="glossary.html#g-shear-strain">shear strain</a> grows linearly from zero at the centre to a maximum at the surface. This is purely geometric — no material law yet. It is worth stressing that it relies on the circular symmetry: a non-circular shaft <em>warps</em> out of plane when twisted, and these simple relations no longer apply. See <a class="eqref" href="equations.html#eq-torsion-strain">shear strain in torsion</a>.</p>
+
+        <h2 id="torsion-formula">The torsion formula</h2>
+        <p>Below yield, Hooke's law in shear (<span>$\tau = G\gamma$</span>) carries the linear strain distribution straight into a linear stress distribution, <span>$\tau = (r/R)\,\tau_{\max}$</span>. Substituting that into <span>$T = \int_A r\,\tau\,dA$</span> and pulling the constants out of the integral gives the central result of the week:</p>
+        <div class="eqbox">$$\tau = \frac{Tr}{J}, \qquad \tau_{\max} = \frac{TR}{J}, \qquad J = \int_A r^2\,dA$$</div>
+        <p>The quantity <span>$J$</span> is the <a class="gloss" href="glossary.html#g-polar-moment">polar moment of area</a> — the torsional counterpart of the second moment of area <span>$I$</span> from bending. Taking a thin annular slice <span>$dA = 2\pi r\,dr$</span> and integrating gives the standard results</p>
+        <div class="eqbox">$$J_{\text{solid}} = \tfrac{1}{2}\pi R^4, \qquad J_{\text{hollow}} = \tfrac{1}{2}\pi\big(R_o^{4} - R_i^{4}\big)$$</div>
+        <p>Keep <span>$J = \int r^2\,dA$</span> (polar moment of <em>area</em>, units m<span>$^4$</span>) distinct from both the second moment of area <span>$I = \int y^2\,dA$</span> and the mass moment of inertia <span>$\int r^2\,dm$</span>, which share the name "moment of inertia" but not the meaning. Full form: <a class="eqref" href="equations.html#eq-torsion-stress">torsional shear stress</a>.</p>
+
+        <h2 id="angle-of-twist">Angle of twist</h2>
+        <p>Rearranging the surface relation <span>$\gamma_{\max} = R\phi/L$</span> together with <span>$\gamma_{\max} = \tau_{\max}/G = TR/JG$</span> and cancelling <span>$R$</span> gives the angle through which the shaft twists:</p>
+        <div class="eqbox">$$\phi = \int_0^L \frac{T}{JG}\,dx = \frac{TL}{JG}$$</div>
+        <p>This is the exact mirror of last week's <span>$\delta = NL/AE$</span>. The group <span>$GJ$</span> is the <a class="gloss" href="glossary.html#g-torsional-rigidity">torsional rigidity</a> — a large <span>$GJ$</span> means a shaft that resists twisting, just as a large <span>$AE$</span> resists stretching and a large <span>$EI$</span> resists bending. When the torque, section or material changes along the shaft, sum the segments, <span>$\phi = \sum T_i L_i / J_i G_i$</span>, or integrate when they vary continuously. See <a class="eqref" href="equations.html#eq-torsion-angle">angle of twist</a> and the <a class="gloss" href="glossary.html#g-angle-twist">definition</a>.</p>
+        <div class="note"><span class="k">Why hollow shafts win</span> Because stress and lever arm both grow with radius, the material near the axis does very little work. Hollowing a 30&nbsp;mm shaft out to a 20&nbsp;mm bore (Example&nbsp;3.31) removes 44% of the material but makes the shaft only about 24% more flexible — nearly half the weight for a quarter the loss in stiffness. This is why drive shafts and bicycle frames are tubes.</div>
+
+        <h2 id="stress-concentration">Stress concentrations at changes in section</h2>
+        <p>Everything so far assumes a smooth prismatic shaft. Real shafts are usually <strong>stepped</strong>, and the shear stress crowds around the sudden change in diameter, rising well above the value the torsion formula predicts. We account for this with a <a class="gloss" href="glossary.html#g-stress-concentration">stress-concentration factor</a> <span>$k$</span> read from a design chart:</p>
+        <div class="eqbox">$$\tau_{\max} = k\,\frac{T(d/2)}{J}$$</div>
+        <p>The factor <span>$k$</span> depends on the ratio of the fillet radius to the smaller diameter, <span>$r/d$</span>, for a given diameter ratio <span>$D/d$</span>; the sharper the step, the larger <span>$k$</span>. Use the smaller (downstream) diameter for <span>$d$</span> and its <span>$J$</span>. Concentrations matter most for brittle materials and for fatigue; a ductile shaft under a steady load simply yields locally and redistributes, so <span>$k$</span> is often set aside in static ductile design. Full form: <a class="eqref" href="equations.html#eq-torsion-stress-conc">torsional stress concentration</a>.</p>
+
+        <h2 id="indeterminate">Statically indeterminate and composite shafts</h2>
+        <p>When a shaft is fixed at both ends, or built from two materials bonded together, equilibrium alone cannot divide the torque between the parts — the problem is <a class="gloss" href="glossary.html#g-stat-indeterminate">statically indeterminate</a>. As with axial members, we close it by adding a <strong>compatibility</strong> condition on the angle of twist and then substituting the load–deformation law <span>$\phi = TL/JG$</span>:</p>
+        <div class="eqbox">$$\underbrace{T_A + T_B = T}_{\text{equilibrium}} \qquad\qquad \underbrace{\phi_1 = \phi_2}_{\text{compatibility}}$$</div>
+        <p>For a single shaft of segment lengths <span>$L_1$</span> and <span>$L_2$</span> fixed at both ends with the torque applied at the join, these two equations solve to <span>$T_A = T/(1 + L_1/L_2)$</span> and <span>$T_B = T/(1 + L_2/L_1)$</span> — the reactions split in inverse proportion to the segment lengths. A <strong>composite shaft</strong>, such as a steel core inside an aluminium jacket or a spindle inside a bonded sleeve, works the same way: both parts share the same twist, so the torque divides in proportion to each part's <span>$GJ$</span> and the stiffer material takes the larger share. This uses the same <a class="gloss" href="glossary.html#g-compatibility">compatibility</a> idea, and often <a class="gloss" href="glossary.html#g-superposition">superposition</a>, that we met for indeterminate axial problems. Worked below in Examples 3.52 and P3.49.</p>
+
+        <h2 id="brittle">Failure of brittle shafts</h2>
+        <p>At the surface of a twisted shaft the stress state is <strong>pure shear</strong>. But stress depends on the plane you look at — exactly the oblique-plane lesson from Week 1. Resolving the pure-shear state onto a plane at angle <span>$\theta$</span> produces a normal stress as well as a shear stress:</p>
+        <div class="eqbox">$$\sigma_\theta = \tau_{\max}\sin 2\theta \qquad \tau_\theta = \tau_{\max}\cos 2\theta$$</div>
+        <p>The normal stress reaches its maximum at <span>$\theta = 45^\circ$</span>, where it equals <span>$\tau_{\max}$</span> in magnitude — a pure <em>tension</em> as large as the shear. Brittle materials such as chalk, cast iron and rock are far weaker in tension than in shear, so they crack along that <span>$45^\circ$</span> plane, spiralling around the shaft to give the characteristic <strong>helical fracture</strong>. A ductile shaft, weaker in shear, instead fails on the transverse plane. This is the same <a class="gloss" href="glossary.html#g-oblique">oblique-plane</a> reasoning applied to a state of pure shear.</p>
+
+        <h2 id="plastic">Plastic deformation and elastoplastic shafts</h2>
+        <p>The torsion formula assumes Hooke's law, so it stops being valid once the outer skin reaches the yield stress in shear. To go further we adopt the idealised <a class="gloss" href="glossary.html#g-elastoplastic">elastic–perfectly-plastic</a> model: <span>$\tau = G\gamma$</span> up to <span>$\tau_y$</span>, then a constant <span>$\tau = \tau_y$</span> however large the strain. The geometric relation <span>$\gamma = r\phi/L$</span> still holds, so an over-loaded shaft develops a yielded outer ring at <span>$\tau_y$</span> around an elastic core of radius <span>$r_y$</span>. The torque that first brings the surface to yield is</p>
+        <div class="eqbox">$$T_y = \frac{J\tau_y}{R} = \tfrac{1}{2}\pi R^{3}\tau_y$$</div>
+        <p>Integrating the stress over the elastic core plus the fully plastic ring gives the torque for any core radius, and hence for any angle of twist beyond first yield:</p>
+        <div class="eqbox">$$T = \tfrac{4}{3}T_y\!\left(1 - \tfrac14\Big(\tfrac{r_y}{R}\Big)^{3}\right) = \tfrac{4}{3}T_y\!\left(1 - \tfrac14\Big(\tfrac{\phi_y}{\phi}\Big)^{3}\right)$$</div>
+        <p>As the core shrinks to nothing (<span>$r_y \to 0$</span>) the shaft becomes fully plastic at <span>$T_p = \tfrac{4}{3}T_y$</span> — it can never carry more than a third again its first-yield torque. See <a class="eqref" href="equations.html#eq-torsion-yield">torque at first yield</a> and <a class="eqref" href="equations.html#eq-torsion-plastic">elastoplastic torsion</a>.</p>
+
+        <h2 id="residual">Residual stress and permanent twist</h2>
+        <p>Once part of a shaft has yielded, releasing the torque does not return it to its original state: it is left with a <strong>permanent twist</strong> and a locked-in <a class="gloss" href="glossary.html#g-residual-stress">residual stress</a>. The key idea is that <em>unloading is elastic</em>, even from a plastic state. So we find the residual state by superposition — the true elastoplastic loading distribution, minus a fictitious purely elastic unloading torque of the same magnitude (<span>$\tau = TR/J$</span>):</p>
+        <div class="eqbox">$$\tau_{\text{residual}} = \tau_{\text{load}} - \tau_{\text{unload}}, \qquad \phi_{\text{perm}} = \phi_{\text{load}} - \phi_{\text{unload}}$$</div>
+        <p>The result is a self-equilibrating stress field that opposes the direction of the original loading. In Example 3.159/3.160 a 24&nbsp;mm shaft twisted to <span>$39.3^\circ$</span> springs back by <span>$33.4^\circ$</span> when released, leaving a permanent twist of about <span>$5.9^\circ$</span> and a residual surface stress near <span>$19\ \text{MPa}$</span>.</p>
+
+        <h2 id="worked">Worked examples</h2>
+        <p>Three problems from this week's set, with the setups paraphrased and the method and answers shown. Full worked solutions are in the uploaded tutorial PDFs.</p>
+        <p><strong>Sizing a two-material shaft (3.17).</strong> A steel section <span>$AB$</span> (allowable <span>$90\ \text{MPa}$</span>) drives an aluminium section <span>$BC$</span> (allowable <span>$60\ \text{MPa}$</span>, diameter <span>$50\ \text{mm}$</span>). The aluminium, with the lower allowable stress, governs the applied torque. Setting <span>$\tau = TR/J$</span> to <span>$60\ \text{MPa}$</span> at <span>$R = 25\ \text{mm}$</span>:</p>
+        <div class="eqbox">$$60\times10^{6} = \frac{T(0.025)}{\tfrac12\pi(0.025)^4} \;\Rightarrow\; T = 1.47\ \text{kN·m}$$</div>
+        <p>Feeding that torque into the steel section at its own <span>$90\ \text{MPa}$</span> limit fixes <span>$R_{AB} = 21.8\ \text{mm}$</span>, so the minimum diameter is <span>$d_{AB} \approx 43.7\ \text{mm}$</span>.</p>
+        <p><strong>A composite shaft (3.52).</strong> A steel core (<span>$R = 27\ \text{mm}$</span>, <span>$G = 77\ \text{GPa}$</span>) is bonded inside an aluminium jacket (<span>$R = 36\ \text{mm}$</span>, <span>$G = 27\ \text{GPa}$</span>) and carries <span>$T = 4\ \text{kN·m}$</span> over <span>$2.5\ \text{m}$</span>. This is indeterminate: equilibrium gives <span>$T_{\text{Al}} + T_{\text{st}} = 4$</span>, and compatibility <span>$\phi_{\text{Al}} = \phi_{\text{st}}$</span> gives <span>$T_{\text{Al}} = 0.76\,T_{\text{st}}$</span>. Solving, <span>$T_{\text{st}} = 2.28\ \text{kN·m}$</span> and <span>$T_{\text{Al}} = 1.72\ \text{kN·m}$</span>, from which <span>$\tau = Tr/J$</span> gives a peak of <span>$73.7\ \text{MPa}$</span> in the steel and <span>$34.3\ \text{MPa}$</span> in the aluminium, with an end rotation of about <span>$5^\circ$</span>.</p>
+        <p><strong>Yielding and residual twist (3.159/3.160).</strong> An elastoplastic shaft (<span>$\tau_y = 86\ \text{MPa}$</span>, <span>$G = 27\ \text{GPa}$</span>, <span>$d = 24\ \text{mm}$</span>, <span>$L = 1.8\ \text{m}$</span>) carries <span>$T = 285\ \text{N·m}$</span>. First yield occurs at <span>$T_y = 233\ \text{N·m}$</span>, so the shaft is partly plastic; the elastoplastic torque equation gives an elastic-core radius <span>$r_y = 8.35\ \text{mm}$</span> and a twist of <span>$39.3^\circ$</span>. Removing the torque, the elastic springback of <span>$33.4^\circ$</span> leaves a permanent twist of <span>$5.9^\circ$</span> and a residual surface stress of about <span>$19\ \text{MPa}$</span> opposing the original load.</p>
+
+        <div class="note"><span class="k">Where this leads</span> Torsion is our first specific load case built on the Week&nbsp;1 vocabulary of stress, strain and the elastic constants. Next we turn to the bending of beams, before combining stresses and asking when a material actually fails. The whole of Weeks&nbsp;1–3, torsion included, is examined in Quiz&nbsp;1 in Week&nbsp;4.</div>
+      </div>
+
+      <aside class="rail">
+        <h4>On this page</h4>
+        <ul>
+          <li><a href="#torque-shear">Torque &amp; shear stress</a></li>
+          <li><a href="#twist-geometry">Twist geometry</a></li>
+          <li><a href="#torsion-formula">Torsion formula</a></li>
+          <li><a href="#angle-of-twist">Angle of twist</a></li>
+          <li><a href="#stress-concentration">Stress concentrations</a></li>
+          <li><a href="#indeterminate">Indeterminate shafts</a></li>
+          <li><a href="#brittle">Brittle failure</a></li>
+          <li><a href="#plastic">Elastoplastic shafts</a></li>
+          <li><a href="#residual">Residual stress</a></li>
+          <li><a href="#worked">Worked examples</a></li>
+        </ul>
+        <h4>Key equations</h4>
+        <ul>
+          <li><span class="tag">eq</span><a href="equations.html#eq-torsion-stress">Torsional shear stress</a></li>
+          <li><span class="tag">eq</span><a href="equations.html#eq-torsion-angle">Angle of twist</a></li>
+          <li><span class="tag">eq</span><a href="equations.html#eq-torsion-plastic">Elastoplastic torsion</a></li>
+        </ul>
+        <h4>Related</h4>
+        <ul>
+          <li><span class="tag">def</span><a href="glossary.html#g-polar-moment">Polar moment of area</a></li>
+          <li><span class="tag">def</span><a href="glossary.html#g-angle-twist">Angle of twist</a></li>
+          <li><span class="tag">flag</span><a href="assessments.html#a-quiz1">Quiz 1 (W1–3)</a></li>
+        </ul>
+      </aside>
+    </div>
+  </main>
+</div>
+<script src="../assets/katex/katex.min.js"></script>
+<script src="../assets/katex/auto-render.min.js"></script>
+<script src="subject.js"></script>
+<script src="../assets/hub.js"></script>
+</body>
+</html>

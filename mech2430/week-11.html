@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="manifest" href="../manifest.webmanifest">
+<link rel="apple-touch-icon" href="../icons/apple-touch-icon.png">
+<meta name="theme-color" content="#161E2B">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<title>Week 11 — Deflection of Beams · MECH2430</title>
+<link rel="stylesheet" href="../assets/styles.css">
+<link rel="stylesheet" href="../assets/katex/katex.min.css">
+</head>
+<body>
+<div class="shell">
+  <main class="main">
+    <div class="page has-rail">
+      <div class="content">
+        <div class="crumb"><a href="../index.html">Study hub</a> / <a href="index.html">MECH2430</a> / Week 11</div>
+        <div class="eyebrow">Week 11 · Lecture notes</div>
+        <h1 class="title">Deflection of Beams</h1>
+        <p class="lede">Week 3 told us how sharply a beam curves at any point — <span>$1/\rho = M/EI$</span>. This week we integrate that curvature along the beam to recover its whole deflected shape, the <a class="gloss" href="glossary.html#g-elastic-curve">elastic curve</a> <span>$y(x)$</span>. The same machinery then cracks a problem statics alone cannot: finding the reactions of statically indeterminate beams.</p>
+
+        <h2 id="curve">From curvature to the elastic curve</h2>
+        <p>From the geometry of any plane curve, the radius of curvature at a point is</p>
+        <div class="eqbox">$$\rho = \frac{\left[1+\left(\dfrac{dy}{dx}\right)^{2}\right]^{3/2}}{\left|\dfrac{d^{2}y}{dx^{2}}\right|}$$</div>
+        <p>Beam deflections are small compared with the span, so the slope <span>$dy/dx$</span> is tiny and <span>$(dy/dx)^2 \approx 0$</span>. The curvature then collapses to just the second derivative, and combining it with the Week-3 result <span>$1/\rho = M/EI$</span> gives the governing equation of the elastic curve:</p>
+        <div class="eqbox">$$EI\,\frac{d^{2}y}{dx^{2}} = M(x)$$</div>
+        <p>Here <span>$y$</span> is the deflection of the neutral axis, <span>$M(x)$</span> the internal bending moment from a section cut, and <span>$EI$</span> the <a class="gloss" href="glossary.html#g-flexural-rigidity">flexural rigidity</a>. See <a class="eqref" href="equations.html#eq-beam-deflection">curvature</a> and the <a class="gloss" href="glossary.html#g-radius-curvature">radius of curvature</a>.</p>
+
+        <h2 id="integration">Double integration</h2>
+        <p>Since <span>$M(x)$</span> is known (draw the SFD and BMD first — they tell you the expression and where it changes), we simply integrate twice:</p>
+        <div class="eqbox">$$EI\,\frac{dy}{dx} = \int M(x)\,dx + C_1 \qquad\qquad EI\,y = \int\!\!\left(\int M(x)\,dx\right)dx + C_1 x + C_2$$</div>
+        <p>The first integration gives the <strong>slope</strong> <span>$dy/dx$</span> — the beam's rotation in radians at each point — and the second gives the <strong>deflection</strong>. Each integration produces a constant, so a single-region beam carries two unknown constants, <span>$C_1$</span> and <span>$C_2$</span>. Full statement on the sheet: <a class="eqref" href="equations.html#eq-elastic-curve">elastic curve by double integration</a>.</p>
+
+        <h2 id="boundary">Boundary conditions</h2>
+        <p>The constants come from <a class="gloss" href="glossary.html#g-boundary-conditions">boundary conditions</a> — points where we already know the deflection or slope because of how the beam is supported:</p>
+        <div class="eqbox">$$\text{pin or roller: } y = 0 \qquad\qquad \text{fixed (built-in) end: } y = 0 \ \text{ and } \ \frac{dy}{dx} = 0$$</div>
+        <p>A cantilever therefore gets both of its conditions at the wall; a simply supported beam gets <span>$y=0$</span> at each support. Count carefully: two constants need two conditions per region. Any conditions <em>beyond</em> what the constants require are not wasted — they are exactly what lets us solve <a class="gloss" href="glossary.html#g-stat-indeterminate">statically indeterminate</a> beams below.</p>
+
+        <h2 id="cantilever">The classic cantilever cases</h2>
+        <p>Tutorial problems 9.1–9.4 (Beer) work through the standard cantilever loadings. For an end couple <span>$M_0$</span> the moment is constant, <span>$M(x)=M_0$</span>, and both constants vanish at the wall, giving</p>
+        <div class="eqbox">$$y(x) = \frac{M_0 x^{2}}{2EI} \qquad y(L) = \frac{M_0 L^{2}}{2EI} \qquad \frac{dy}{dx}(L) = \frac{M_0 L}{EI}$$</div>
+        <p>For an end load <span>$P$</span> (with <span>$M(x) = P(x-L)$</span> measured from the wall) the same two integrations give the famous tip results, and a uniformly distributed load <span>$w$</span> follows the same recipe:</p>
+        <div class="eqbox">$$y_{\text{tip}} = -\frac{PL^{3}}{3EI} \qquad\qquad y_{\text{tip}} = -\frac{wL^{4}}{8EI}$$</div>
+        <p>Problem 9.4's triangular load shows the general pattern: integrate the load twice to get <span>$V(x)$</span> and <span>$M(x)$</span> first, then twice more for slope and deflection. All the tip formulas are collected in <a class="eqref" href="equations.html#eq-cantilever-results">cantilever standard results</a> — worth committing to memory, since superposition solutions lean on them constantly.</p>
+        <div class="note"><span class="k">Sanity check</span> Slopes and deflections scale as <span>$1/EI$</span>: a stiffer section deflects less. If a computed deflection looks physically silly (metres for a steel beam), suspect a units slip in <span>$I$</span> — see below.</div>
+
+        <h2 id="simply-supported">Simply supported beams and symmetry</h2>
+        <p>Hibbeler 12-3 is the benchmark: a central point load <span>$P$</span> on a simply supported span <span>$L$</span>. On the left half <span>$M(x)=Px/2$</span>; integrating twice and applying <span>$y=0$</span> at the pin plus — by <strong>symmetry</strong> — <span>$dy/dx=0$</span> at mid-span gives</p>
+        <div class="eqbox">$$EIy = \frac{P x^{3}}{12} - \frac{P L^{2} x}{16} \qquad \left.\frac{dy}{dx}\right|_{A} = \frac{PL^{2}}{16EI} \qquad y_{\max} = -\frac{PL^{3}}{48EI}$$</div>
+        <p>The symmetry trick supplied a slope condition without ever leaving the first half of the beam. Move the load off-centre, though, and the shortcut dies — the maximum no longer sits under the load, and we need the two-region treatment next. See <a class="eqref" href="equations.html#eq-ss-central">simply supported, central load</a>.</p>
+
+        <h2 id="continuity">Multiple regions and continuity conditions</h2>
+        <p>Whenever the moment expression changes along the beam — at a point load, an applied couple, or an interior support — the integration must be done <em>region by region</em>, and every region brings its own pair of constants. A beam with two regions has four constants (<span>$C_1\ldots C_4$</span>), so it needs four conditions. The supports rarely supply that many; the rest come from <a class="gloss" href="glossary.html#g-continuity">continuity (matching) conditions</a> at the join:</p>
+        <div class="eqbox">$$y_{\text{left}} = y_{\text{right}} \qquad\text{and}\qquad \left(\frac{dy}{dx}\right)_{\text{left}} = \left(\frac{dy}{dx}\right)_{\text{right}} \quad\text{at the boundary}$$</div>
+        <p>Physically: the beam cannot tear apart (deflection continuous) and cannot kink (slope continuous). Hibbeler 12-42 is the template — a 3&nbsp;kN/m UDL over the 5&nbsp;m span plus a 15&nbsp;kN·m end couple on the 3&nbsp;m overhang gives one cubic/quartic curve for <span>$x\in(0,5)$</span> and a quadratic for <span>$x\in(5,8)$</span>, stitched together by matching <span>$y$</span> and <span>$dy/dx$</span> at <span>$x=5$</span>. Beer 9.13 and 9.14 run the same play with real numbers.</p>
+        <div class="note"><span class="k">Watch out</span> If, for algebraic convenience, the two regions use coordinates <span>$x_1$</span> and <span>$x_2$</span> measured <em>towards each other</em> from opposite ends (as in the asymmetric point-load example), the deflections still match directly but the slopes match with <em>opposite signs</em>: <span>$dy/dx_1 = -\,dy/dx_2$</span> at the join. Forgetting the sign flip is the classic error in these problems.</div>
+
+        <h2 id="units">Real numbers: units and W-shapes</h2>
+        <p>Numerical problems (Beer 9.13, 9.14) quote a rolled-steel section — e.g. W360&nbsp;×&nbsp;44 or W100&nbsp;×&nbsp;19.3 — whose second moment of area <span>$I$</span> is read from Appendix&nbsp;C. The table gives <span>$I$</span> in <span>$10^{6}\ \text{mm}^4$</span>, and the deflection formula wants consistent SI units, so convert:</p>
+        <div class="eqbox">$$I = 4.77\times10^{6}\ \text{mm}^4 = 4.77\times10^{-6}\ \text{m}^4 \qquad (1\ \text{mm}^4 = 10^{-12}\ \text{m}^4)$$</div>
+        <p>With <span>$E = 200$</span> GPa <span>$= 200\times10^{9}$</span> Pa and moments written in N·m, the working of 9.14 lands at <span>$y(0.8) \approx 0.051$</span> m <span>$= 51$</span> mm at point <span>$C$</span>. A quick reality check against the span (3.2&nbsp;m) tells you whether an answer is plausible — this small W100 section under a 38&nbsp;kN·m couple really does sag that much, whereas the same answer from a W360 would scream "units error".</p>
+
+        <h2 id="indeterminate">Statically indeterminate beams</h2>
+        <p>Here is the payoff. Take a propped cantilever — fixed at one end, roller at the other, under a distributed load. The free body has <strong>three</strong> support unknowns (<span>$M_A$</span>, <span>$R_A$</span>, <span>$R_B$</span>) but planar equilibrium supplies only <strong>two</strong> equations: the beam is <a class="gloss" href="glossary.html#g-stat-indeterminate">statically indeterminate</a> to the first degree. Statics has run out — but the elastic curve has spare information. Counting everything:</p>
+        <div class="eqbox">$$\underbrace{M_A,\ R_A,\ R_B,\ C_1,\ C_2}_{5\ \text{unknowns}} \qquad \Longleftrightarrow \qquad \underbrace{\textstyle\sum F_y = 0,\ \ \sum M = 0,\ \ y_A = 0,\ \ y_B = 0,\ \ \frac{dy}{dx}\Big|_A = 0}_{5\ \text{equations}}$$</div>
+        <p>Write <span>$M(x)$</span> keeping the unknown reaction as a symbol, integrate twice, then apply <em>all</em> the boundary conditions: the surplus ones pin down the reaction itself. Sample Problem 9.3 (triangular load, pin at <span>$A$</span>, fixed at <span>$B$</span>) works through it: with <span>$M(x) = R_A x - w_0 x^{3}/6L$</span>, the conditions <span>$y(0)=0$</span>, <span>$y(L)=0$</span> and <span>$dy/dx(L)=0$</span> yield</p>
+        <div class="eqbox">$$R_A = \frac{w_0 L}{10} \qquad R_B = \frac{2 w_0 L}{5} \qquad M_B = \frac{w_0 L^{2}}{15}$$</div>
+        <p>after which equilibrium mops up the remaining reactions and <a class="gloss" href="glossary.html#g-superposition">superposition</a>-style bookkeeping gives the full elastic curve. Tutorial problems 9.19–9.22 (reaction at the roller) and 9.33–9.34 (reaction plus BMD for fixed–fixed beams) all follow this recipe; the fixed–fixed cases simply trade the roller's single condition for a second slope condition.</p>
+
+        <div class="note"><span class="k">Where this leads</span> Deflection by integration completes the bending story: stresses from Week&nbsp;3, shear from Week&nbsp;5, and now stiffness and indeterminate reactions. Together with failure criteria (Week&nbsp;9) and pressure vessels (Week&nbsp;10) this is the material for Quiz&nbsp;3 in the Week&nbsp;12 tutorial — practise the boundary-condition bookkeeping until it is automatic.</div>
+      </div>
+
+      <aside class="rail">
+        <h4>On this page</h4>
+        <ul>
+          <li><a href="#curve">Curvature → elastic curve</a></li>
+          <li><a href="#integration">Double integration</a></li>
+          <li><a href="#boundary">Boundary conditions</a></li>
+          <li><a href="#cantilever">Cantilever cases</a></li>
+          <li><a href="#simply-supported">Simply supported &amp; symmetry</a></li>
+          <li><a href="#continuity">Regions &amp; continuity</a></li>
+          <li><a href="#units">Units &amp; W-shapes</a></li>
+          <li><a href="#indeterminate">Indeterminate beams</a></li>
+        </ul>
+        <h4>Key equations</h4>
+        <ul>
+          <li><span class="tag">eq</span><a href="equations.html#eq-elastic-curve">Elastic curve by integration</a></li>
+          <li><span class="tag">eq</span><a href="equations.html#eq-beam-deflection">Curvature (1/ρ = M/EI)</a></li>
+          <li><span class="tag">eq</span><a href="equations.html#eq-cantilever-results">Cantilever standard results</a></li>
+          <li><span class="tag">eq</span><a href="equations.html#eq-ss-central">SS beam, central load</a></li>
+        </ul>
+        <h4>Related</h4>
+        <ul>
+          <li><span class="tag">def</span><a href="glossary.html#g-elastic-curve">Elastic curve</a></li>
+          <li><span class="tag">def</span><a href="glossary.html#g-boundary-conditions">Boundary conditions</a></li>
+          <li><span class="tag">def</span><a href="glossary.html#g-continuity">Continuity conditions</a></li>
+          <li><span class="tag">def</span><a href="glossary.html#g-stat-indeterminate">Statically indeterminate</a></li>
+          <li><span class="tag">flag</span><a href="assessments.html#a-quiz3">Quiz 3 (W9–11)</a></li>
+        </ul>
+      </aside>
+    </div>
+  </main>
+</div>
+<script src="../assets/katex/katex.min.js"></script>
+<script src="../assets/katex/auto-render.min.js"></script>
+<script src="subject.js"></script>
+<script src="../assets/hub.js"></script>
+</body>
+</html>
