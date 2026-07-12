@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="manifest" href="../manifest.webmanifest">
+<link rel="apple-touch-icon" href="../icons/apple-touch-icon.png">
+<meta name="theme-color" content="#161E2B">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<!-- ============================================================
+     COPY-ME TEMPLATE FOR A NEW WEEK
+     ------------------------------------------------------------
+     1. Copy this file and rename it, e.g.  week-02.html
+     2. Change the <title> below and the heading text.
+     3. Register the page in subject.js (the `pages` array) so it
+        shows up in the sidebar, dashboard and search:
+
+          { f:"week-02.html", week:2,
+            t:"Torsion of Circular Shafts",
+            summary:"One-line description shown on cards.",
+            keywords:"torsion shear shaft angle of twist polar moment",
+            related:[
+              { type:"eq",  label:"Torsion formula", href:"equations.html#eq-torsion-stress" },
+              { type:"def", label:"Polar moment",    href:"glossary.html#g-polar-moment" }
+            ]
+          },
+
+     WRITING MATH: just type LaTeX between $ ... $ (inline) or
+                   $$ ... $$ (a centred block). It renders on load.
+     CROSS-LINKS:  <a class="gloss" href="glossary.html#g-xxx">term</a>
+                   <a class="eqref" href="equations.html#eq-xxx">equation</a>
+                   Both jump to the target AND show a hover preview.
+     ============================================================ -->
+<title>Week N — Topic title · MECH3780</title>
+<link rel="stylesheet" href="../assets/styles.css">
+<link rel="stylesheet" href="../assets/katex/katex.min.css">
+</head>
+<body>
+<div class="shell">
+  <main class="main">
+    <div class="page has-rail">
+      <div class="content">
+        <div class="crumb"><a href="../index.html">Study hub</a> / <a href="index.html">MECH3780</a> / Week N</div>
+        <div class="eyebrow">Week N · Lecture notes</div>
+        <h1 class="title">Topic title</h1>
+        <p class="lede">One or two sentences setting up what this week is about and why it matters.</p>
+
+        <h2 id="section-one">First section</h2>
+        <p>Plain prose. Reference a <a class="gloss" href="glossary.html#g-stress">glossary term</a> or an
+           <a class="eqref" href="equations.html#eq-normal-stress">equation</a> inline. Inline math like
+           <span>$\sigma = P/A$</span> sits in the sentence; a displayed result goes in a box:</p>
+        <div class="eqbox">$$\tau = \frac{T\,\rho}{J}$$</div>
+
+        <div class="note"><span class="k">Note</span> Use this callout for tips, warnings or "watch out" reminders.</div>
+
+        <h2 id="section-two">Second section</h2>
+        <p>Keep paragraphs short and the reading column does the rest.</p>
+      </div>
+
+      <!-- The rail is optional. Delete this <aside> (and change
+           has-rail to just page above) if you don't want it. -->
+      <aside class="rail">
+        <h4>On this page</h4>
+        <ul>
+          <li><a href="#section-one">First section</a></li>
+          <li><a href="#section-two">Second section</a></li>
+        </ul>
+        <h4>Related</h4>
+        <ul>
+          <li><span class="tag">eq</span><a href="equations.html#eq-normal-stress">Normal stress</a></li>
+          <li><span class="tag">def</span><a href="glossary.html#g-stress">Stress</a></li>
+        </ul>
+      </aside>
+    </div>
+  </main>
+</div>
+<script src="../assets/katex/katex.min.js"></script>
+<script src="../assets/katex/auto-render.min.js"></script>
+<script src="subject.js"></script>
+<script src="../assets/hub.js"></script>
+</body>
+</html>

@@ -13,7 +13,7 @@
 */
 "use strict";
 
-var CACHE = "studyhub-v2";
+var CACHE = "studyhub-v3";
 
 var PRECACHE = [
   "./",
@@ -50,6 +50,12 @@ var PRECACHE = [
   "assets/katex/katex.min.css",
   "assets/katex/katex.min.js",
   "assets/styles.css",
+  "engg2440/assessments.html",
+  "engg2440/equations.html",
+  "engg2440/glossary.html",
+  "engg2440/index.html",
+  "engg2440/search.html",
+  "engg2440/subject.js",
   "icons/apple-touch-icon.png",
   "icons/icon-192.png",
   "icons/icon-512.png",
@@ -70,7 +76,19 @@ var PRECACHE = [
   "mech2430/week-07.html",
   "mech2430/week-09.html",
   "mech2430/week-10.html",
-  "mech2430/week-11.html"
+  "mech2430/week-11.html",
+  "mech3720/assessments.html",
+  "mech3720/equations.html",
+  "mech3720/glossary.html",
+  "mech3720/index.html",
+  "mech3720/search.html",
+  "mech3720/subject.js",
+  "mech3780/assessments.html",
+  "mech3780/equations.html",
+  "mech3780/glossary.html",
+  "mech3780/index.html",
+  "mech3780/search.html",
+  "mech3780/subject.js"
 ];
 
 /* HTML and subject data get network-first so edits show up */
