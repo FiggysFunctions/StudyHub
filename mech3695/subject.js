@@ -565,7 +565,7 @@ window.SUBJECT = {
      keywords:"planck distribution spectral blackbody wavelength radiation constants"},
 
     {id:"eq-wien", cat:"Radiation", name:"Wien's displacement law",
-     latex:R`\lambda_{max}\,T = 2898\ \mu\text{m·K}`,
+     latex:R`\lambda_{max}\,T = 2898\ \mu\text{m}\cdot\text{K}`,
      desc:"The wavelength of peak blackbody emission shifts inversely with temperature — hot objects glow at shorter wavelengths (the Sun peaks in the visible; room-temperature surfaces in the infrared).",
      vars:[{sym:R`\lambda_{max}`,mean:"peak-emission wavelength"}],
      links:[{label:"Week 9",href:"week-09.html"}],

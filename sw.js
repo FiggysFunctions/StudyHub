@@ -13,7 +13,7 @@
 */
 "use strict";
 
-var CACHE = "studyhub-v5";
+var CACHE = "studyhub-v6";
 
 var PRECACHE = [
   "./",
