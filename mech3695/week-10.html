@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="manifest" href="../manifest.webmanifest">
+<link rel="apple-touch-icon" href="../icons/apple-touch-icon.png">
+<meta name="theme-color" content="#161E2B">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<title>Week 10 — Radiation Exchange Between Surfaces · MECH3695</title>
+<link rel="stylesheet" href="../assets/styles.css">
+<link rel="stylesheet" href="../assets/katex/katex.min.css">
+</head>
+<body>
+<div class="shell">
+  <main class="main">
+    <div class="page has-rail">
+      <div class="content">
+        <div class="crumb"><a href="../index.html">Study hub</a> / <a href="index.html">MECH3695</a> / Week 10</div>
+        <div class="eyebrow">Week 10 · Lecture notes</div>
+        <h1 class="title">Radiation Exchange Between Surfaces</h1>
+        <p class="lede">Real problems involve several surfaces exchanging radiation in an enclosure. Two ingredients are needed: the geometry — captured by the view factor — and the surface properties from Week 9. Together they build a radiation network that mirrors the thermal-resistance circuits of conduction.</p>
+
+        <h2 id="viewfactor">The view factor</h2>
+        <p>The <a class="gloss" href="glossary.html#g-view-factor">view factor</a> <span>$F_{ij}$</span> is the fraction of radiation leaving surface <span>$i$</span> that strikes surface <span>$j$</span> — a purely geometric quantity from the <a class="eqref" href="equations.html#eq-viewfactor">double-integral definition</a>. In practice it is read from charts (aligned/perpendicular rectangles, coaxial disks) or built from the algebra rules.</p>
+
+        <h2 id="rules">The view-factor rules</h2>
+        <ul>
+          <li><strong>Reciprocity:</strong> <a class="eqref" href="equations.html#eq-reciprocity">$A_i F_{ij} = A_j F_{ji}$</a>.</li>
+          <li><strong>Summation:</strong> <a class="eqref" href="equations.html#eq-summation">$\sum_j F_{ij} = 1$</a> — everything leaving lands somewhere in the enclosure (including the surface itself, if concave).</li>
+          <li><strong>Superposition:</strong> a compound surface's view factor is the sum of its parts.</li>
+          <li><strong>Symmetry:</strong> surfaces symmetric about a third have identical view factors from it.</li>
+        </ul>
+        <p>Careful inspection with these four rules resolves most enclosure geometries without integrating. A flat or convex surface has <span>$F_{ii} = 0$</span>; a concave one sees itself.</p>
+
+        <h2 id="blackbody">Blackbody exchange</h2>
+        <p>Black surfaces reflect nothing, so exchange depends only on temperatures and geometry:</p>
+        <div class="eqbox">$$q_{ij} = A_i F_{ij}\,\sigma\,(T_i^4 - T_j^4)$$</div>
+
+        <h2 id="network">The gray-surface network</h2>
+        <p>For opaque, diffuse, gray surfaces, the net radiation leaving a surface is driven across a <a class="gloss" href="glossary.html#g-surface-resistance">surface resistance</a> from its blackbody potential to its radiosity, and radiation travels between surfaces across a <a class="gloss" href="glossary.html#g-space-resistance">space resistance</a>:</p>
+        <div class="eqbox">$$q_i = \frac{E_{bi}-J_i}{(1-\varepsilon_i)/\varepsilon_i A_i}, \qquad q_{ij} = \frac{J_i - J_j}{1/A_iF_{ij}}$$</div>
+        <p>This is a resistance network exactly like conduction. For the common <strong>two-surface enclosure</strong> it collapses to three resistances in series:</p>
+        <div class="eqbox">$$q_1 = \frac{\sigma(T_1^4 - T_2^4)}{\dfrac{1-\varepsilon_1}{\varepsilon_1 A_1} + \dfrac{1}{A_1 F_{12}} + \dfrac{1-\varepsilon_2}{\varepsilon_2 A_2}}$$</div>
+        <p>Specialising the geometry recovers the standard results: large parallel plates, long concentric cylinders, concentric spheres, and a small body in large surroundings (which reduces to <span>$q = \varepsilon_1 A_1\sigma(T_1^4-T_2^4)$</span> — the Week 1 formula). Inserting a low-emissivity <strong>radiation shield</strong> adds resistances and sharply cuts the exchange.</p>
+
+        <div class="note"><span class="k">Worked example</span> A semicircular drying oven: the curved wall at 1200 K radiates to a water-coated flat base at 350 K, both treated as black. With <span>$F$</span> from the geometry, <span>$q' = A' F\sigma(T_{wall}^4 - T_{base}^4)$</span> per unit length sets the evaporation (drying) rate through the latent heat.</p></div>
+
+        <div class="note"><span class="k">Where this leads</span> Radiation completes the three modes. Week 11 returns to conduction to solve the multidimensional and transient heat equation numerically.</div>
+      </div>
+
+      <aside class="rail">
+        <h4>On this page</h4>
+        <ul>
+          <li><a href="#viewfactor">The view factor</a></li>
+          <li><a href="#rules">View-factor rules</a></li>
+          <li><a href="#blackbody">Blackbody exchange</a></li>
+          <li><a href="#network">Gray-surface network</a></li>
+        </ul>
+        <h4>Related</h4>
+        <ul>
+          <li><span class="tag">eq</span><a href="equations.html#eq-viewfactor">View factor</a></li>
+          <li><span class="tag">eq</span><a href="equations.html#eq-reciprocity">Reciprocity</a></li>
+          <li><span class="tag">eq</span><a href="equations.html#eq-two-surface">Two-surface enclosure</a></li>
+          <li><span class="tag">def</span><a href="glossary.html#g-surface-resistance">Surface resistance</a></li>
+          <li><span class="tag">flag</span><a href="assessments.html#a-endquiz">End-semester quiz</a></li>
+        </ul>
+      </aside>
+    </div>
+  </main>
+</div>
+<script src="../assets/katex/katex.min.js"></script>
+<script src="../assets/katex/auto-render.min.js"></script>
+<script src="subject.js"></script>
+<script src="../assets/hub.js"></script>
+</body>
+</html>

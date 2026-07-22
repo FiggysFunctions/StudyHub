@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="manifest" href="../manifest.webmanifest">
+<link rel="apple-touch-icon" href="../icons/apple-touch-icon.png">
+<meta name="theme-color" content="#161E2B">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<title>Week 1 — The Three Modes &amp; the Heat Equation · MECH3695</title>
+<link rel="stylesheet" href="../assets/styles.css">
+<link rel="stylesheet" href="../assets/katex/katex.min.css">
+</head>
+<body>
+<div class="shell">
+  <main class="main">
+    <div class="page has-rail">
+      <div class="content">
+        <div class="crumb"><a href="../index.html">Study hub</a> / <a href="index.html">MECH3695</a> / Week 1</div>
+        <div class="eyebrow">Week 1 · Lecture notes</div>
+        <h1 class="title">The Three Modes &amp; the Heat Equation</h1>
+        <p class="lede">Heat transfer is thermal energy in transit due to a temperature difference. This week sets up the whole course: the three modes and their rate laws, how heat transfer relates to thermodynamics, and the governing heat diffusion equation that every later topic is a special case of.</p>
+
+        <h2 id="what">What heat transfer is</h2>
+        <p>Thermodynamics tells you how much energy moves between two <em>equilibrium</em> states; heat transfer tells you the <strong>rate</strong>, and needs a temperature difference to exist. We distinguish the <a class="gloss" href="glossary.html#g-heat-flux">heat flux</a> <span>$q''$</span> (W/m², per unit area), the heat rate <span>$q$</span> (W), and the heat <span>$Q$</span> (J, energy over a period). The three modes act wherever a temperature difference exists, often together.</p>
+
+        <h2 id="conduction">Conduction — Fourier's law</h2>
+        <p>Conduction is transfer by the random motion of atoms, molecules and electrons in a solid or stationary fluid. The rate law is <a class="eqref" href="equations.html#eq-fourier">Fourier's law</a>: the flux is proportional to the temperature gradient and flows down it.</p>
+        <div class="eqbox">$$q''_x = -k\,\frac{dT}{dx} \qquad\Rightarrow\qquad q''_x = -k\,\frac{T_2-T_1}{L}\ \text{(linear profile)}$$</div>
+        <p>The minus sign encodes the second law — heat flows from hot to cold. The property <a class="gloss" href="glossary.html#g-thermal-conductivity">thermal conductivity</a> <span>$k$</span> (W/m·K) ranges over four orders of magnitude from insulators to metals.</p>
+        <div class="note"><span class="k">Worked example</span> A fireclay furnace wall, <span>$L = 0.15\ \text{m}$</span>, <span>$k = 1.7\ \text{W/m·K}$</span>, with inner/outer faces at 1400 and 1150 K. The flux is <span>$q'' = 1.7(1400-1150)/0.15 = 2833\ \text{W/m}^2$</span>; over a <span>$0.5\times1.2\ \text{m}$</span> wall the rate is <span>$q = q''A = 1700\ \text{W}$</span>.</p></div>
+
+        <h2 id="convection">Convection — Newton's law of cooling</h2>
+        <p>Convection is transfer between a surface and a moving fluid — a combination of conduction at the wall and bulk fluid motion. The rate law is <a class="eqref" href="equations.html#eq-newton-cooling">Newton's law of cooling</a>:</p>
+        <div class="eqbox">$$q'' = h\,(T_s - T_\infty)$$</div>
+        <p>The <a class="gloss" href="glossary.html#g-convection-coefficient">convection coefficient</a> <span>$h$</span> is not a fluid property — it depends on the flow, and finding it occupies Weeks 4–6. Typical values: ~40 W/m²·K for air in a breeze, ~900 for moving water. That is why a 10 °C water stream feels far colder than 10 °C air.</p>
+
+        <h2 id="radiation">Radiation — the Stefan–Boltzmann law</h2>
+        <p>All matter above absolute zero emits electromagnetic radiation; unlike the other modes it needs no medium. A surface emits <a class="eqref" href="equations.html#eq-stefan-boltzmann">$E = \varepsilon\sigma T_s^4$</a>, and a small surface exchanging with large surroundings has a net flux:</p>
+        <div class="eqbox">$$q''_{rad} = \varepsilon\,\sigma\,(T_s^4 - T_{sur}^4), \qquad \sigma = 5.67\times10^{-8}\ \text{W/m}^2\text{K}^4$$</div>
+        <p>Temperatures must be absolute (K). Because of the fourth power, radiation dominates at high temperature (furnaces, the cooling of molten slag from 1600 °C) but is often small near room temperature.</p>
+
+        <h2 id="thermo">Link to thermodynamics &amp; the heat equation</h2>
+        <p>Applying the first law to a control volume gives the energy balance <a class="eqref" href="equations.html#eq-energy-balance">$\dot E_{in} - \dot E_{out} + \dot E_g = \dot E_{st}$</a>. Applying it to a differential element yields the <a class="eqref" href="equations.html#eq-heat-equation">heat diffusion equation</a>:</p>
+        <div class="eqbox">$$\frac{\partial^2 T}{\partial x^2}+\frac{\partial^2 T}{\partial y^2}+\frac{\partial^2 T}{\partial z^2}+\frac{\dot q}{k}=\frac{1}{\alpha}\frac{\partial T}{\partial t}$$</div>
+        <p>Every conduction problem this semester is a reduction of this equation (1-D, steady, no generation, etc.). The <a class="gloss" href="glossary.html#g-thermal-diffusivity">thermal diffusivity</a> <a class="eqref" href="equations.html#eq-thermal-diffusivity">$\alpha = k/\rho c_p$</a> sets how fast a body responds, giving the thermal time scale <span>$t \sim L^2/\alpha$</span>. Solving the equation also requires <strong>boundary conditions</strong>: prescribed temperature (Dirichlet), prescribed flux including the adiabatic/insulated case (Neumann), or a convection condition.</p>
+
+        <div class="note"><span class="k">Where this leads</span> Weeks 2–3 solve the heat equation for steady conduction and fins; Weeks 4–7 tackle the convection coefficient <span>$h$</span> and heat exchangers; Weeks 9–10 develop radiation exchange; Week 11 returns to solve the 2-D and transient heat equation numerically.</div>
+      </div>
+
+      <aside class="rail">
+        <h4>On this page</h4>
+        <ul>
+          <li><a href="#what">What heat transfer is</a></li>
+          <li><a href="#conduction">Conduction</a></li>
+          <li><a href="#convection">Convection</a></li>
+          <li><a href="#radiation">Radiation</a></li>
+          <li><a href="#thermo">Heat equation</a></li>
+        </ul>
+        <h4>Related</h4>
+        <ul>
+          <li><span class="tag">eq</span><a href="equations.html#eq-fourier">Fourier's law</a></li>
+          <li><span class="tag">eq</span><a href="equations.html#eq-newton-cooling">Newton's cooling</a></li>
+          <li><span class="tag">eq</span><a href="equations.html#eq-stefan-boltzmann">Stefan–Boltzmann</a></li>
+          <li><span class="tag">eq</span><a href="equations.html#eq-heat-equation">Heat equation</a></li>
+          <li><span class="tag">def</span><a href="glossary.html#g-thermal-diffusivity">Thermal diffusivity</a></li>
+          <li><span class="tag">flag</span><a href="assessments.html#a-assign1">Assignment 1</a></li>
+        </ul>
+      </aside>
+    </div>
+  </main>
+</div>
+<script src="../assets/katex/katex.min.js"></script>
+<script src="../assets/katex/auto-render.min.js"></script>
+<script src="subject.js"></script>
+<script src="../assets/hub.js"></script>
+</body>
+</html>

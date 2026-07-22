@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="manifest" href="../manifest.webmanifest">
+<link rel="apple-touch-icon" href="../icons/apple-touch-icon.png">
+<meta name="theme-color" content="#161E2B">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<title>Week 11 — 2-D &amp; Numerical Conduction · MECH3695</title>
+<link rel="stylesheet" href="../assets/styles.css">
+<link rel="stylesheet" href="../assets/katex/katex.min.css">
+</head>
+<body>
+<div class="shell">
+  <main class="main">
+    <div class="page has-rail">
+      <div class="content">
+        <div class="crumb"><a href="../index.html">Study hub</a> / <a href="index.html">MECH3695</a> / Week 11</div>
+        <div class="eyebrow">Week 11 · Lecture notes</div>
+        <h1 class="title">2-D &amp; Numerical Conduction</h1>
+        <p class="lede">The course opened with the full heat diffusion equation and immediately reduced it to 1-D and steady. This week keeps the extra dimensions and time: solving the 2-D steady equation analytically and numerically, then the transient equation, and finally the zero-D lumped model — the tools behind CFD and thermal simulation.</p>
+
+        <h2 id="setup">When to use what</h2>
+        <p>Before modelling, classify the problem: 1-D / 2-D / 3-D (or axisymmetric); steady vs transient; analytical vs numerical. Analytical solutions are exact but exist only for simple geometries and boundary conditions; numerical methods handle anything but are approximate. The 2-D steady equation with no generation is the <a class="eqref" href="equations.html#eq-laplace">Laplace equation</a>:</p>
+        <div class="eqbox">$$\frac{\partial^2 T}{\partial x^2} + \frac{\partial^2 T}{\partial y^2} = 0$$</div>
+
+        <h2 id="analytical">Analytical: separation of variables</h2>
+        <p>Assuming <span>$T(x,y) = X(x)Y(y)$</span> splits the PDE into two ODEs joined by a separation constant. Applying the boundary conditions selects a sine series in one direction and sinh in the other, giving the classic infinite-series solution for a rectangular plate with one hot edge — exact, but slow to evaluate and limited to tidy geometries.</p>
+
+        <h2 id="numerical">Numerical: finite differences</h2>
+        <p>The <a class="gloss" href="glossary.html#g-fdm">finite-difference method</a> discretises the region into a nodal mesh and replaces derivatives with differences. For an interior node on a square grid with no generation, the temperature is simply the average of its four neighbours:</p>
+        <div class="eqbox">$$T_{m,n} = \frac{T_{m+1,n} + T_{m-1,n} + T_{m,n+1} + T_{m,n-1}}{4}$$</div>
+        <p>Boundary, insulated and convective nodes are derived by the <strong>energy-balance method</strong> — summing the heat flows into the node's control volume. The resulting system is solved iteratively (Jacobi or Gauss–Seidel): sweep the grid updating each node from its neighbours until the maximum change falls below a tolerance. A few dozen lines of MATLAB or Python (a <code>while error &gt; tol</code> loop over the interior nodes) reproduces the isotherms of the analytical solution.</p>
+
+        <h2 id="transient">Transient conduction</h2>
+        <p>Keeping the time term gives <span>$\nabla^2 T = \frac{1}{\alpha}\partial T/\partial t$</span>. Two discretisations exist. The <strong>explicit</strong> method marches each node forward from known values, but is only conditionally stable — the <a class="gloss" href="glossary.html#g-fourier-number">Fourier number</a> must obey <a class="eqref" href="equations.html#eq-stability">$Fo = \alpha\Delta t/\Delta x^2 \le \tfrac14$</a> in 2-D, or the solution oscillates and blows up. The <strong>implicit</strong> method is unconditionally stable but solves all nodes simultaneously each step.</p>
+
+        <h2 id="lumped">The lumped-capacitance limit</h2>
+        <p>When internal conduction easily outpaces surface convection (Biot number <span>$Bi = hL_c/k \ll 0.1$</span>), spatial gradients vanish and the body has a single, uniform temperature. An energy balance <span>$\rho V c_p\,dT/dt = -hA_s(T-T_\infty)$</span> gives an exponential relaxation:</p>
+        <div class="eqbox">$$T(t) = T_\infty + (T_i - T_\infty)\,e^{-t/\tau}, \qquad \tau = \frac{\rho V c_p}{hA_s}$$</div>
+        <p>This zero-D model — solved analytically, or numerically with <code>ode45</code>/<code>ode23</code> when radiation makes it non-linear — is the quick estimate for how fast a small, conductive object cools.</p>
+
+        <div class="note"><span class="k">Where this leads</span> These finite-difference and transient methods are the foundation of the CFD taught in MECH3780. Together with Weeks 1–10 they complete the toolkit: conduction, convection, radiation, and the numerical machinery to solve them when the geometry gets hard.</div>
+      </div>
+
+      <aside class="rail">
+        <h4>On this page</h4>
+        <ul>
+          <li><a href="#setup">When to use what</a></li>
+          <li><a href="#analytical">Separation of variables</a></li>
+          <li><a href="#numerical">Finite differences</a></li>
+          <li><a href="#transient">Transient conduction</a></li>
+          <li><a href="#lumped">Lumped capacitance</a></li>
+        </ul>
+        <h4>Related</h4>
+        <ul>
+          <li><span class="tag">eq</span><a href="equations.html#eq-laplace">Laplace equation</a></li>
+          <li><span class="tag">eq</span><a href="equations.html#eq-fdm-node">Nodal equation</a></li>
+          <li><span class="tag">eq</span><a href="equations.html#eq-stability">Stability limit</a></li>
+          <li><span class="tag">eq</span><a href="equations.html#eq-lumped">Lumped capacitance</a></li>
+          <li><span class="tag">def</span><a href="glossary.html#g-fourier-number">Fourier number</a></li>
+          <li><span class="tag">flag</span><a href="assessments.html#a-endquiz">End-semester quiz</a></li>
+        </ul>
+      </aside>
+    </div>
+  </main>
+</div>
+<script src="../assets/katex/katex.min.js"></script>
+<script src="../assets/katex/auto-render.min.js"></script>
+<script src="subject.js"></script>
+<script src="../assets/hub.js"></script>
+</body>
+</html>

@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="manifest" href="../manifest.webmanifest">
+<link rel="apple-touch-icon" href="../icons/apple-touch-icon.png">
+<meta name="theme-color" content="#161E2B">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<title>Week 3 — Extended Surfaces (Fins) · MECH3695</title>
+<link rel="stylesheet" href="../assets/styles.css">
+<link rel="stylesheet" href="../assets/katex/katex.min.css">
+</head>
+<body>
+<div class="shell">
+  <main class="main">
+    <div class="page has-rail">
+      <div class="content">
+        <div class="crumb"><a href="../index.html">Study hub</a> / <a href="index.html">MECH3695</a> / Week 3</div>
+        <div class="eyebrow">Week 3 · Lecture notes</div>
+        <h1 class="title">Extended Surfaces (Fins)</h1>
+        <p class="lede">To raise the convective heat rate <span>$q = hA_s(T_s-T_\infty)$</span> you can lift <span>$h$</span>, lift <span>$\Delta T$</span>, or — most practically — add area. A fin is extended material that increases the convecting area. This week derives its temperature distribution and heat rate, then the three measures of how well a fin actually performs.</p>
+
+        <h2 id="equation">The fin equation</h2>
+        <p>An energy balance on a differential slice — conduction in, conduction out, convection off the sides — gives, for a uniform cross-section, the <a class="eqref" href="equations.html#eq-fin-equation">fin equation</a> in the temperature excess <span>$\theta = T - T_\infty$</span>:</p>
+        <div class="eqbox">$$\frac{d^2\theta}{dx^2} - m^2\theta = 0, \qquad m = \sqrt{\frac{hP}{kA_c}}$$</div>
+        <p>This linear ODE has the general solution <span>$\theta = C_1 e^{mx} + C_2 e^{-mx}$</span> (hyperbolic functions). The <a class="eqref" href="equations.html#eq-fin-m">fin parameter</a> <span>$m$</span> sets how quickly the fin cools toward the fluid along its length.</p>
+
+        <h2 id="bcs">The four tip conditions</h2>
+        <p>The base condition is always <span>$\theta(0)=\theta_b$</span>; the second condition is the fin tip, giving four standard cases:</p>
+        <ul>
+          <li><strong>Case A — convecting tip:</strong> the physically complete case, with a <span>$(h/mk)$</span> tip term.</li>
+          <li><strong>Case B — adiabatic tip:</strong> negligible tip loss, <a class="eqref" href="equations.html#eq-fin-heat">$\theta/\theta_b = \cosh m(L-x)/\cosh mL$</a>. Tip convection is folded in later with a corrected length.</li>
+          <li><strong>Case C — prescribed tip temperature.</strong></li>
+          <li><strong>Case D — infinite fin:</strong> <span>$\theta/\theta_b = e^{-mx}$</span>, tip reaches the fluid temperature.</li>
+        </ul>
+        <p>The heat rate is found from Fourier's law at the base. For the adiabatic tip <a class="eqref" href="equations.html#eq-fin-heat">$q_f = M\tanh mL$</a> with <span>$M = \sqrt{hPkA_c}\,\theta_b$</span>; for the infinite fin <span>$q_f = M$</span>.</p>
+
+        <h2 id="performance">Three performance measures</h2>
+        <p><strong>Fin efficiency</strong> — actual heat vs. heat if the whole fin were at the base temperature:</p>
+        <div class="eqbox">$$\eta_f = \frac{q_f}{hA_f\theta_b} = \frac{\tanh(mL_c)}{mL_c}$$</div>
+        <p>The corrected length <span>$L_c = L + t/2$</span> (rectangular) or <span>$L + D/4$</span> (pin) accounts for tip convection while still using the tidy adiabatic formula, valid when <span>$(ht/k)\lesssim0.0625$</span>. <strong>Fin effectiveness</strong> compares the fin to the bare base it covers:</p>
+        <div class="eqbox">$$\varepsilon_f = \frac{q_f}{hA_{c,b}\theta_b}, \qquad \varepsilon_{f,\infty} = \sqrt{\frac{kP}{hA_c}}$$</div>
+        <p>A fin is only worth adding if <span>$\varepsilon_f \gtrsim 2$</span> — favoured by high <span>$k$</span>, thin closely-spaced fins (large <span>$P/A_c$</span>) and low <span>$h$</span>, which is why fins live on the gas side of heat exchangers. Finally, <strong>fin resistance</strong> <a class="eqref" href="equations.html#eq-fin-efficiency">$R_{t,f} = \theta_b/q_f = 1/(hA_f\eta_f)$</a> slots the fin straight into a resistance network.</p>
+
+        <div class="note"><span class="k">Worked example</span> A long aluminium rod fin behaves as Case D, <span>$q_f \sim \sqrt{k}D^{3/2}$</span>. Tripling the diameter raises the heat removal by <span>$3^{3/2}\approx5.2\times$</span>; swapping aluminium (<span>$k\approx240$</span>) for copper (<span>$k\approx400$</span>) raises it by <span>$\sqrt{400/240}\approx1.3\times$</span>.</p></div>
+
+        <h2 id="arrays">Fin arrays</h2>
+        <p>Real heat sinks use arrays of <span>$N$</span> fins on a base. The <a class="eqref" href="equations.html#eq-fin-array">overall surface efficiency</a> <span>$\eta_o = 1 - (NA_f/A_t)(1-\eta_f)$</span> combines the finned and exposed-base area into one factor, giving <span>$q_t = \eta_o hA_t\theta_b$</span> and a single array resistance. Straight triangular fins are often optimal — near-rectangular performance for much less material.</p>
+
+        <div class="note"><span class="k">Where this leads</span> Fins reappear in Week 7 as the dominant way to boost the gas-side <span>$U$</span> of a finned-tube heat exchanger, entering through the overall surface efficiency.</div>
+      </div>
+
+      <aside class="rail">
+        <h4>On this page</h4>
+        <ul>
+          <li><a href="#equation">The fin equation</a></li>
+          <li><a href="#bcs">Four tip conditions</a></li>
+          <li><a href="#performance">Performance measures</a></li>
+          <li><a href="#arrays">Fin arrays</a></li>
+        </ul>
+        <h4>Related</h4>
+        <ul>
+          <li><span class="tag">eq</span><a href="equations.html#eq-fin-equation">Fin equation</a></li>
+          <li><span class="tag">eq</span><a href="equations.html#eq-fin-heat">Fin heat rate</a></li>
+          <li><span class="tag">eq</span><a href="equations.html#eq-fin-efficiency">Fin efficiency</a></li>
+          <li><span class="tag">eq</span><a href="equations.html#eq-fin-effectiveness">Fin effectiveness</a></li>
+          <li><span class="tag">def</span><a href="glossary.html#g-fin">Fin</a></li>
+          <li><span class="tag">flag</span><a href="assessments.html#a-assign1">Assignment 1</a></li>
+        </ul>
+      </aside>
+    </div>
+  </main>
+</div>
+<script src="../assets/katex/katex.min.js"></script>
+<script src="../assets/katex/auto-render.min.js"></script>
+<script src="subject.js"></script>
+<script src="../assets/hub.js"></script>
+</body>
+</html>

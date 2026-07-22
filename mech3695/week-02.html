@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="manifest" href="../manifest.webmanifest">
+<link rel="apple-touch-icon" href="../icons/apple-touch-icon.png">
+<meta name="theme-color" content="#161E2B">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<title>Week 2 — 1-D Steady Conduction &amp; Thermal Resistance · MECH3695</title>
+<link rel="stylesheet" href="../assets/styles.css">
+<link rel="stylesheet" href="../assets/katex/katex.min.css">
+</head>
+<body>
+<div class="shell">
+  <main class="main">
+    <div class="page has-rail">
+      <div class="content">
+        <div class="crumb"><a href="../index.html">Study hub</a> / <a href="index.html">MECH3695</a> / Week 2</div>
+        <div class="eyebrow">Week 2 · Lecture notes</div>
+        <h1 class="title">1-D Steady Conduction &amp; Thermal Resistance</h1>
+        <p class="lede">The heat equation reduced to its simplest useful case: one-dimensional, steady, no generation. Solving it for plane and cylindrical walls gives temperature profiles and heat rates, and — crucially — the thermal-resistance analogy that turns conduction problems into electrical circuits.</p>
+
+        <h2 id="plane">The plane wall</h2>
+        <p>With <span>$\partial^2 T/\partial x^2 = 0$</span> the temperature profile is <a class="eqref" href="equations.html#eq-plane-temp">linear</a>, and the heat rate follows from Fourier's law:</p>
+        <div class="eqbox">$$T(x) = T_{s,1} + (T_{s,2}-T_{s,1})\frac{x}{L}, \qquad q_x = \frac{kA}{L}(T_{s,1}-T_{s,2})$$</div>
+
+        <h2 id="resistance">The thermal-resistance analogy</h2>
+        <p>Writing the heat rate as (driving difference)/(resistance) exposes a direct analogy with Ohm's law. Each mode has a <a class="gloss" href="glossary.html#g-thermal-resistance">thermal resistance</a>:</p>
+        <div class="eqbox">$$R_{t,cond} = \frac{L}{kA}, \qquad R_{t,conv} = \frac{1}{hA}, \qquad R_{t,rad} = \frac{1}{h_rA}$$</div>
+        <p>These combine in <strong>series</strong> (resistances add) and <strong>parallel</strong> exactly like electrical resistors, so a wall with fluid on each side is a chain conv → cond → conv. Convection and radiation at the same surface act in parallel, via the radiation coefficient <a class="eqref" href="equations.html#eq-r-rad">$h_r = \varepsilon\sigma(T_s+T_{sur})(T_s^2+T_{sur}^2)$</a>.</p>
+
+        <h2 id="composite">Composite walls &amp; the overall coefficient</h2>
+        <p>A multilayer wall collapses to a single <a class="gloss" href="glossary.html#g-overall-u">overall heat transfer coefficient</a> <span>$U$</span> defined by <a class="eqref" href="equations.html#eq-overall-U">$q = UA\,\Delta T$</a> with <span>$1/UA = \sum R_t$</span>. Always state the area <span>$U$</span> is based on.</p>
+        <div class="note"><span class="k">Worked example</span> A car rear-window defogger: warm air at 40 °C inside (<span>$h_i = 30$</span>), −10 °C outside (<span>$h_o = 65$</span>), 4-mm glass. Summing the series resistances (<span>$1/h_i + L/k + 1/h_o$</span>) gives <span>$q'' \approx 969\ \text{W/m}^2$</span>, and the inner/outer glass surfaces come out at about 4.9 °C and 7.7 °C.</p></div>
+
+        <h2 id="cylinder">The cylindrical wall</h2>
+        <p>Radial conduction through a pipe wall gives a <a class="eqref" href="equations.html#eq-cyl-temp">logarithmic</a> profile (area grows with radius), and:</p>
+        <div class="eqbox">$$q_r = \frac{2\pi Lk\,(T_{s,1}-T_{s,2})}{\ln(r_2/r_1)}, \qquad R_{t,cond} = \frac{\ln(r_2/r_1)}{2\pi Lk}$$</div>
+        <p>A worked steam-pipe example (calcium-silicate insulation, 20 mm thick, surfaces at 800 K and 490 K on a 0.12-m pipe) gives a heat loss of about 2377 W/m of pipe.</p>
+
+        <h2 id="contact">Contact resistance &amp; generation</h2>
+        <p>Real joints are rough — only asperities touch — so a temperature jump appears across an interface, captured by the per-area <a class="gloss" href="glossary.html#g-contact-resistance">contact resistance</a> <a class="eqref" href="equations.html#eq-contact">$R''_{t,c}$</a>, added in series. When a wall generates heat internally (resistive heating, nuclear fuel), the profile becomes parabolic and the <a class="eqref" href="equations.html#eq-generation">maximum temperature</a> sits where the flux is zero — the mid-plane of a symmetric wall or the centreline of a rod.</p>
+
+        <div class="note"><span class="k">Where this leads</span> The resistance network extends directly to fins (Week 3) and heat exchangers (Week 7), where the convection resistance <span>$1/hA$</span> is exactly the term the rest of the course works to reduce.</div>
+      </div>
+
+      <aside class="rail">
+        <h4>On this page</h4>
+        <ul>
+          <li><a href="#plane">The plane wall</a></li>
+          <li><a href="#resistance">Resistance analogy</a></li>
+          <li><a href="#composite">Composite walls &amp; U</a></li>
+          <li><a href="#cylinder">Cylindrical wall</a></li>
+          <li><a href="#contact">Contact &amp; generation</a></li>
+        </ul>
+        <h4>Related</h4>
+        <ul>
+          <li><span class="tag">eq</span><a href="equations.html#eq-r-cond">Conduction resistance</a></li>
+          <li><span class="tag">eq</span><a href="equations.html#eq-overall-U">Overall coefficient U</a></li>
+          <li><span class="tag">eq</span><a href="equations.html#eq-cyl-rate">Cylindrical heat rate</a></li>
+          <li><span class="tag">eq</span><a href="equations.html#eq-contact">Contact resistance</a></li>
+          <li><span class="tag">def</span><a href="glossary.html#g-thermal-resistance">Thermal resistance</a></li>
+          <li><span class="tag">flag</span><a href="assessments.html#a-assign1">Assignment 1</a></li>
+        </ul>
+      </aside>
+    </div>
+  </main>
+</div>
+<script src="../assets/katex/katex.min.js"></script>
+<script src="../assets/katex/auto-render.min.js"></script>
+<script src="subject.js"></script>
+<script src="../assets/hub.js"></script>
+</body>
+</html>

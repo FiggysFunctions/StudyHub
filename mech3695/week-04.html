@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="manifest" href="../manifest.webmanifest">
+<link rel="apple-touch-icon" href="../icons/apple-touch-icon.png">
+<meta name="theme-color" content="#161E2B">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<title>Week 4 — Introduction to Convection · MECH3695</title>
+<link rel="stylesheet" href="../assets/styles.css">
+<link rel="stylesheet" href="../assets/katex/katex.min.css">
+</head>
+<body>
+<div class="shell">
+  <main class="main">
+    <div class="page has-rail">
+      <div class="content">
+        <div class="crumb"><a href="../index.html">Study hub</a> / <a href="index.html">MECH3695</a> / Week 4</div>
+        <div class="eyebrow">Week 4 · Lecture notes</div>
+        <h1 class="title">Introduction to Convection</h1>
+        <p class="lede">So far <span>$h$</span> was simply given. Now we open it up. Convection is governed by the boundary layer that forms on a surface, and the whole subject is organised by three dimensionless groups — Reynolds, Prandtl and Nusselt — that fall out of non-dimensionalising the boundary-layer equations.</p>
+
+        <h2 id="bl">The boundary layers</h2>
+        <p>A <a class="gloss" href="glossary.html#g-boundary-layer">boundary layer</a> is the thin region next to a surface where the fluid adjusts from the wall condition to the free stream. The <strong>velocity</strong> boundary layer (thickness <span>$\delta$</span>) is where <span>$u$</span> rises to 99% of <span>$u_\infty$</span>; the <strong>thermal</strong> boundary layer (<span>$\delta_t$</span>) is where temperature adjusts. At the wall the fluid is stationary (no-slip), so heat crosses that first film purely by conduction:</p>
+        <div class="eqbox">$$h = \frac{-k_f\,\partial T/\partial y\big|_{y=0}}{T_s - T_\infty}$$</div>
+        <p>This is the key insight: <span>$h$</span> is set by the temperature gradient in the fluid at the wall. As the layer thickens downstream the gradient — and hence the local <span>$h$</span> — decreases.</p>
+
+        <h2 id="localavg">Local vs average coefficients</h2>
+        <p>Because <span>$h$</span> varies along a surface, we distinguish the local <span>$h(x)$</span> from the surface <a class="eqref" href="equations.html#eq-avg-h">average</a> <span>$\bar h = \frac{1}{L}\int_0^L h\,dx$</span>. The average sets the total heat rate <span>$q = \bar h A(T_s - T_\infty)$</span>; the local value gives the flux at a point.</p>
+
+        <h2 id="groups">The dimensionless groups</h2>
+        <p>Non-dimensionalising the continuity, momentum and energy equations for the boundary layer produces three groups that every correlation is written in:</p>
+        <div class="eqbox">$$Re_L = \frac{u_\infty L}{\nu}, \qquad Pr = \frac{\nu}{\alpha}, \qquad Nu = \frac{hL}{k}$$</div>
+        <p>The <a class="gloss" href="glossary.html#g-reynolds">Reynolds number</a> (inertia/viscosity) decides laminar vs turbulent flow. The <a class="gloss" href="glossary.html#g-prandtl">Prandtl number</a> is a fluid property comparing momentum and thermal diffusion — it sets the relative thickness of the two boundary layers. The <a class="gloss" href="glossary.html#g-nusselt">Nusselt number</a> is the dimensionless <span>$h$</span>. Convection theory reduces to one statement:</p>
+        <div class="eqbox">$$Nu = f(Re, Pr)$$</div>
+        <p>Every correlation in Weeks 5–6 is a specific form of this function, from which <span>$h = Nu\,k/L$</span> is recovered. Momentum and heat transfer are analogous, so the friction coefficient <a class="eqref" href="equations.html#eq-friction">$C_f$</a> and <span>$Nu$</span> are closely related.</p>
+
+        <div class="note"><span class="k">Two routes to Nu</span> Theoretical — solve the boundary-layer equations (possible only for simple geometries). Empirical — correlate experiments as <span>$Nu = C\,Re^m Pr^n$</span>. Engineering practice, and this course, use the empirical route, evaluating fluid properties at the film temperature.</div>
+
+        <div class="note"><span class="k">Where this leads</span> Week 5 applies this to external flows (flat plate, cylinder, sphere); Week 6 to internal pipe flow, where the "free stream" is replaced by a mean temperature that changes along the duct.</div>
+      </div>
+
+      <aside class="rail">
+        <h4>On this page</h4>
+        <ul>
+          <li><a href="#bl">The boundary layers</a></li>
+          <li><a href="#localavg">Local vs average</a></li>
+          <li><a href="#groups">Dimensionless groups</a></li>
+        </ul>
+        <h4>Related</h4>
+        <ul>
+          <li><span class="tag">eq</span><a href="equations.html#eq-reynolds">Reynolds number</a></li>
+          <li><span class="tag">eq</span><a href="equations.html#eq-prandtl">Prandtl number</a></li>
+          <li><span class="tag">eq</span><a href="equations.html#eq-nusselt">Nusselt number</a></li>
+          <li><span class="tag">def</span><a href="glossary.html#g-boundary-layer">Boundary layer</a></li>
+          <li><span class="tag">flag</span><a href="assessments.html#a-assign2">Assignment 2</a></li>
+        </ul>
+      </aside>
+    </div>
+  </main>
+</div>
+<script src="../assets/katex/katex.min.js"></script>
+<script src="../assets/katex/auto-render.min.js"></script>
+<script src="subject.js"></script>
+<script src="../assets/hub.js"></script>
+</body>
+</html>

@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="manifest" href="../manifest.webmanifest">
+<link rel="apple-touch-icon" href="../icons/apple-touch-icon.png">
+<meta name="theme-color" content="#161E2B">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<title>Week 6 — Internal Convection · MECH3695</title>
+<link rel="stylesheet" href="../assets/styles.css">
+<link rel="stylesheet" href="../assets/katex/katex.min.css">
+</head>
+<body>
+<div class="shell">
+  <main class="main">
+    <div class="page has-rail">
+      <div class="content">
+        <div class="crumb"><a href="../index.html">Study hub</a> / <a href="index.html">MECH3695</a> / Week 6</div>
+        <div class="eyebrow">Week 6 · Lecture notes</div>
+        <h1 class="title">Internal Convection</h1>
+        <p class="lede">Flow inside pipes and ducts — the heat transfer that happens in every heat exchanger. The new feature versus external flow is that the fluid is confined: there is no fixed free stream, so we track a mean temperature that changes along the tube, and the flow develops toward a fully developed state.</p>
+
+        <h2 id="develop">Developing &amp; fully developed flow</h2>
+        <p>Entering a tube, both the velocity and temperature profiles <em>develop</em> over an <a class="gloss" href="glossary.html#g-entrance-length">entrance length</a> before settling into a fixed shape. For laminar flow <span>$x_{fd,h}/D \approx 0.05\,Re_D$</span>, with the thermal length longer by a factor <span>$Pr$</span>. Transition is at <a class="eqref" href="equations.html#eq-reynolds-d">$Re_D \approx 2300$</a>, using the mean velocity <span>$u_m = \dot m/\rho A_c$</span>. Non-circular ducts reuse circular correlations via the <a class="eqref" href="equations.html#eq-hydraulic-d">hydraulic diameter</a> <span>$D_h = 4A_c/P$</span>.</p>
+
+        <h2 id="mean">The mean temperature &amp; energy balance</h2>
+        <p>Internal convection is referenced to the flow-weighted <a class="gloss" href="glossary.html#g-mean-temperature">mean temperature</a> <span>$T_m$</span>, so <span>$q'' = h(T_s - T_m)$</span> — but unlike <span>$T_\infty$</span>, <span>$T_m$</span> rises along the tube as heat is added. An energy balance on a slice, <span>$q'' P\,dx = \dot m c_p\,dT_m$</span>, gives the axial temperature for the two canonical wall conditions.</p>
+
+        <h2 id="flux">Constant heat flux</h2>
+        <p>With a uniform wall flux (e.g. electrical heating), <span>$T_m$</span> rises <a class="eqref" href="equations.html#eq-int-flux">linearly</a> and, once fully developed, <span>$T_s$</span> runs parallel to it:</p>
+        <div class="eqbox">$$T_m(x) = T_{m,i} + \frac{q''_s P}{\dot m c_p}\,x$$</div>
+
+        <h2 id="ts">Constant surface temperature</h2>
+        <p>With a fixed wall temperature the difference decays <a class="eqref" href="equations.html#eq-int-ts">exponentially</a>:</p>
+        <div class="eqbox">$$\frac{T_s - T_m(x)}{T_s - T_{m,i}} = \exp\!\left(-\frac{P\bar h}{\dot m c_p}x\right)$$</div>
+        <p>Integrating over the tube gives the heat rate in terms of the <a class="gloss" href="glossary.html#g-lmtd">log-mean temperature difference</a> <span>$q = \bar h A_s\,\Delta T_{lm}$</span> — the same LMTD that governs heat exchangers next week. When the outside sees a fixed external fluid, the group <span>$P\bar h$</span> is replaced by <span>$1/R_{tot}$</span> using the overall <span>$U$</span>.</p>
+
+        <h2 id="correlations">Nusselt correlations</h2>
+        <p>For fully developed <strong>laminar</strong> flow the Nusselt number is a <a class="eqref" href="equations.html#eq-laminar-nu">constant</a> — <span>$Nu_D = 4.36$</span> (constant flux) or <span>$3.66$</span> (constant <span>$T_s$</span>) — independent of flow rate. For <strong>turbulent</strong> flow the workhorse is <a class="eqref" href="equations.html#eq-dittus-boelter">Dittus–Boelter</a>:</p>
+        <div class="eqbox">$$Nu_D = 0.023\,Re_D^{4/5}Pr^{n}, \qquad n = 0.4\ (\text{heating}),\ 0.3\ (\text{cooling})$$</div>
+        <p>Heat transfer is enhanced by raising <span>$h$</span> (roughened walls, twisted-tape inserts, coiling) or the area <span>$A_s$</span> (fins).</p>
+
+        <div class="note"><span class="k">Where this leads</span> Everything here — <span>$U$</span>, the LMTD, and internal <span>$h$</span> from Dittus–Boelter — is exactly what sizes a heat exchanger in Week 7.</div>
+      </div>
+
+      <aside class="rail">
+        <h4>On this page</h4>
+        <ul>
+          <li><a href="#develop">Developing flow</a></li>
+          <li><a href="#mean">Mean temperature</a></li>
+          <li><a href="#flux">Constant heat flux</a></li>
+          <li><a href="#ts">Constant surface temp</a></li>
+          <li><a href="#correlations">Nusselt correlations</a></li>
+        </ul>
+        <h4>Related</h4>
+        <ul>
+          <li><span class="tag">eq</span><a href="equations.html#eq-int-ts">Constant-Ts decay</a></li>
+          <li><span class="tag">eq</span><a href="equations.html#eq-dittus-boelter">Dittus–Boelter</a></li>
+          <li><span class="tag">eq</span><a href="equations.html#eq-hydraulic-d">Hydraulic diameter</a></li>
+          <li><span class="tag">def</span><a href="glossary.html#g-mean-temperature">Mean temperature</a></li>
+          <li><span class="tag">def</span><a href="glossary.html#g-lmtd">LMTD</a></li>
+          <li><span class="tag">flag</span><a href="assessments.html#a-assign2">Assignment 2</a></li>
+        </ul>
+      </aside>
+    </div>
+  </main>
+</div>
+<script src="../assets/katex/katex.min.js"></script>
+<script src="../assets/katex/auto-render.min.js"></script>
+<script src="subject.js"></script>
+<script src="../assets/hub.js"></script>
+</body>
+</html>

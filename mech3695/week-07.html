@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="manifest" href="../manifest.webmanifest">
+<link rel="apple-touch-icon" href="../icons/apple-touch-icon.png">
+<meta name="theme-color" content="#161E2B">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<title>Week 7 — Heat Exchangers · MECH3695</title>
+<link rel="stylesheet" href="../assets/styles.css">
+<link rel="stylesheet" href="../assets/katex/katex.min.css">
+</head>
+<body>
+<div class="shell">
+  <main class="main">
+    <div class="page has-rail">
+      <div class="content">
+        <div class="crumb"><a href="../index.html">Study hub</a> / <a href="index.html">MECH3695</a> / Week 7</div>
+        <div class="eyebrow">Week 7 · Lecture notes</div>
+        <h1 class="title">Heat Exchangers</h1>
+        <p class="lede">The capstone application of the conduction and convection weeks. A heat exchanger transfers heat between two fluids separated by a wall. This week covers the configurations, the overall coefficient with fouling, and the two analysis methods — LMTD for sizing, and effectiveness–NTU for rating.</p>
+
+        <h2 id="types">Configurations</h2>
+        <p>The main families are <strong>concentric-tube</strong> (parallel-flow or counterflow), <strong>cross-flow</strong> (with each fluid mixed or unmixed), <strong>shell-and-tube</strong> (with multiple shell and tube passes), and <strong>compact</strong> cores for high area density. Counterflow is thermodynamically the best arrangement — it maintains the most uniform driving difference and can push the cold outlet above the hot outlet.</p>
+
+        <h2 id="U">Overall coefficient &amp; fouling</h2>
+        <p>The wall between the fluids is a resistance network: inner convection, wall conduction, outer convection, plus <a class="eqref" href="equations.html#eq-overall-U">$1/UA = \sum R_t$</a>. Over time deposits add a <strong>fouling</strong> resistance <span>$R''_f$</span>, and fins add through the overall surface efficiency <span>$\eta_o$</span>:</p>
+        <div class="eqbox">$$\frac{1}{UA} = \frac{1}{(\eta_o hA)_c} + \frac{R''_{f,c}}{(\eta_o A)_c} + R_w + \frac{R''_{f,h}}{(\eta_o A)_h} + \frac{1}{(\eta_o hA)_h}$$</div>
+        <p>Note <span>$UA$</span> is symmetric (<span>$U_cA_c = U_hA_h$</span>), but <span>$U$</span> alone must be tied to a stated area.</p>
+
+        <h2 id="lmtd">The LMTD method (sizing)</h2>
+        <p>An energy balance gives the heat rate from the <a class="gloss" href="glossary.html#g-capacity-rate">capacity rates</a> <a class="eqref" href="equations.html#eq-hx-q">$q = C_h\Delta T_h = C_c\Delta T_c$</a>, and the transfer relation uses the <a class="gloss" href="glossary.html#g-lmtd">log-mean temperature difference</a>:</p>
+        <div class="eqbox">$$q = UA\,\Delta T_{lm}, \qquad \Delta T_{lm} = \frac{\Delta T_2 - \Delta T_1}{\ln(\Delta T_2/\Delta T_1)}$$</div>
+        <p>The end differences <span>$\Delta T_1,\Delta T_2$</span> are defined by the arrangement. For multipass and cross-flow units the counterflow LMTD is scaled by a chart <a class="eqref" href="equations.html#eq-hx-f">correction factor</a> <span>$F < 1$</span>. This method is ideal for <strong>design</strong>: known duty and temperatures → find the required area <span>$A$</span>.</p>
+
+        <h2 id="ntu">The effectiveness–NTU method (rating)</h2>
+        <p>When the exchanger size is known but the outlet temperatures are not, the LMTD method needs iteration. The ε–NTU method avoids it. Define the <a class="gloss" href="glossary.html#g-effectiveness">effectiveness</a> and the number of transfer units:</p>
+        <div class="eqbox">$$\varepsilon = \frac{q}{q_{max}}, \quad q_{max} = C_{min}(T_{h,i}-T_{c,i}), \qquad NTU = \frac{UA}{C_{min}}, \quad C_r = \frac{C_{min}}{C_{max}}$$</div>
+        <p>For each configuration <span>$\varepsilon = f(NTU, C_r)$</span> is given as a relation or chart, so the heat rate and outlets follow directly — ideal for <strong>rating</strong> an existing unit.</p>
+
+        <div class="note"><span class="k">Which method?</span> LMTD → you know the temperatures and want the size. ε–NTU → you know the size and want the performance. Both use the same <span>$UA$</span>.</div>
+
+        <div class="note"><span class="k">Where this leads</span> Week 7 closes the conduction–convection half of the course (examined in the Week 8 mid-semester quiz). Weeks 9–11 turn to radiation and to numerical solution of the heat equation.</div>
+      </div>
+
+      <aside class="rail">
+        <h4>On this page</h4>
+        <ul>
+          <li><a href="#types">Configurations</a></li>
+          <li><a href="#U">Overall U &amp; fouling</a></li>
+          <li><a href="#lmtd">LMTD method</a></li>
+          <li><a href="#ntu">ε–NTU method</a></li>
+        </ul>
+        <h4>Related</h4>
+        <ul>
+          <li><span class="tag">eq</span><a href="equations.html#eq-lmtd">LMTD</a></li>
+          <li><span class="tag">eq</span><a href="equations.html#eq-effectiveness">Effectiveness</a></li>
+          <li><span class="tag">eq</span><a href="equations.html#eq-ntu">NTU</a></li>
+          <li><span class="tag">def</span><a href="glossary.html#g-capacity-rate">Capacity rate</a></li>
+          <li><span class="tag">flag</span><a href="assessments.html#a-midquiz">Mid-semester quiz</a></li>
+        </ul>
+      </aside>
+    </div>
+  </main>
+</div>
+<script src="../assets/katex/katex.min.js"></script>
+<script src="../assets/katex/auto-render.min.js"></script>
+<script src="subject.js"></script>
+<script src="../assets/hub.js"></script>
+</body>
+</html>

@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="manifest" href="../manifest.webmanifest">
+<link rel="apple-touch-icon" href="../icons/apple-touch-icon.png">
+<meta name="theme-color" content="#161E2B">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<title>Week 5 — External Convection · MECH3695</title>
+<link rel="stylesheet" href="../assets/styles.css">
+<link rel="stylesheet" href="../assets/katex/katex.min.css">
+</head>
+<body>
+<div class="shell">
+  <main class="main">
+    <div class="page has-rail">
+      <div class="content">
+        <div class="crumb"><a href="../index.html">Study hub</a> / <a href="index.html">MECH3695</a> / Week 5</div>
+        <div class="eyebrow">Week 5 · Lecture notes</div>
+        <h1 class="title">External Convection</h1>
+        <p class="lede">Flow over the outside of bodies — plates, cylinders, spheres, tube banks. Each geometry has its own empirical <span>$Nu = C\,Re^m Pr^n$</span> correlation. This week is about picking the right one, evaluating properties correctly, and turning the resulting Nusselt number into a heat rate.</p>
+
+        <h2 id="method">The five-step methodology</h2>
+        <ol>
+          <li>Identify the <strong>geometry</strong> (plate / cylinder / sphere / tube bank).</li>
+          <li>Evaluate fluid properties at the <a class="gloss" href="glossary.html#g-film-temperature">film temperature</a> <span>$T_f = (T_s+T_\infty)/2$</span>.</li>
+          <li>Compute <span>$Re$</span> and check laminar vs turbulent.</li>
+          <li>Decide whether a <strong>local</strong> or <strong>average</strong> coefficient is needed.</li>
+          <li>Select the correlation, get <span>$Nu$</span>, recover <span>$h = Nu\,k/L$</span>.</li>
+        </ol>
+
+        <h2 id="plate">Flat plate in parallel flow</h2>
+        <p>Transition occurs at the critical <span>$Re_{x,c} = 5\times10^5$</span>. For an isothermal plate:</p>
+        <div class="eqbox">$$\overline{Nu}_L = 0.664\,Re_L^{1/2}Pr^{1/3}\ \text{(laminar)}, \qquad Nu_x = 0.0296\,Re_x^{4/5}Pr^{1/3}\ \text{(turbulent)}$$</div>
+        <p>When the plate is long enough to carry both regimes, the <a class="eqref" href="equations.html#eq-flatplate-mixed">mixed</a> average is <span>$\overline{Nu}_L = (0.037\,Re_L^{4/5} - 871)Pr^{1/3}$</span>. A constant-flux (isoflux) plate uses 0.453 and 0.0308 in place of the isothermal constants.</p>
+        <div class="note"><span class="k">Worked example</span> AISI 1010 steel plates (1 m, initially 300 °C) cooled by 20 °C air at 10 m/s: at <span>$Re_L\approx3.3\times10^5$</span> the flow is laminar, <span>$\overline{Nu}_L = 0.664\,Re_L^{1/2}Pr^{1/3}$</span> gives <span>$\bar h$</span>, and the plate loses heat at a rate that sets its cooling rate <span>$dT/dt$</span> via a lumped energy balance.</p></div>
+
+        <h2 id="cylinder">Cylinders and spheres</h2>
+        <p>For a cylinder in cross-flow the single-correlation <a class="eqref" href="equations.html#eq-cylinder">Churchill–Bernstein</a> equation spans a wide range; the Zukauskas and Hilpert forms are alternatives (correlations can disagree by ~20%). For a sphere the <a class="eqref" href="equations.html#eq-sphere">Whitaker</a> correlation is used, with the neat limit <span>$Nu_D \to 2$</span> for a motionless fluid (pure conduction into an infinite medium):</p>
+        <div class="eqbox">$$\overline{Nu}_D = 2 + \big(0.4\,Re_D^{1/2}+0.06\,Re_D^{2/3}\big)Pr^{0.4}\left(\frac{\mu}{\mu_s}\right)^{1/4}$$</div>
+        <p>Falling liquid drops use the simpler Ranz–Marshall form.</p>
+
+        <h2 id="banks">Banks of tubes</h2>
+        <p>For flow across a tube bank (a heat-exchanger core), the Zukauskas correlation <span>$\overline{Nu}_D = C_2\,C_1\,Re_{D,max}^m Pr^{0.36}(Pr/Pr_s)^{1/4}$</span> uses the maximum Reynolds number (at the minimum flow area between tubes), a row-count factor <span>$C_2$</span>, and constants that depend on the aligned/staggered arrangement. The stream temperature changes through the bank, so the log-mean difference is used for the heat rate.</p>
+
+        <div class="note"><span class="k">Where this leads</span> The tube-bank result feeds directly into the shell-side of a heat exchanger (Week 7). Next week turns the flow inward — convection <em>inside</em> ducts.</div>
+      </div>
+
+      <aside class="rail">
+        <h4>On this page</h4>
+        <ul>
+          <li><a href="#method">Five-step method</a></li>
+          <li><a href="#plate">Flat plate</a></li>
+          <li><a href="#cylinder">Cylinders &amp; spheres</a></li>
+          <li><a href="#banks">Tube banks</a></li>
+        </ul>
+        <h4>Related</h4>
+        <ul>
+          <li><span class="tag">eq</span><a href="equations.html#eq-flatplate-lam">Flat plate laminar</a></li>
+          <li><span class="tag">eq</span><a href="equations.html#eq-cylinder">Churchill–Bernstein</a></li>
+          <li><span class="tag">eq</span><a href="equations.html#eq-sphere">Sphere (Whitaker)</a></li>
+          <li><span class="tag">def</span><a href="glossary.html#g-film-temperature">Film temperature</a></li>
+          <li><span class="tag">flag</span><a href="assessments.html#a-assign2">Assignment 2</a></li>
+        </ul>
+      </aside>
+    </div>
+  </main>
+</div>
+<script src="../assets/katex/katex.min.js"></script>
+<script src="../assets/katex/auto-render.min.js"></script>
+<script src="subject.js"></script>
+<script src="../assets/hub.js"></script>
+</body>
+</html>
