@@ -33,6 +33,8 @@
           <li><a href="#assessment">Adding / adjusting assessments</a></li>
           <li><a href="#dates">Setting the date anchor</a></li>
           <li><a href="#subject">Adding a whole new subject</a></li>
+          <li><a href="#archive">Archiving a completed subject</a></li>
+          <li><a href="#crosslink">Linking between subjects</a></li>
           <li><a href="#phone">Using it on your phone (install as an app)</a></li>
         </ol>
       </div>
@@ -138,7 +140,20 @@ $$\tau = \frac{T\rho}{J}$$  <span class="c">a centred block on its own line</spa
 };</code></pre>
       <p>That is the whole system. Because everything is plain files, you can always open a page's source to see exactly how it was done and copy the pattern.</p>
 
-      <h2 id="phone">10 · Using it on your phone (install as an app)</h2>
+      <h2 id="archive">10 · Archiving a completed subject</h2>
+      <p>The hub home page has an <strong>Archived subjects</strong> section below your active subjects. Every subject card — active or archived — has an <strong>Archive</strong> / <strong>Restore</strong> button in its top-right corner; clicking it moves the subject between the two sections instantly. This choice is saved by your browser (like the assessment dates), so it doesn't touch any files and doesn't need re-doing unless you clear site data.</p>
+      <p>To set which shelf a <em>new</em> subject starts on by default, add <code>archived: true</code> to its entry in the top-level <code>index.html</code>:</p>
+      <pre><code>{ code:"MECH3695", title:"Heat Transfer", … , path:"mech3695/index.html",
+  archived: true   <span class="c">// starts in the Archived section; still overridable per-browser</span>
+}</code></pre>
+      <p>Archiving is purely about which section a subject is listed in — the subject's pages, search index, and cross-links keep working exactly the same either way.</p>
+
+      <h2 id="crosslink">11 · Linking between subjects</h2>
+      <p>The <code>gloss</code> / <code>eqref</code> hover-preview links from step&nbsp;4 only work <em>within</em> a subject (they look up the id in that subject's own <code>subject.js</code>). To reference something in a <em>different</em> subject — say, pointing from Thermodynamics to a Heat Transfer equation, archived or not — use a plain link with a relative path up and back down into the other subject's folder:</p>
+      <pre><code>&lt;a href="../mech3695/equations.html#eq-conduction"&gt;conduction (MECH3695)&lt;/a&gt;</code></pre>
+      <p>It jumps straight to that item on the other subject's page; it just won't show the little hover preview, since that only knows about the current subject's data.</p>
+
+      <h2 id="phone">12 · Using it on your phone (install as an app)</h2>
       <p>The hub is a <em>progressive web app</em>: once it's reachable over the web, you can install it to your phone's home screen and it works fully offline — its service worker (<code>sw.js</code>) downloads the entire site to the phone on first visit.</p>
       <p><strong>Step 1 — put the folder online.</strong> Any static host works; GitHub Pages is free and simple:</p>
       <ol>

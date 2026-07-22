@@ -28,6 +28,14 @@
 
   <div id="subjGrid" class="subj-grid"></div>
 
+  <section class="archive-section">
+    <div class="archive-head">
+      <h2>Archived subjects</h2>
+      <p>Subjects you've already completed. Use <strong>Archive</strong> on a card above to move it here, or <strong>Restore</strong> to bring it back — this is saved in your browser, not the files. Archived subjects still work fully: equations and glossary terms in other subjects can keep linking into them.</p>
+    </div>
+    <div id="archiveGrid" class="subj-grid archive-grid"></div>
+  </section>
+
   <p class="hub-foot">Everything here runs from local files — no internet needed. To learn how to add weeks, equations, glossary terms or whole new subjects, open the <a href="README.html">editing guide</a>.</p>
 
 <script>
@@ -72,6 +80,18 @@ window.HUB = {
       term: "Semester 2, 2026",
       tally: "0 weeks · 0 equations",
       path: "mech3780/index.html"
+    },
+    {
+      /* archived:true is just the DEFAULT — the hub also lets you toggle
+         a subject's archived state per-browser (Archive/Restore buttons),
+         which is saved in localStorage and overrides this flag. */
+      code: "MECH3695",
+      title: "Heat Transfer",
+      blurb: "Conduction, convection and radiation, and their application to engineering systems.",
+      term: "Completed",
+      tally: "0 weeks · 0 equations",
+      path: "mech3695/index.html",
+      archived: true
     }
     // ,{ code:"NEXT1010", title:"…", blurb:"…", term:"…", tally:"…", path:"next1010/index.html" }
   ]

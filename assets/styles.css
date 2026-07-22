@@ -188,6 +188,22 @@ a.eqref:hover{text-decoration:none;background:#DEEAF6}
   text-align:center;color:var(--ink-faint);min-height:150px}
 .subj-card.add:hover{transform:none;border-color:var(--blueprint-soft);color:var(--blueprint)}
 
+/* ---------- Archived subjects ---------- */
+.archive-section{max-width:var(--maxpage);margin:0 auto;padding:0 56px}
+.archive-head{border-top:1px solid var(--line);padding-top:26px;margin-top:6px}
+.archive-head h2{font-size:22px;font-weight:600;margin:0 0 8px}
+.archive-head p{color:var(--ink-soft);font-size:14.5px;max-width:62ch;margin:0}
+.archive-grid{padding:18px 0 90px;margin:0}
+.subj-card-wrap{position:relative}
+.subj-card.archived{background:var(--surface-2);opacity:.86}
+.archive-btn{position:absolute;top:16px;right:16px;z-index:2;font-family:var(--font-mono);font-size:10px;
+  letter-spacing:.8px;text-transform:uppercase;padding:5px 10px;border-radius:20px;
+  border:1px solid var(--line-strong);background:var(--surface);color:var(--ink-faint);cursor:pointer;
+  box-shadow:var(--shadow)}
+.archive-btn:hover{border-color:var(--signal-soft);color:var(--signal)}
+.subj-card-wrap:has(.subj-card.archived) .archive-btn:hover{border-color:var(--ok);color:var(--ok)}
+@media(max-width:860px){.archive-section{padding-left:22px;padding-right:22px}}
+
 /* ---------- Dashboard widgets ---------- */
 .dash-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:16px;margin:8px 0 32px}
 .stat{background:var(--surface);border:1px solid var(--line);border-radius:var(--rad);padding:16px 18px;box-shadow:var(--shadow)}

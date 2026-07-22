@@ -479,15 +479,51 @@ function initDashboard(){
 
 /* =========================================================
    10. HUB HOME (list of subjects) — uses window.HUB
+   Each subject's `archived` field is only the DEFAULT shelf it
+   starts on. The actual state is a per-browser override in
+   localStorage, toggled by the Archive/Restore button on its
+   card — that's what lets subjects move in and out at will
+   without editing any files.
    ========================================================= */
+function hubArchiveOverrides(){
+ try{return JSON.parse(localStorage.getItem("STUDYHUB_archive")||"{}");}catch(e){return {};}
+}
+function isArchived(s){
+ var o=hubArchiveOverrides();
+ return Object.prototype.hasOwnProperty.call(o,s.code)?!!o[s.code]:!!s.archived;
+}
+function setArchived(code,val){
+ var o=hubArchiveOverrides();o[code]=val;
+ try{localStorage.setItem("STUDYHUB_archive",JSON.stringify(o));}catch(e){}
+}
+function subjCard(s,archived){
+ return '<div class="subj-card-wrap">'
+   +'<a class="subj-card'+(archived?" archived":"")+'" href="'+s.path+'"><span class="code">'+esc(s.code)+'</span>'
+   +'<h3>'+esc(s.title)+'</h3><p>'+esc(s.blurb)+'</p>'
+   +'<div class="meta"><span>'+esc(s.term)+'</span><span>'+esc(s.tally||"")+'</span></div></a>'
+   +'<button type="button" class="archive-btn" data-code="'+esc(s.code)+'" data-to="'+(archived?"0":"1")+'">'+(archived?"Restore":"Archive")+'</button>'
+   +'</div>';
+}
 function initHub(){
- var host=$("#subjGrid"); if(!host||!window.HUB)return;
- host.innerHTML=window.HUB.subjects.map(function(s){
-   return '<a class="subj-card" href="'+s.path+'"><span class="code">'+esc(s.code)+'</span>'
-     +'<h3>'+esc(s.title)+'</h3><p>'+esc(s.blurb)+'</p>'
-     +'<div class="meta"><span>'+esc(s.term)+'</span><span>'+esc(s.tally||"")+'</span></div></a>';
- }).join("")
- +'<a class="subj-card add" href="README.html"><div><div style="font-size:26px">＋</div>Add a subject<br><span style="font-size:12px">See the editing guide</span></div></a>';
+ var host=$("#subjGrid"),archHost=$("#archiveGrid"); if(!host||!window.HUB)return;
+ function render(){
+   var active=[],archived=[];
+   window.HUB.subjects.forEach(function(s){(isArchived(s)?archived:active).push(s);});
+   host.innerHTML=active.map(function(s){return subjCard(s,false);}).join("")
+     +'<a class="subj-card add" href="README.html"><div><div style="font-size:26px">＋</div>Add a subject<br><span style="font-size:12px">See the editing guide</span></div></a>';
+   if(archHost){
+     archHost.innerHTML=archived.length
+       ? archived.map(function(s){return subjCard(s,true);}).join("")
+       : '<p class="empty">No archived subjects yet. Completed subjects you archive from the list above will appear here.</p>';
+   }
+   $$(".archive-btn").forEach(function(b){
+     b.addEventListener("click",function(){
+       setArchived(this.getAttribute("data-code"),this.getAttribute("data-to")==="1");
+       render();
+     });
+   });
+ }
+ render();
 }
 
 /* =========================================================
