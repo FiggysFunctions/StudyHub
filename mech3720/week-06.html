@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="manifest" href="../manifest.webmanifest">
+<link rel="apple-touch-icon" href="../icons/apple-touch-icon.png">
+<meta name="theme-color" content="#161E2B">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<title>Topic 6 — Vapour Power Systems (Rankine) · MECH3720</title>
+<link rel="stylesheet" href="../assets/styles.css">
+<link rel="stylesheet" href="../assets/katex/katex.min.css">
+</head>
+<body>
+<div class="shell">
+  <main class="main">
+    <div class="page has-rail">
+      <div class="content">
+        <div class="crumb"><a href="../index.html">Study hub</a> / <a href="index.html">MECH3720</a> / Topic 6</div>
+        <div class="eyebrow">Topic 6 · Lecture notes</div>
+        <h1 class="title">Vapour Power Systems (Rankine Cycle)</h1>
+        <p class="lede">Most of the world's electricity comes from a single idea: boil a fluid, expand it through a turbine, condense it, and pump it back. This is the <a class="gloss" href="glossary.html#g-rankine">Rankine cycle</a>. Because the working fluid changes phase, and because pumping a liquid is cheap, it converts heat to power far more practically than a gas cycle — and every component is just a steady-flow device from Topic 3.</p>
+
+        <h2 id="components">The four components</h2>
+        <p>Number the states 1 (turbine inlet) → 2 (condenser inlet) → 3 (pump inlet) → 4 (boiler inlet). Applying the <a class="eqref" href="equations.html#eq-sfee">steady-flow energy equation</a> to each — neglecting KE, PE — gives one enthalpy difference apiece:</p>
+        <ul>
+          <li><strong>Turbine</strong> (adiabatic): <span>$\dot W_t/\dot m = h_1 - h_2$</span> — the work out.</li>
+          <li><strong>Condenser</strong> (no work): <span>$\dot Q_{out}/\dot m = h_2 - h_3$</span> — heat rejected.</li>
+          <li><strong>Pump</strong> (adiabatic): <span>$\dot W_p/\dot m = h_4 - h_3$</span> — the work in.</li>
+          <li><strong>Boiler</strong> (no work): <span>$\dot Q_{in}/\dot m = h_1 - h_4$</span> — heat added.</li>
+        </ul>
+
+        <h2 id="ideal">The ideal Rankine cycle</h2>
+        <p>The ideal cycle assumes no frictional pressure drop, no stray heat transfer and reversible components: isentropic turbine and pump, isobaric boiler and condenser. Its <a class="eqref" href="equations.html#eq-thermal-efficiency">thermal efficiency</a> is the net work over the heat added:</p>
+        <div class="eqbox">$$\eta = \frac{\dot W_t - \dot W_p}{\dot Q_{in}} = \frac{(h_1 - h_2) - (h_4 - h_3)}{h_1 - h_4}$$</div>
+        <p>Because the pump compresses a liquid — nearly <a class="eqref" href="equations.html#eq-incompressible">incompressible</a> — its work is well approximated by <span>$h_4 - h_3 \approx v_3(p_4 - p_3)$</span>, which is tiny beside the turbine work. That gives the cycle its low <a class="gloss" href="glossary.html#g-bwr">back-work ratio</a>, the key practical advantage over gas cycles.</p>
+        <div class="eqbox">$$bwr = \frac{\dot W_p}{\dot W_t} = \frac{h_4 - h_3}{h_1 - h_2}$$</div>
+
+        <h2 id="pressures">Raising the efficiency</h2>
+        <p>The Carnot insight — add heat hot, reject it cold — points to two levers, both limited in practice:</p>
+        <ul>
+          <li><strong>Higher boiler pressure</strong> raises the average temperature of heat addition and so the efficiency, but places steep demands (and cost) on materials.</li>
+          <li><strong>Lower condenser pressure</strong> lowers the rejection temperature. The floor is the saturation pressure at the available cooling-water temperature; it also must stay above ambient to avoid air ingress.</li>
+        </ul>
+
+        <h2 id="superheat">Superheat and reheat</h2>
+        <p><a class="gloss" href="glossary.html#g-superheat">Superheating</a> the steam above saturation before the turbine raises efficiency <em>and</em> keeps the turbine-exit quality high (wet steam erodes blades). <strong>Reheat</strong> takes partly expanded steam back to the boiler and expands it a second time, extending both benefits. Both are standard on real plants.</p>
+
+        <h2 id="imperfections">Real-cycle imperfections</h2>
+        <p>The largest departure from ideal is the turbine, captured by its <a class="eqref" href="equations.html#eq-turbine-eff">isentropic efficiency</a> <span>$\eta_t = (h_1 - h_2)/(h_1 - h_{2s})$</span>; the pump has its own. Further losses come from frictional pressure drops in every component, and the biggest <em>external</em> irreversibility — heat transfer across the large temperature difference between combustion products and the working fluid.</p>
+
+        <div class="note"><span class="k">Where this leads</span> Topic 7 turns to cycles whose working fluid stays a gas — where the back-work ratio is high and no phase change helps.</div>
+      </div>
+
+      <aside class="rail">
+        <h4>On this page</h4>
+        <ul>
+          <li><a href="#components">Four components</a></li>
+          <li><a href="#ideal">Ideal cycle</a></li>
+          <li><a href="#pressures">Raising efficiency</a></li>
+          <li><a href="#superheat">Superheat &amp; reheat</a></li>
+          <li><a href="#imperfections">Imperfections</a></li>
+        </ul>
+        <h4>Related</h4>
+        <ul>
+          <li><span class="tag">eq</span><a href="equations.html#eq-pump-work">Pump work</a></li>
+          <li><span class="tag">eq</span><a href="equations.html#eq-bwr">Back-work ratio</a></li>
+          <li><span class="tag">eq</span><a href="equations.html#eq-turbine-eff">Isentropic turbine eff.</a></li>
+          <li><span class="tag">def</span><a href="glossary.html#g-rankine">Rankine cycle</a></li>
+          <li><span class="tag">def</span><a href="glossary.html#g-superheat">Superheat</a></li>
+          <li><span class="tag">flag</span><a href="assessments.html#a-exam">Applications Exam</a></li>
+        </ul>
+      </aside>
+    </div>
+  </main>
+</div>
+<script src="../assets/katex/katex.min.js"></script>
+<script src="../assets/katex/auto-render.min.js"></script>
+<script src="subject.js"></script>
+<script src="../assets/hub.js"></script>
+</body>
+</html>

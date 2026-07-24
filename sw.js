@@ -13,7 +13,7 @@
 */
 "use strict";
 
-var CACHE = "studyhub-v6";
+var CACHE = "studyhub-v7";
 
 var PRECACHE = [
   "./",
@@ -99,6 +99,14 @@ var PRECACHE = [
   "mech3720/index.html",
   "mech3720/search.html",
   "mech3720/subject.js",
+  "mech3720/week-01.html",
+  "mech3720/week-02.html",
+  "mech3720/week-03.html",
+  "mech3720/week-04.html",
+  "mech3720/week-05.html",
+  "mech3720/week-06.html",
+  "mech3720/week-07.html",
+  "mech3720/week-08.html",
   "mech3780/assessments.html",
   "mech3780/equations.html",
   "mech3780/glossary.html",

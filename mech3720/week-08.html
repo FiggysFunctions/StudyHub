@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="manifest" href="../manifest.webmanifest">
+<link rel="apple-touch-icon" href="../icons/apple-touch-icon.png">
+<meta name="theme-color" content="#161E2B">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<title>Topic 8 — Refrigeration &amp; Heat Pump Systems · MECH3720</title>
+<link rel="stylesheet" href="../assets/styles.css">
+<link rel="stylesheet" href="../assets/katex/katex.min.css">
+</head>
+<body>
+<div class="shell">
+  <main class="main">
+    <div class="page has-rail">
+      <div class="content">
+        <div class="crumb"><a href="../index.html">Study hub</a> / <a href="index.html">MECH3720</a> / Topic 8</div>
+        <div class="eyebrow">Topic 8 · Lecture notes</div>
+        <h1 class="title">Refrigeration &amp; Heat Pump Systems</h1>
+        <p class="lede">Run a power cycle backwards and it becomes a device that pumps heat up a temperature gradient, driven by work. A fridge and a heat pump are the same machine — they differ only in which reservoir you care about: the cold one you are cooling, or the warm one you are heating.</p>
+
+        <h2 id="carnot">The Carnot limit</h2>
+        <p>The Clausius statement (Topic 4) says heat will not flow from cold to hot by itself; a reverse cycle makes it happen at the cost of work input. The best possible performance is again set by the two reservoir temperatures:</p>
+        <div class="eqbox">$$\beta_{max} = \frac{T_C}{T_H - T_C} \qquad \gamma_{max} = \frac{T_H}{T_H - T_C}$$</div>
+        <p>The <a class="gloss" href="glossary.html#g-carnot-cycle">Carnot refrigeration cycle</a> is the power cycle in reverse — isothermal and adiabatic processes traversed the opposite way. Both coefficients grow as the two temperatures approach one another, which is why moving heat across a small gap is cheap and across a large one is dear.</p>
+
+        <h2 id="cop">Coefficient of performance</h2>
+        <p>The figure of merit is the <a class="gloss" href="glossary.html#g-cop">coefficient of performance</a> — benefit over cost. For a refrigerator the benefit is heat removed from the cold space; for a heat pump it is heat delivered to the warm space:</p>
+        <div class="eqbox">$$\beta = \frac{Q_C}{W_{cycle}} \qquad \gamma = \frac{Q_H}{W_{cycle}} = \beta + 1$$</div>
+        <p>Both are typically greater than one — the whole point is to move more heat than the work you put in. The heat-pump COP always beats the refrigeration COP of the same cycle by exactly one, since <span>$Q_H = Q_C + W_{cycle}$</span>.</p>
+
+        <h2 id="vapourcompression">The vapour-compression cycle</h2>
+        <p>The practical workhorse. A <a class="gloss" href="glossary.html#g-refrigeration">refrigeration cycle</a> circulates a refrigerant through four components:</p>
+        <ul>
+          <li><strong>Evaporator</strong> — the refrigerant boils at low pressure, absorbing <span>$Q_C$</span> from the cold space.</li>
+          <li><strong>Compressor</strong> — raises the pressure (the work input <span>$W_{cycle}$</span>).</li>
+          <li><strong>Condenser</strong> — the refrigerant condenses at high pressure, rejecting <span>$Q_H$</span> to the surroundings.</li>
+          <li><strong>Expansion (throttling) valve</strong> — drops the pressure back, essentially <a class="eqref" href="equations.html#eq-sfee">isenthalpically</a> (Topic 3).</li>
+        </ul>
+        <p>The same non-idealities as any cycle apply: finite temperature differences in the heat exchangers, compressor <a class="eqref" href="equations.html#eq-compressor-eff">isentropic efficiency</a> below one, and frictional pressure losses.</p>
+
+        <h2 id="heatpump">Heat pumps and their sources</h2>
+        <p>A <strong>heat pump</strong> is structurally identical — only the useful output changes to the condenser heat. Its heat <em>source</em> matters for performance: outside air is most common (but its COP falls as the air gets colder), while the ground, a body of water, a solar collector or waste heat offer a warmer, steadier source and hence a better <span>$\gamma$</span>.</p>
+
+        <h2 id="gas">Gas refrigeration</h2>
+        <p>Instead of a phase-changing refrigerant, a <strong>gas (reverse-Brayton) refrigeration</strong> cycle compresses and expands a gas. Compared with vapour compression it has lower pressures and mass-flow rates but a lower COP; its advantage is reaching <em>much</em> lower temperatures (down to around <span>$-150^{\circ}\text{C}$</span>), being compact, and avoiding any freezing of the working fluid — which is why it appears in aircraft air-conditioning and cryogenics.</p>
+
+        <div class="note"><span class="k">Air Conditioning Lab</span> The air-conditioning experiment (Week 6) is a direct study of a vapour-compression refrigeration system and its coefficient of performance.</div>
+        <div class="note"><span class="k">Course wrap-up</span> That completes the arc: the first and second laws (Topics 1–5) built the tools, and Topics 6–8 applied them to the power, propulsion and refrigeration cycles that the Applications Exam focuses on.</div>
+      </div>
+
+      <aside class="rail">
+        <h4>On this page</h4>
+        <ul>
+          <li><a href="#carnot">Carnot limit</a></li>
+          <li><a href="#cop">Coefficient of performance</a></li>
+          <li><a href="#vapourcompression">Vapour compression</a></li>
+          <li><a href="#heatpump">Heat pumps</a></li>
+          <li><a href="#gas">Gas refrigeration</a></li>
+        </ul>
+        <h4>Related</h4>
+        <ul>
+          <li><span class="tag">eq</span><a href="equations.html#eq-cop-ref">COP (refrigeration)</a></li>
+          <li><span class="tag">eq</span><a href="equations.html#eq-cop-hp">COP (heat pump)</a></li>
+          <li><span class="tag">eq</span><a href="equations.html#eq-carnot-cop-hp">Max COP</a></li>
+          <li><span class="tag">def</span><a href="glossary.html#g-refrigeration">Refrigeration cycle</a></li>
+          <li><span class="tag">def</span><a href="glossary.html#g-cop">Coefficient of performance</a></li>
+          <li><span class="tag">flag</span><a href="assessments.html#a-labs">Air Conditioning Lab</a></li>
+        </ul>
+      </aside>
+    </div>
+  </main>
+</div>
+<script src="../assets/katex/katex.min.js"></script>
+<script src="../assets/katex/auto-render.min.js"></script>
+<script src="subject.js"></script>
+<script src="../assets/hub.js"></script>
+</body>
+</html>

@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="manifest" href="../manifest.webmanifest">
+<link rel="apple-touch-icon" href="../icons/apple-touch-icon.png">
+<meta name="theme-color" content="#161E2B">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<title>Topic 2 — Properties of Pure Substances · MECH3720</title>
+<link rel="stylesheet" href="../assets/styles.css">
+<link rel="stylesheet" href="../assets/katex/katex.min.css">
+</head>
+<body>
+<div class="shell">
+  <main class="main">
+    <div class="page has-rail">
+      <div class="content">
+        <div class="crumb"><a href="../index.html">Study hub</a> / <a href="index.html">MECH3720</a> / Topic 2</div>
+        <div class="eyebrow">Topic 2 · Lecture notes</div>
+        <h1 class="title">Properties of Pure Substances</h1>
+        <p class="lede">The energy balance is only useful once we can put numbers to <span>$u$</span>, <span>$h$</span> and <span>$v$</span>. This topic is about the material model: how to read the state of a pure substance off the property tables, how to handle a wet liquid–vapour mixture through its quality, and when the ideal-gas shortcut applies instead.</p>
+
+        <h2 id="phases">Phases and the state principle</h2>
+        <p>Heat a solid and it melts, then boils, then superheats. On a <span>$p$–$v$–$T$</span> surface these show up as the compressed-liquid, two-phase (wet) and superheated-vapour regions separated by the saturation lines. The key working rule: for a simple compressible substance, <strong>two independent intensive properties fix the state</strong>. Inside the two-phase dome, though, <span>$p$</span> and <span>$T$</span> are <em>not</em> independent (they are locked together at saturation) — so a second property such as quality is needed.</p>
+
+        <h2 id="tables">Reading the tables</h2>
+        <p>The saturation tables (A-2 by temperature, A-3 by pressure) list the saturated-liquid (subscript <span>$f$</span>) and saturated-vapour (subscript <span>$g$</span>) values of <span>$v$</span>, <span>$u$</span>, <span>$h$</span> and <span>$s$</span> along the saturation line. The superheated tables are indexed by <span>$p$</span> and <span>$T$</span> together; the compressed-liquid tables by <span>$p$</span> and <span>$T$</span> as well. When a target value falls between table rows, <strong>linearly interpolate</strong>.</p>
+        <div class="note"><span class="k">Compressed liquid shortcut</span> If compressed-liquid data are unavailable, approximate the property by its saturated-liquid value at the same temperature: <span>$v \approx v_f(T)$</span>, <span>$u \approx u_f(T)$</span>. Liquids are nearly incompressible, so pressure barely moves them.</div>
+
+        <h2 id="quality">Quality and wet mixtures</h2>
+        <p>Inside the dome the mixture is part liquid, part vapour. Its <a class="gloss" href="glossary.html#g-quality">quality</a> is the vapour mass fraction, and every specific property is the quality-weighted average of its <span>$f$</span> and <span>$g$</span> endpoints:</p>
+        <div class="eqbox">$$x = \frac{m_{vap}}{m_{liq}+m_{vap}} \qquad v = v_f + x\,(v_g - v_f), \quad u = u_f + x\,(u_g - u_f), \quad h = h_f + x\,(h_g - h_f)$$</div>
+        <p>The same lever rule gives entropy, <span>$s = s_f + x(s_g - s_f)$</span>, which we lean on heavily in Topic 5. Rearranged, any measured property tells you the quality — e.g. <span>$x = (v - v_f)/(v_g - v_f)$</span>.</p>
+
+        <h2 id="enthalpy">Enthalpy</h2>
+        <p>The combination <span>$h = u + pv$</span> appears so often it gets its own name and symbol. <a class="gloss" href="glossary.html#g-enthalpy">Enthalpy</a> bundles internal energy with the flow-work group <span>$pv$</span>; it is the natural energy carried by a flowing stream (Topic 3) and it is what changes in a constant-pressure process.</p>
+
+        <h2 id="idealgas">The ideal-gas model</h2>
+        <p>At low density a gas obeys the <a class="eqref" href="equations.html#eq-ideal-gas">ideal-gas equation of state</a>, and its internal energy and enthalpy depend on temperature alone:</p>
+        <div class="eqbox">$$pV = mRT \qquad R = \frac{\bar R}{M}, \quad \bar R = 8.314\ \tfrac{\text{kJ}}{\text{kmol}\cdot\text{K}} \qquad \Delta u = c_v\Delta T, \quad \Delta h = c_p\Delta T$$</div>
+        <p>The two <a class="gloss" href="glossary.html#g-specific-heat">specific heats</a> are linked by Mayer's relation <span>$c_p - c_v = R$</span>, and their ratio <span>$k = c_p/c_v$</span> (1.4 for air) drives every isentropic result later. When <span>$c_p$</span> varies appreciably, use the tabulated <span>$u(T)$</span> and <span>$h(T)$</span> from the air table instead of the constant-<span>$c$</span> forms.</p>
+        <div class="note"><span class="k">Incompressible substances</span> For a solid or liquid the two specific heats merge into one, <span>$c$</span>, and <span>$\Delta u = c\,\Delta T$</span> with <span>$\Delta h = c\,\Delta T + v\,\Delta p$</span> — the pressure term matters for pump work in Topic 6.</div>
+
+        <div class="note"><span class="k">Where this leads</span> With property data in hand, Topic 3 applies the energy balance to flowing devices, and Topic 5 uses the same tables for entropy.</div>
+      </div>
+
+      <aside class="rail">
+        <h4>On this page</h4>
+        <ul>
+          <li><a href="#phases">Phases &amp; state</a></li>
+          <li><a href="#tables">Reading the tables</a></li>
+          <li><a href="#quality">Quality</a></li>
+          <li><a href="#enthalpy">Enthalpy</a></li>
+          <li><a href="#idealgas">Ideal-gas model</a></li>
+        </ul>
+        <h4>Related</h4>
+        <ul>
+          <li><span class="tag">eq</span><a href="equations.html#eq-quality-props">Quality relations</a></li>
+          <li><span class="tag">eq</span><a href="equations.html#eq-ideal-gas">Ideal-gas equation</a></li>
+          <li><span class="tag">eq</span><a href="equations.html#eq-specific-heats">Specific heats</a></li>
+          <li><span class="tag">def</span><a href="glossary.html#g-quality">Quality</a></li>
+          <li><span class="tag">def</span><a href="glossary.html#g-ideal-gas">Ideal gas</a></li>
+          <li><span class="tag">flag</span><a href="assessments.html#a-quiz">Mid-semester Quiz</a></li>
+        </ul>
+      </aside>
+    </div>
+  </main>
+</div>
+<script src="../assets/katex/katex.min.js"></script>
+<script src="../assets/katex/auto-render.min.js"></script>
+<script src="subject.js"></script>
+<script src="../assets/hub.js"></script>
+</body>
+</html>

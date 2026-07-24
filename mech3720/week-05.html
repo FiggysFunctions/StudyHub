@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="manifest" href="../manifest.webmanifest">
+<link rel="apple-touch-icon" href="../icons/apple-touch-icon.png">
+<meta name="theme-color" content="#161E2B">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<title>Topic 5 — Entropy · MECH3720</title>
+<link rel="stylesheet" href="../assets/styles.css">
+<link rel="stylesheet" href="../assets/katex/katex.min.css">
+</head>
+<body>
+<div class="shell">
+  <main class="main">
+    <div class="page has-rail">
+      <div class="content">
+        <div class="crumb"><a href="../index.html">Study hub</a> / <a href="index.html">MECH3720</a> / Topic 5</div>
+        <div class="eyebrow">Topic 5 · Lecture notes</div>
+        <h1 class="title">Entropy</h1>
+        <p class="lede">Entropy is the second law made into a property. Where Topic 4 reasoned about whole cycles and reservoirs, entropy lets us put a number on the irreversibility of a single process — and, crucially, gives us the isentropic benchmark against which real turbines, compressors and nozzles are rated.</p>
+
+        <h2 id="clausius">From the Clausius inequality to a property</h2>
+        <p>Applying the second law to an arbitrary cycle gives the <a class="eqref" href="equations.html#eq-clausius">Clausius inequality</a>: the cyclic integral of <span>$\delta Q/T$</span> around the boundary is never positive,</p>
+        <div class="eqbox">$$\oint \left(\frac{\delta Q}{T}\right)_{\!b} = -\,\sigma_{cycle} \le 0$$</div>
+        <p>The deficit <span>$\sigma_{cycle}$</span> measures the cycle's irreversibility (zero if reversible, positive if real, impossible if negative). Because the integral vanishes for a reversible cycle, <span>$(\delta Q/T)_{int,rev}$</span> is an exact differential — it defines a <a class="gloss" href="glossary.html#g-entropy">property</a>, entropy:</p>
+        <div class="eqbox">$$dS = \left(\frac{\delta Q}{T}\right)_{\!int,rev}$$</div>
+
+        <h2 id="evaluating">Evaluating entropy</h2>
+        <p>Entropy is tabulated exactly like <span>$u$</span> and <span>$h$</span>. Inside the vapour dome use the quality lever rule <span>$s = s_f + x(s_g - s_f)$</span>. For property changes the two <a class="eqref" href="equations.html#eq-tds">TdS equations</a> — <span>$T\,dS = dU + p\,dV$</span> and <span>$T\,dS = dH - V\,dp$</span> — contain only properties and so hold for <em>any</em> process, reversible or not. They integrate to the special-case results:</p>
+        <div class="eqbox">$$s_2 - s_1 = c\,\ln\frac{T_2}{T_1}\ \text{(incompressible)} \qquad s_2 - s_1 = c_p\ln\frac{T_2}{T_1} - R\ln\frac{p_2}{p_1}\ \text{(ideal gas, const. }c_p)$$</div>
+        <p>When <span>$c_p$</span> varies, replace <span>$c_p\ln(T_2/T_1)$</span> with the tabulated <span>$s^{\circ}(T_2) - s^{\circ}(T_1)$</span> from the air table.</p>
+
+        <h2 id="balance">The entropy balance</h2>
+        <p>Unlike mass and energy, entropy can be <em>produced</em>. The closed-system balance splits the change into transfer-with-heat and production:</p>
+        <div class="eqbox">$$S_2 - S_1 = \int_1^2 \left(\frac{\delta Q}{T}\right)_{\!b} + \sigma, \qquad \sigma \ge 0$$</div>
+        <p>The production <span>$\sigma$</span> is zero for a reversible process, positive for a real one, and can never be negative — the sharpest statement of the second law. For a control volume, entropy also flows in and out with the streams, giving <span>$\dot\sigma_{cv}$</span> from the <a class="eqref" href="equations.html#eq-entropy-cv">rate balance</a>.</p>
+
+        <h2 id="isentropic">Isentropic processes and efficiencies</h2>
+        <p>An adiabatic, internally reversible process produces no entropy and transfers none with heat, so <span>$s$</span> is constant — <a class="gloss" href="glossary.html#g-isentropic">isentropic</a>. For an ideal gas with constant <span>$k$</span> this is the polytropic relation with <span>$n = k$</span>:</p>
+        <div class="eqbox">$$\frac{T_2}{T_1} = \left(\frac{p_2}{p_1}\right)^{\!\frac{k-1}{k}} = \left(\frac{v_1}{v_2}\right)^{\!k-1}$$</div>
+        <p>The isentropic case is the ideal that real machines are compared to. The <a class="gloss" href="glossary.html#g-isentropic-efficiency">isentropic efficiency</a> measures how close a device comes to it, between the same inlet state and exit pressure (the "<span>$2s$</span>" state):</p>
+        <div class="eqbox">$$\eta_t = \frac{h_1 - h_2}{h_1 - h_{2s}} \qquad \eta_c = \frac{h_{2s} - h_1}{h_2 - h_1} \qquad \eta_{nozzle} = \frac{\mathrm{v}_2^2/2}{(\mathrm{v}_2^2/2)_s}$$</div>
+        <p>Work-producing devices (turbines, nozzles) fall short of the ideal, so the actual value sits on top; work-absorbing devices (compressors, pumps) need more than the ideal minimum, so the ideal sits on top. These efficiencies are exactly what makes the real cycles in Topics 6–8 fall below their Carnot ceilings.</p>
+
+        <div class="note"><span class="k">Where this leads</span> Entropy and the isentropic benchmark now let us analyse real power and refrigeration cycles — starting with the Rankine cycle in Topic 6.</div>
+      </div>
+
+      <aside class="rail">
+        <h4>On this page</h4>
+        <ul>
+          <li><a href="#clausius">Clausius → property</a></li>
+          <li><a href="#evaluating">Evaluating entropy</a></li>
+          <li><a href="#balance">Entropy balance</a></li>
+          <li><a href="#isentropic">Isentropic efficiency</a></li>
+        </ul>
+        <h4>Related</h4>
+        <ul>
+          <li><span class="tag">eq</span><a href="equations.html#eq-clausius">Clausius inequality</a></li>
+          <li><span class="tag">eq</span><a href="equations.html#eq-tds">TdS equations</a></li>
+          <li><span class="tag">eq</span><a href="equations.html#eq-entropy-closed">Entropy balance</a></li>
+          <li><span class="tag">eq</span><a href="equations.html#eq-turbine-eff">Isentropic efficiency</a></li>
+          <li><span class="tag">def</span><a href="glossary.html#g-entropy">Entropy</a></li>
+          <li><span class="tag">flag</span><a href="assessments.html#a-quiz">Mid-semester Quiz</a></li>
+        </ul>
+      </aside>
+    </div>
+  </main>
+</div>
+<script src="../assets/katex/katex.min.js"></script>
+<script src="../assets/katex/auto-render.min.js"></script>
+<script src="subject.js"></script>
+<script src="../assets/hub.js"></script>
+</body>
+</html>

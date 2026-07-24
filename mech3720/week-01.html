@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="manifest" href="../manifest.webmanifest">
+<link rel="apple-touch-icon" href="../icons/apple-touch-icon.png">
+<meta name="theme-color" content="#161E2B">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<title>Topic 1 — Energy, Work &amp; Heat · MECH3720</title>
+<link rel="stylesheet" href="../assets/styles.css">
+<link rel="stylesheet" href="../assets/katex/katex.min.css">
+</head>
+<body>
+<div class="shell">
+  <main class="main">
+    <div class="page has-rail">
+      <div class="content">
+        <div class="crumb"><a href="../index.html">Study hub</a> / <a href="index.html">MECH3720</a> / Topic 1</div>
+        <div class="eyebrow">Topic 1 · Lecture notes</div>
+        <h1 class="title">Energy, Work &amp; Heat — the First Law for Closed Systems</h1>
+        <p class="lede">Thermodynamics is bookkeeping for energy. Before any cycle can be analysed we need the vocabulary — systems, properties, states — and the three ways energy is stored or moved: as internal, kinetic and potential energy; as work; and as heat. The first law ties them together into an energy balance.</p>
+
+        <h2 id="systems">Systems, properties and state</h2>
+        <p>A <a class="gloss" href="glossary.html#g-system">system</a> is whatever we draw a boundary around; everything else is the surroundings. A <strong>closed system</strong> holds a fixed mass (no matter crosses the boundary), while a <a class="gloss" href="glossary.html#g-control-volume">control volume</a> lets mass flow through — that is Topic 3. A <a class="gloss" href="glossary.html#g-property">property</a> (pressure, temperature, specific volume…) depends only on the current <strong>state</strong>, not the path taken to reach it. For a simple compressible substance, fixing any <strong>two independent</strong> intensive properties fixes the state, and everything else follows from tables or a model.</p>
+
+        <h2 id="energy">Forms of energy</h2>
+        <p>A system's total energy is its microscopic <a class="gloss" href="glossary.html#g-internal-energy">internal energy</a> plus its macroscopic kinetic and potential energies:</p>
+        <div class="eqbox">$$E = U + KE + PE \qquad \Delta KE = \tfrac{1}{2}m(\mathrm{v}_2^2 - \mathrm{v}_1^2) \qquad \Delta PE = mg(z_2 - z_1)$$</div>
+        <p>In most closed-system problems the mechanical terms are negligible next to <span>$\Delta U$</span>, so the first law reduces to a statement about internal energy.</p>
+
+        <h2 id="work">Work</h2>
+        <p><a class="gloss" href="glossary.html#g-work">Work</a> is energy transfer that could, in principle, have raised a weight. For a simple system the important mode is boundary (expansion/compression) work — the <a class="eqref" href="equations.html#eq-pdv-work">area under the process path</a> on a p–V diagram:</p>
+        <div class="eqbox">$$W = \int_{V_1}^{V_2} p\,dV$$</div>
+        <p>Many real compressions and expansions are modelled as a <a class="gloss" href="glossary.html#g-polytropic">polytropic process</a>, <span>$pV^{\,n}=\text{const}$</span>, whose <a class="eqref" href="equations.html#eq-polytropic-work">work integral</a> has two cases depending on whether <span>$n=1$</span>.</p>
+        <div class="note"><span class="k">Sign convention</span> This course takes heat <em>into</em> the system as positive and work done <em>by</em> the system as positive — the convention on the formula sheet. (Some textbooks flip the sign of work, so watch out.)</div>
+
+        <h2 id="heat">Heat and its three modes</h2>
+        <p>Heat is energy transfer driven by a temperature difference. It moves by three modes, each with a rate law you met in fluid mechanics and will meet again in heat transfer:</p>
+        <div class="eqbox">$$\underbrace{\tfrac{\dot Q}{A}=-k\tfrac{dT}{dx}}_{\text{conduction}} \qquad \underbrace{\tfrac{\dot Q}{A}=h(T_b-T_f)}_{\text{convection}} \qquad \underbrace{\tfrac{\dot Q}{A}=e\,\sigma(T_b^4-T_s^4)}_{\text{radiation}}$$</div>
+        <p>In thermodynamics we usually just need the <em>amount</em> of heat <span>$Q$</span> crossing the boundary; the rate laws tell us which direction it flows and remind us it is a path function, not a property.</p>
+
+        <h2 id="firstlaw">The first law for a closed system</h2>
+        <p>Conservation of energy says the change in a closed system's stored energy equals net heat in minus net work out:</p>
+        <div class="eqbox">$$\Delta U + \Delta KE + \Delta PE = Q - W \qquad\Longleftrightarrow\qquad \frac{dE}{dt} = \dot Q - \dot W$$</div>
+        <p>The rate form on the right is the same statement per unit time. This single equation — the <a class="eqref" href="equations.html#eq-energy-closed">energy balance</a> — is the engine of the whole course; every later result specialises it.</p>
+
+        <h2 id="cycles">Cycles, efficiency and COP</h2>
+        <p>A <a class="gloss" href="glossary.html#g-cycle">cycle</a> returns the system to its initial state, so <span>$\Delta E = 0$</span> and the <a class="eqref" href="equations.html#eq-cycle">net heat equals the net work</a>, <span>$Q_{cycle}=W_{cycle}$</span>. That lets us define the figures of merit we will chase for the rest of the semester: <a class="eqref" href="equations.html#eq-thermal-efficiency">thermal efficiency</a> for a power cycle, and the <a class="gloss" href="glossary.html#g-cop">coefficient of performance</a> for refrigeration and heat-pump cycles.</p>
+        <div class="eqbox">$$\eta = \frac{W_{cycle}}{Q_{in}} = 1 - \frac{Q_{out}}{Q_{in}} \qquad \beta = \frac{Q_C}{W_{cycle}} \qquad \gamma = \frac{Q_H}{W_{cycle}} = \beta + 1$$</div>
+
+        <div class="note"><span class="k">Where this leads</span> Topic 2 supplies the property data (<span>$u$</span>, <span>$h$</span>, <span>$v$</span>) the energy balance needs; Topic 3 opens the system up to flow.</div>
+      </div>
+
+      <aside class="rail">
+        <h4>On this page</h4>
+        <ul>
+          <li><a href="#systems">Systems &amp; state</a></li>
+          <li><a href="#energy">Forms of energy</a></li>
+          <li><a href="#work">Work</a></li>
+          <li><a href="#heat">Heat</a></li>
+          <li><a href="#firstlaw">The first law</a></li>
+          <li><a href="#cycles">Cycles, efficiency, COP</a></li>
+        </ul>
+        <h4>Related</h4>
+        <ul>
+          <li><span class="tag">eq</span><a href="equations.html#eq-pdv-work">pdV work</a></li>
+          <li><span class="tag">eq</span><a href="equations.html#eq-energy-closed">Energy balance</a></li>
+          <li><span class="tag">eq</span><a href="equations.html#eq-thermal-efficiency">Thermal efficiency</a></li>
+          <li><span class="tag">def</span><a href="glossary.html#g-work">Work</a></li>
+          <li><span class="tag">def</span><a href="glossary.html#g-heat">Heat</a></li>
+          <li><span class="tag">flag</span><a href="assessments.html#a-quiz">Mid-semester Quiz</a></li>
+        </ul>
+      </aside>
+    </div>
+  </main>
+</div>
+<script src="../assets/katex/katex.min.js"></script>
+<script src="../assets/katex/auto-render.min.js"></script>
+<script src="subject.js"></script>
+<script src="../assets/hub.js"></script>
+</body>
+</html>

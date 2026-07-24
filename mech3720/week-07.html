@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="manifest" href="../manifest.webmanifest">
+<link rel="apple-touch-icon" href="../icons/apple-touch-icon.png">
+<meta name="theme-color" content="#161E2B">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<title>Topic 7 — Gas Power Systems · MECH3720</title>
+<link rel="stylesheet" href="../assets/styles.css">
+<link rel="stylesheet" href="../assets/katex/katex.min.css">
+</head>
+<body>
+<div class="shell">
+  <main class="main">
+    <div class="page has-rail">
+      <div class="content">
+        <div class="crumb"><a href="../index.html">Study hub</a> / <a href="index.html">MECH3720</a> / Topic 7</div>
+        <div class="eyebrow">Topic 7 · Lecture notes</div>
+        <h1 class="title">Gas Power Systems</h1>
+        <p class="lede">In a gas power cycle the working fluid never changes phase — think car engines, diesel generators and jet turbines. The absence of a phase change means the compression device works on a gas, not a liquid, so the back-work ratio is high. To make the combustion tractable we replace it with the air-standard idealisation.</p>
+
+        <h2 id="airstandard">Air-standard analysis</h2>
+        <p>Real combustion is hopelessly complex — reaction kinetics, heat losses, friction, charging and exhaust. The <a class="gloss" href="glossary.html#g-air-standard">air-standard</a> model cuts through it:</p>
+        <ul>
+          <li>a fixed mass of air, modelled as an ideal gas, is the working fluid;</li>
+          <li>combustion is replaced by heat transfer from an external source;</li>
+          <li>intake and exhaust are ignored (the cycle is closed);</li>
+          <li>all processes are internally reversible.</li>
+        </ul>
+        <p><strong>Cold</strong> air-standard analysis adds one more simplification — constant specific heats evaluated at ambient temperature — which yields the clean algebraic efficiencies below.</p>
+
+        <h2 id="engine">Reciprocating-engine terms</h2>
+        <p>For piston engines: the <strong>bore</strong> is the cylinder diameter and the <strong>stroke</strong> the piston travel between top dead centre (TDC) and bottom dead centre (BDC). The <a class="eqref" href="equations.html#eq-compression-ratio">compression ratio</a> and mean effective pressure are the two headline numbers:</p>
+        <div class="eqbox">$$r = \frac{V_{BDC}}{V_{TDC}} \qquad mep = \frac{W_{net}}{V_{max} - V_{min}}$$</div>
+        <p>The <a class="gloss" href="glossary.html#g-mep">mean effective pressure</a> is a size-independent measure of output — the constant pressure that would give the same net work over one displacement.</p>
+
+        <h2 id="otto">The Otto cycle (spark ignition)</h2>
+        <p>The <a class="gloss" href="glossary.html#g-otto">Otto cycle</a> models the petrol engine as four internally reversible processes: isentropic compression (1-2), constant-volume heat addition (2-3, combustion), isentropic expansion (3-4, the power stroke) and constant-volume heat rejection (4-1, exhaust). A closed-system energy balance on each adiabatic stroke gives the work from <span>$\Delta u$</span> alone, and the cold-air-standard efficiency collapses to a strikingly simple form:</p>
+        <div class="eqbox">$$\eta_{Otto} = 1 - \frac{1}{r^{\,k-1}}$$</div>
+        <p>Efficiency depends only on the compression ratio and <span>$k = 1.4$</span>. Higher <span>$r$</span> is always better — but is limited by <em>knock</em> (premature auto-ignition), roughly <span>$r \lesssim 11.5$</span>.</p>
+
+        <h2 id="diesel">The Diesel and Dual cycles</h2>
+        <p>The <a class="gloss" href="glossary.html#g-diesel">Diesel cycle</a> (compression ignition) differs in one process: heat is added at constant <em>pressure</em> (2-3) instead of constant volume, characterised by the cut-off ratio <span>$r_c = V_3/V_2$</span>. Its efficiency carries an extra bracketed factor:</p>
+        <div class="eqbox">$$\eta_{Diesel} = 1 - \frac{1}{r^{\,k-1}}\left[\frac{r_c^{\,k} - 1}{k\,(r_c - 1)}\right]$$</div>
+        <p>The bracket is always greater than one, so at equal compression ratio a Diesel is slightly <em>less</em> efficient than an Otto cycle — but compression-ignition engines run at much higher <span>$r$</span> (no knock limit), so in practice they win on efficiency. The <strong>Dual cycle</strong> adds heat partly at constant volume and partly at constant pressure, bridging the two.</p>
+
+        <h2 id="turbines">Gas turbines and jet propulsion</h2>
+        <p>The gas-turbine (Brayton) plant uses steady-flow components — compressor, combustor, turbine — with the same high back-work ratio. In <strong>aircraft propulsion</strong> the goal shifts from shaft power to thrust: a turbojet compresses and heats air, then expands it through a nozzle to a high exit velocity. The thrust follows from the momentum equation, which at steady state reduces to <span>$F \approx \dot m\,(\mathrm{v}_e - \mathrm{v}_i)$</span> — so we maximise mass-flow rate and exit velocity. Reheat (an afterburner) adds thrust at the cost of fuel.</p>
+
+        <div class="note"><span class="k">Jet Engine Lab</span> The jet-engine experiment (Weeks 7–9) applies this gas-power / thrust analysis to a real small turbojet.</div>
+        <div class="note"><span class="k">Where this leads</span> Topic 8 runs a gas or vapour cycle in reverse to move heat rather than produce work.</div>
+      </div>
+
+      <aside class="rail">
+        <h4>On this page</h4>
+        <ul>
+          <li><a href="#airstandard">Air-standard analysis</a></li>
+          <li><a href="#engine">Engine terms</a></li>
+          <li><a href="#otto">Otto cycle</a></li>
+          <li><a href="#diesel">Diesel &amp; Dual</a></li>
+          <li><a href="#turbines">Gas turbines &amp; jets</a></li>
+        </ul>
+        <h4>Related</h4>
+        <ul>
+          <li><span class="tag">eq</span><a href="equations.html#eq-otto">Otto efficiency</a></li>
+          <li><span class="tag">eq</span><a href="equations.html#eq-diesel">Diesel efficiency</a></li>
+          <li><span class="tag">eq</span><a href="equations.html#eq-mep">Mean effective pressure</a></li>
+          <li><span class="tag">def</span><a href="glossary.html#g-air-standard">Air-standard analysis</a></li>
+          <li><span class="tag">def</span><a href="glossary.html#g-otto">Otto cycle</a></li>
+          <li><span class="tag">flag</span><a href="assessments.html#a-labs">Jet Engine Lab</a></li>
+        </ul>
+      </aside>
+    </div>
+  </main>
+</div>
+<script src="../assets/katex/katex.min.js"></script>
+<script src="../assets/katex/auto-render.min.js"></script>
+<script src="subject.js"></script>
+<script src="../assets/hub.js"></script>
+</body>
+</html>

@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="manifest" href="../manifest.webmanifest">
+<link rel="apple-touch-icon" href="../icons/apple-touch-icon.png">
+<meta name="theme-color" content="#161E2B">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<title>Topic 4 — The Second Law of Thermodynamics · MECH3720</title>
+<link rel="stylesheet" href="../assets/styles.css">
+<link rel="stylesheet" href="../assets/katex/katex.min.css">
+</head>
+<body>
+<div class="shell">
+  <main class="main">
+    <div class="page has-rail">
+      <div class="content">
+        <div class="crumb"><a href="../index.html">Study hub</a> / <a href="index.html">MECH3720</a> / Topic 4</div>
+        <div class="eyebrow">Topic 4 · Lecture notes</div>
+        <h1 class="title">The Second Law of Thermodynamics</h1>
+        <p class="lede">The first law lets energy be converted freely in either direction, yet coffee never spontaneously reheats and engines never turn all their heat into work. The second law captures this one-way character: it predicts the direction of a process, sets the conditions for equilibrium, and — most usefully for us — fixes the maximum possible performance of any cycle.</p>
+
+        <h2 id="statements">Two statements, one law</h2>
+        <p>The second law has two classic verbal forms, and they turn out to be equivalent (deny one and you can build a device that violates the other):</p>
+        <ul>
+          <li><strong>Kelvin–Planck:</strong> no system operating in a cycle can deliver net work while exchanging heat with a <em>single</em> <a class="gloss" href="glossary.html#g-thermal-reservoir">thermal reservoir</a>. You always need a cold sink to reject heat to.</li>
+          <li><strong>Clausius:</strong> heat cannot, of itself, pass from a colder to a hotter body. Moving it "uphill" always costs work — that is what a fridge does.</li>
+        </ul>
+        <p>Analytically, Kelvin–Planck becomes a compact inequality on the net work of a cycle exchanging heat with one reservoir:</p>
+        <div class="eqbox">$$W_{cycle} \le 0 \quad (\text{single reservoir})$$</div>
+        <p>with equality only for an internally reversible cycle, and the strict inequality for any real one.</p>
+
+        <h2 id="reversibility">Reversible and irreversible processes</h2>
+        <p>A <a class="gloss" href="glossary.html#g-reversible">reversible process</a> is one after which both system and surroundings could be restored to their original states with no trace left behind. None occur in reality — they are idealisations, like frictionless motion in mechanics — but they set the performance bar. Every real process carries some <a class="gloss" href="glossary.html#g-irreversibility">irreversibility</a>:</p>
+        <ul>
+          <li>heat transfer across a finite temperature difference,</li>
+          <li>unrestrained (free) expansion to a lower pressure,</li>
+          <li>friction, mixing, and spontaneous chemical reaction,</li>
+          <li>electric current through a resistance.</li>
+        </ul>
+        <p>It helps to split these into <strong>internal</strong> irreversibilities (inside the system boundary) and <strong>external</strong> ones (in the surroundings). An <em>internally reversible</em> process has none of the former — a quasi-equilibrium process — and is the reference used throughout Topic 5.</p>
+
+        <h2 id="carnot">The Carnot corollaries</h2>
+        <p>Two results follow for cycles operating between the same two reservoirs:</p>
+        <ol>
+          <li>An irreversible power cycle is <em>always less efficient</em> than a reversible one.</li>
+          <li>All reversible power cycles between the same two reservoirs have the <em>same</em> efficiency — it depends only on the two temperatures, not on the working fluid or hardware.</li>
+        </ol>
+        <p>That temperature-only dependence is what lets us define an absolute (Kelvin) scale, with the triple point of water fixed at 273.16 K, so that <span>$Q_H/Q_C = T_H/T_C$</span> for a reversible cycle.</p>
+
+        <h2 id="limits">The performance ceiling</h2>
+        <p>Putting the ratio into the definitions from Topic 1 gives the best any cycle can do between two reservoirs — the <a class="gloss" href="glossary.html#g-carnot-cycle">Carnot</a> limits:</p>
+        <div class="eqbox">$$\eta_{max} = 1 - \frac{T_C}{T_H} \qquad \beta_{max} = \frac{T_C}{T_H - T_C} \qquad \gamma_{max} = \frac{T_H}{T_H - T_C}$$</div>
+        <p>All temperatures are absolute. Efficiency rises as the reservoirs are pushed apart; the coefficients of performance rise as they are brought together. No amount of engineering can beat these — they are the yardstick every real cycle in Topics 6–8 is measured against.</p>
+
+        <div class="note"><span class="k">Watch the units</span> These relations only work in kelvin. Convert with <span>$T[\text{K}] = T[^{\circ}\text{C}] + 273.15$</span> before dividing.</div>
+        <div class="note"><span class="k">Where this leads</span> The second law here is verbal and cycle-level; Topic 5 recasts it as a property — entropy — that can be applied to any single process.</div>
+      </div>
+
+      <aside class="rail">
+        <h4>On this page</h4>
+        <ul>
+          <li><a href="#statements">Two statements</a></li>
+          <li><a href="#reversibility">Reversibility</a></li>
+          <li><a href="#carnot">Carnot corollaries</a></li>
+          <li><a href="#limits">Performance ceiling</a></li>
+        </ul>
+        <h4>Related</h4>
+        <ul>
+          <li><span class="tag">eq</span><a href="equations.html#eq-kelvin-planck">Kelvin–Planck</a></li>
+          <li><span class="tag">eq</span><a href="equations.html#eq-carnot-efficiency">Carnot efficiency</a></li>
+          <li><span class="tag">eq</span><a href="equations.html#eq-carnot-cop-hp">Max COP (heat pump)</a></li>
+          <li><span class="tag">def</span><a href="glossary.html#g-thermal-reservoir">Thermal reservoir</a></li>
+          <li><span class="tag">def</span><a href="glossary.html#g-carnot-cycle">Carnot cycle</a></li>
+          <li><span class="tag">flag</span><a href="assessments.html#a-quiz">Mid-semester Quiz</a></li>
+        </ul>
+      </aside>
+    </div>
+  </main>
+</div>
+<script src="../assets/katex/katex.min.js"></script>
+<script src="../assets/katex/auto-render.min.js"></script>
+<script src="subject.js"></script>
+<script src="../assets/hub.js"></script>
+</body>
+</html>

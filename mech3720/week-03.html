@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="manifest" href="../manifest.webmanifest">
+<link rel="apple-touch-icon" href="../icons/apple-touch-icon.png">
+<meta name="theme-color" content="#161E2B">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<title>Topic 3 — The First Law for Control Volumes · MECH3720</title>
+<link rel="stylesheet" href="../assets/styles.css">
+<link rel="stylesheet" href="../assets/katex/katex.min.css">
+</head>
+<body>
+<div class="shell">
+  <main class="main">
+    <div class="page has-rail">
+      <div class="content">
+        <div class="crumb"><a href="../index.html">Study hub</a> / <a href="index.html">MECH3720</a> / Topic 3</div>
+        <div class="eyebrow">Topic 3 · Lecture notes</div>
+        <h1 class="title">The First Law for Control Volumes</h1>
+        <p class="lede">Real engineering devices have fluid streaming through them. Switching from a closed system to a <a class="gloss" href="glossary.html#g-control-volume">control volume</a> adds two ideas: mass can now cross the boundary, and pushing that mass in and out is itself a form of work. Absorb that flow work into enthalpy and the energy balance becomes the single most useful equation in the course.</p>
+
+        <h2 id="mass">Conservation of mass</h2>
+        <p>The rate at which mass piles up inside a control volume equals what flows in minus what flows out:</p>
+        <div class="eqbox">$$\frac{dm_{cv}}{dt} = \sum_i \dot m_i - \sum_e \dot m_e \qquad \dot m = \rho A\mathrm{v} = \frac{A\mathrm{v}}{v}$$</div>
+        <p>The <a class="eqref" href="equations.html#eq-mass-flow">1-D mass-flow rate</a> is density × area × velocity. Mind the notation clash: <span>$\mathrm{v}$</span> (roman) is velocity, <span>$v$</span> (italic) is specific volume. At steady state the accumulation term vanishes and <span>$\sum \dot m_i = \sum \dot m_e$</span>.</p>
+
+        <h2 id="flowwork">Flow work and the energy balance</h2>
+        <p>To push a parcel of fluid across the boundary against the local pressure takes work <span>$p v$</span> per unit mass. Grouping that with internal energy gives <a class="gloss" href="glossary.html#g-enthalpy">enthalpy</a> <span>$h = u + pv$</span> — which is exactly why enthalpy, not internal energy, rides along with each stream. The full <a class="eqref" href="equations.html#eq-energy-cv">energy rate balance</a> is:</p>
+        <div class="eqbox">$$\frac{dE_{cv}}{dt} = \dot Q_{cv} - \dot W_{cv} + \sum_i \dot m_i\!\left(h_i + \tfrac{\mathrm{v}_i^2}{2} + gz_i\right) - \sum_e \dot m_e\!\left(h_e + \tfrac{\mathrm{v}_e^2}{2} + gz_e\right)$$</div>
+        <p>Here <span>$\dot W_{cv}$</span> is shaft (or other) work only — the flow work is already inside the enthalpies.</p>
+
+        <h2 id="sfee">The steady-flow energy equation</h2>
+        <p>Almost every device runs at steady state with one inlet and one exit, collapsing the balance to the workhorse form:</p>
+        <div class="eqbox">$$0 = \dot Q_{cv} - \dot W_{cv} + \dot m\!\left[(h_i - h_e) + \frac{\mathrm{v}_i^2 - \mathrm{v}_e^2}{2} + g(z_i - z_e)\right]$$</div>
+        <p>Solving a device is then a matter of deciding which terms drop out.</p>
+
+        <h2 id="devices">The four steady-flow devices</h2>
+        <ul>
+          <li><strong>Nozzles &amp; diffusers</strong> — no work, usually adiabatic; the enthalpy drop feeds kinetic energy: <span>$h_i - h_e \approx (\mathrm{v}_e^2 - \mathrm{v}_i^2)/2$</span>. A nozzle speeds the flow up, a diffuser slows it down.</li>
+          <li><strong>Turbines, compressors &amp; pumps</strong> — the KE, PE and (for an adiabatic machine) heat terms drop, leaving <span>$\dot W_{cv}/\dot m = h_i - h_e$</span>. Positive for a turbine (work out), negative for a compressor or pump (work in).</li>
+          <li><strong>Heat exchangers</strong> — no work; energy passes between streams. Taking both streams as the control volume, the enthalpy gained by one equals that lost by the other.</li>
+          <li><strong>Throttling valves</strong> — no work, adiabatic, negligible KE/PE, so <span>$h_e \approx h_i$</span>: throttling is essentially <em>isenthalpic</em>. It is how the pressure drop is produced in a refrigeration cycle.</li>
+        </ul>
+
+        <h2 id="transient">Transient analysis</h2>
+        <p>Filling or emptying a tank keeps the accumulation terms. Integrating the mass and energy balances over the process (with uniform inlet/exit states) gives the <a class="eqref" href="equations.html#eq-transient-cv">transient forms</a> — algebraic relations for the mass and internal energy in the tank before and after charging or discharging.</p>
+
+        <div class="note"><span class="k">Cooling Tower Lab</span> The cooling-tower experiment (Week 5) is a direct application of these steady-flow mass and energy balances to moist air and water.</div>
+        <div class="note"><span class="k">Where this leads</span> The first law says energy is conserved but not which way a process will go — that is the job of the second law, Topic 4.</div>
+      </div>
+
+      <aside class="rail">
+        <h4>On this page</h4>
+        <ul>
+          <li><a href="#mass">Conservation of mass</a></li>
+          <li><a href="#flowwork">Flow work &amp; energy</a></li>
+          <li><a href="#sfee">Steady-flow energy eqn</a></li>
+          <li><a href="#devices">The four devices</a></li>
+          <li><a href="#transient">Transient analysis</a></li>
+        </ul>
+        <h4>Related</h4>
+        <ul>
+          <li><span class="tag">eq</span><a href="equations.html#eq-mass-conservation">Mass conservation</a></li>
+          <li><span class="tag">eq</span><a href="equations.html#eq-sfee">Steady-flow energy eqn</a></li>
+          <li><span class="tag">eq</span><a href="equations.html#eq-energy-cv">Energy rate balance</a></li>
+          <li><span class="tag">def</span><a href="glossary.html#g-control-volume">Control volume</a></li>
+          <li><span class="tag">def</span><a href="glossary.html#g-enthalpy">Enthalpy</a></li>
+          <li><span class="tag">flag</span><a href="assessments.html#a-labs">Cooling Tower Lab</a></li>
+        </ul>
+      </aside>
+    </div>
+  </main>
+</div>
+<script src="../assets/katex/katex.min.js"></script>
+<script src="../assets/katex/auto-render.min.js"></script>
+<script src="subject.js"></script>
+<script src="../assets/hub.js"></script>
+</body>
+</html>
