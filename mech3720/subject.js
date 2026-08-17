@@ -23,7 +23,9 @@ window.SUBJECT = {
     term:"Semester 2, 2026",
     coordinator:"A/Pr Thomas Fiedler",
     text:"Moran, Shapiro, Boettner & Bailey — Principles of Engineering Thermodynamics, SI Version (8th ed., Wiley)",
-    weekOneMonday:"2026-08-17"   // <-- Week 1 begins 17 Aug 2026 (course schedule)
+    weekOneMonday:"2026-08-17",  // <-- Week 1 begins 17 Aug 2026 (course schedule)
+    /* non-teaching weeks — week numbers after these skip over them */
+    breaks:["2026-09-28"]        // mid-semester recess
   },
 
   nav:[
@@ -629,16 +631,17 @@ window.SUBJECT = {
       related:[{label:"Control volumes (Topic 3)",href:"week-03.html"},{label:"Refrigeration (Topic 8)",href:"week-08.html"},{label:"Gas power (Topic 7)",href:"week-07.html"}]},
 
     {id:"a-quiz", name:"Mid-semester Quiz", type:"Individual quiz", weight:"40%",
-      weekLabel:"Week 7 · in the Lectorial", dueWeek:7, dueOffsetDays:0,
+      weekLabel:"Thu 8 Oct · Week 7 · 12:00 · BAG01", due:"2026-10-08", dueWeek:7, dueOffsetDays:3,
       covers:"Basic thermodynamics: the 1st and 2nd laws and simple applications (Topics 1–5).",
-      desc:"Held in Week 7 during the Lectorial time (may be pushed back one week depending on external factors). The second half of the course relies strongly on this material. Marked on correct numerical answers and units, correct identification and modification of formulas, and correct use of the thermodynamic tables. Assesses learning outcomes 1–2.",
+      desc:"Thursday 8 October, starting 12:00 (arrive 5 min early) in BAG01 — 110 minutes, in the Lectorial slot. Restricted open book: you may bring a study-aid of 4 double-sided A4 pages. Formula sheets are NOT provided (put them in your study-aid); thermodynamic tables ARE provided. Structure: Q1 short answers on the entire course, Q2 closed system, Q3 open system, Q4 analysis. Marked on correct numerical answers and units, correct identification and modification of formulas, and correct use of the tables. Assesses learning outcomes 1–2. (Note: the Canvas calendar entry is dated 28 Sep, but the assignment's own description gives 8 Oct — which matches the Week 7 lectorial and the course outline.)",
       study:[
-        "Energy, work, heat and the closed-system energy balance (Topic 1).",
+        "Build your 4-page study-aid early — the formula sheet is not supplied, so copy it in.",
+        "Energy, work, heat and the closed-system energy balance (Topic 1) — this is Q2.",
+        "Control-volume mass and energy balances for the steady-flow devices (Topic 3) — this is Q3.",
         "Reading and interpolating the property tables; quality and the ideal-gas model (Topic 2).",
-        "Control-volume mass and energy balances for the standard steady-flow devices (Topic 3).",
         "Kelvin–Planck / Clausius statements, Carnot limits on efficiency and COP (Topic 4).",
         "Entropy: TdS relations, entropy balance and isentropic efficiencies (Topic 5).",
-        "Practise with the supplied formula sheet and steam/air tables — you will use them in the quiz."
+        "Work the practice quiz and only check the solutions after attempting it."
       ],
       weeks:[1,2,3,4,5],
       related:[{label:"Energy balance (closed)",href:"equations.html#eq-energy-closed"},{label:"SFEE",href:"equations.html#eq-sfee"},{label:"Carnot efficiency",href:"equations.html#eq-carnot-efficiency"},{label:"Entropy (Topic 5)",href:"week-05.html"}]},

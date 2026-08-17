@@ -26,6 +26,27 @@
     <p>An offline, interlinked set of notes, equations, glossaries and assessment trackers — one space per subject. Pick a subject to dive in, or add a new one as the semester unfolds.</p>
   </div>
 
+  <section class="tt">
+    <div class="tt-card">
+      <div class="tt-head">
+        <h2>Timetable</h2>
+        <div class="tt-nav">
+          <button type="button" id="ttPrev" aria-label="Previous week">◀</button>
+          <span id="ttWeekLabel"></span>
+          <button type="button" id="ttNext" aria-label="Next week">▶</button>
+          <button type="button" id="ttToday">Today</button>
+        </div>
+      </div>
+      <div id="ttNow"></div>
+      <div id="ttBanner"></div>
+      <div id="ttGrid" class="tt-grid"></div>
+      <div class="tt-dl">
+        <h3>Upcoming deadlines</h3>
+        <div id="ttDue"></div>
+      </div>
+    </div>
+  </section>
+
   <div id="subjGrid" class="subj-grid"></div>
 
   <section class="archive-section">
@@ -94,6 +115,86 @@ window.HUB = {
       archived: true
     }
     // ,{ code:"NEXT1010", title:"…", blurb:"…", term:"…", tally:"…", path:"next1010/index.html" }
+  ],
+
+  /* ============================================================
+     TIMETABLE + DEADLINES
+     ------------------------------------------------------------
+     Generated from the Canvas calendar feed (exported 17 Aug 2026).
+     Times are Newcastle local. To refresh next semester, re-export
+     the .ics from Canvas and regenerate these three blocks.
+
+     Note: the front page can't read the per-subject subject.js files
+     (each declares its own `const R`, so only one can load per page),
+     which is why the deadlines are listed again here. The subject
+     assessment pages remain the detailed source of truth.
+     ============================================================ */
+  semester: {
+    term: "Semester 2, 2026",
+    weekOneMonday: "2026-08-17",
+    weeks: 12,
+    /* weeks that don't count toward the teaching-week number */
+    breaks: [ { monday: "2026-09-28", label: "Mid-semester recess" } ]
+  },
+
+  /* `dates` are the real class dates from the feed, so a week where a
+     class doesn't run simply shows nothing for it. */
+  timetable: [
+    {
+      code: "MECH2430", label: "Monday Lecture", short: "Lecture",
+      day: "Mon", start: "13:00", end: "15:00", loc: "Zoom",
+      dates: ["2026-08-17","2026-08-24","2026-08-31","2026-09-07","2026-09-14","2026-09-21",
+              "2026-09-28","2026-10-05","2026-10-12","2026-10-19","2026-10-26","2026-11-02",
+              "2026-11-09","2026-11-16"]
+    },
+    {
+      code: "MECH3780", label: "Fluid Mechanics 2 and CFD", short: "Fluids/CFD",
+      day: "Tue", start: "10:00", end: "12:00", loc: "Zoom",
+      dates: ["2026-08-18","2026-08-25","2026-09-01","2026-09-08","2026-09-15","2026-09-22",
+              "2026-10-06","2026-10-13","2026-10-20","2026-10-27","2026-11-03","2026-11-10"]
+    },
+    {
+      code: "ENGG2440", label: "Modelling and Control", short: "Control",
+      day: "Wed", start: "12:00", end: "14:00", loc: "Zoom",
+      dates: ["2026-08-19","2026-08-26","2026-09-02","2026-09-09","2026-09-16","2026-09-23",
+              "2026-09-30","2026-10-07","2026-10-14","2026-10-21","2026-10-28","2026-11-04",
+              "2026-11-11"]
+    },
+    {
+      code: "MECH2430", label: "Wednesday Lecture", short: "Lecture",
+      day: "Wed", start: "16:00", end: "17:30", loc: "Zoom",
+      dates: ["2026-08-19","2026-08-26","2026-09-02","2026-09-09","2026-09-16","2026-09-23",
+              "2026-09-30","2026-10-07","2026-10-14","2026-10-21","2026-10-28","2026-11-04",
+              "2026-11-11","2026-11-18"]
+    },
+    {
+      code: "MECH3720", label: "Thermodynamics Lectorial", short: "Lectorial",
+      day: "Thu", start: "12:00", end: "14:00", loc: "Zoom",
+      dates: ["2026-08-20","2026-08-27","2026-09-03","2026-09-10","2026-09-17","2026-09-24",
+              "2026-10-08","2026-10-15","2026-10-22","2026-10-29","2026-11-05","2026-11-12"]
+    }
+  ],
+
+  deadlines: [
+    { code:"ENGG2440", name:"Quiz — Week 2",              date:"2026-08-28" },
+    { code:"ENGG2440", name:"Quiz — Week 3",              date:"2026-09-04" },
+    { code:"ENGG2440", name:"Lab 1 (Problems 1 & 2)",     date:"2026-09-06" },
+    { code:"ENGG2440", name:"Quiz — Week 4",              date:"2026-09-11" },
+    { code:"ENGG2440", name:"Quiz — Week 5",              date:"2026-09-18" },
+    { code:"ENGG2440", name:"Lab 2",                      date:"2026-09-20" },
+    /* Canvas dated this 28 Sep, but the assignment's own description says
+       8/10/2026 12 PM, BAG01, 110 min — a Thursday in Week 7, matching the
+       lectorial slot and the course outline. Using 8 Oct. */
+    { code:"MECH3720", name:"Mid-Semester Quiz · BAG01",  date:"2026-10-08", time:"12:00" },
+    { code:"ENGG2440", name:"Quiz — Week 7",              date:"2026-10-09" },
+    { code:"ENGG2440", name:"Lab 3 (+ hand-written notes)",date:"2026-10-11" },
+    { code:"ENGG2440", name:"Quiz — Week 8",              date:"2026-10-16" },
+    { code:"ENGG2440", name:"Quiz — Week 9",              date:"2026-10-23" },
+    { code:"ENGG2440", name:"Quiz — Week 10",             date:"2026-10-30" },
+    { code:"ENGG2440", name:"Lab 4",                      date:"2026-11-01" },
+    { code:"ENGG2440", name:"Quiz — Week 11",             date:"2026-11-06" },
+    { code:"ENGG2440", name:"Lab 5 (Problems 1 & 2)",     date:"2026-11-08" },
+    { code:"ENGG2440", name:"Lab 6",                      date:"2026-11-22" }
   ]
 };
 </script>

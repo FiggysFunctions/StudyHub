@@ -25,7 +25,9 @@ window.SUBJECT = {
     term:"Semester 2, 2026",
     coordinator:"TBC",
     text:"TBC",
-    weekOneMonday:"2026-07-27"   // <-- EDIT to your real Week 1 Monday
+    weekOneMonday:"2026-08-17",  // Week 1 begins 17 Aug 2026
+    /* non-teaching weeks — week numbers after these skip over them */
+    breaks:["2026-09-28"]        // mid-semester recess
   },
 
   /* ---- fixed sidebar entries (weekly pages are added automatically) ---- */

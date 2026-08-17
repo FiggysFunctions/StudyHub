@@ -328,7 +328,19 @@ function getLS(k,d){try{var v=localStorage.getItem(lsKey(k));return v===null?d:v
 function setLS(k,v){try{localStorage.setItem(lsKey(k),v);}catch(e){}}
 function delLS(k){try{localStorage.removeItem(lsKey(k));}catch(e){}}
 function anchorMonday(){return getLS("anchor",S.meta.weekOneMonday);}
-function weekMonday(n){var d=new Date(anchorMonday()+"T00:00:00");d.setDate(d.getDate()+(n-1)*7);return d;}
+/* Monday of teaching week n. Any non-teaching break weeks listed in
+   S.meta.breaks (e.g. mid-semester recess) are skipped over, so week
+   numbers after a recess still land on the right calendar date. */
+function weekMonday(n){
+ var d=new Date(anchorMonday()+"T00:00:00");
+ d.setDate(d.getDate()+(n-1)*7);
+ var br=((S.meta&&S.meta.breaks)||[]).slice().sort();
+ br.forEach(function(b){
+   var bm=new Date(b+"T00:00:00");
+   if(bm<=d)d.setDate(d.getDate()+7);
+ });
+ return d;
+}
 function fmtDate(d){return d.toLocaleDateString(undefined,{weekday:"short",day:"numeric",month:"short",year:"numeric"});}
 /* Format as YYYY-MM-DD in LOCAL time. (toISOString() converts to UTC,
    which shifts the date back a day for anyone east of Greenwich.) */
@@ -339,6 +351,9 @@ function isoDate(d){
 function dueOf(a){
  var ov=getLS("due_"+a.id,null);
  if(ov)return new Date(ov+"T00:00:00");
+ /* an exact calendar date (e.g. taken from the Canvas feed) wins over the
+    week-relative calculation, so it stays put if the anchor Monday moves */
+ if(a.due)return new Date(a.due+"T00:00:00");
  var d=weekMonday(a.dueWeek||1);d.setDate(d.getDate()+(a.dueOffsetDays||0));return d;
 }
 function statusOf(due,done){
@@ -527,6 +542,192 @@ function initHub(){
 }
 
 /* =========================================================
+   11. HUB HOME — RUNNING TIMETABLE
+   Driven by window.HUB.semester / .timetable / .deadlines
+   (see the data block in index.html). Everything is worked out
+   live from the clock: which teaching week it is, which class is
+   on now or next, today's column, and deadline countdowns.
+   `dates` on each timetable row holds the real class dates from
+   the Canvas feed, so weeks a class doesn't run simply stay empty.
+   ========================================================= */
+var TT_DOW=["Mon","Tue","Wed","Thu","Fri","Sat","Sun"];
+function ttMid(d){var x=new Date(d);x.setHours(0,0,0,0);return x;}
+function ttIso(d){var p=function(n){return(n<10?"0":"")+n;};return d.getFullYear()+"-"+p(d.getMonth()+1)+"-"+p(d.getDate());}
+function ttParse(iso){return new Date(iso+"T00:00:00");}
+function ttMins(t){var m=/^(\d{1,2}):(\d{2})$/.exec(t||"");return m?(+m[1])*60+(+m[2]):0;}
+function ttAt(iso,t){var d=ttParse(iso);d.setMinutes(ttMins(t));return d;}
+/* Monday of the week containing d */
+function ttMonday(d){var x=ttMid(d);x.setDate(x.getDate()-((x.getDay()+6)%7));return x;}
+
+/* Teaching-week label for a given Monday, skipping non-teaching breaks */
+function ttWeekInfo(monday){
+ var sem=(window.HUB&&window.HUB.semester)||{};
+ if(!sem.weekOneMonday)return{label:""};
+ var w1=ttMonday(ttParse(sem.weekOneMonday));
+ var raw=Math.round((monday-w1)/(7*DAY))+1;
+ var breaks=sem.breaks||[],passed=0,inBreak=null;
+ breaks.forEach(function(b){
+   var bm=ttMonday(ttParse(b.monday));
+   if(bm.getTime()===monday.getTime())inBreak=b;
+   else if(monday>bm)passed++;
+ });
+ if(inBreak)return{label:inBreak.label,isBreak:true};
+ var n=raw-passed;
+ if(n<1)return{label:"Before semester",outside:true};
+ if(sem.weeks&&n>sem.weeks)return{label:"After teaching weeks",outside:true};
+ return{label:"Week "+n,week:n};
+}
+
+/* every class occurrence, flattened and sorted */
+function ttOccurrences(){
+ var out=[];
+ ((window.HUB&&window.HUB.timetable)||[]).forEach(function(t){
+   (t.dates||[]).forEach(function(iso){out.push({t:t,iso:iso});});
+ });
+ out.sort(function(a,b){
+   if(a.iso!==b.iso)return a.iso<b.iso?-1:1;
+   return ttMins(a.t.start)-ttMins(b.t.start);
+ });
+ return out;
+}
+/* the class happening right now, else the next one to start */
+function ttNowNext(){
+ var now=new Date(),occ=ttOccurrences();
+ for(var i=0;i<occ.length;i++){
+   var end=ttAt(occ[i].iso,occ[i].t.end);
+   if(end>now){
+     var start=ttAt(occ[i].iso,occ[i].t.start);
+     return{o:occ[i],start:start,end:end,live:start<=now};
+   }
+ }
+ return null;
+}
+function ttCountdown(target){
+ var ms=target-new Date();
+ if(ms<=0)return"now";
+ var mins=Math.round(ms/60000);
+ if(mins<60)return"in "+mins+" min";
+ var hrs=Math.floor(mins/60),rem=mins%60;
+ if(hrs<24)return"in "+hrs+" h"+(rem?" "+rem+" m":"");
+ var days=Math.round(ms/DAY);
+ return"in "+days+" day"+(days===1?"":"s");
+}
+function ttDueStatus(iso){
+ var days=Math.round((ttParse(iso)-ttMid(new Date()))/DAY);
+ if(days<0)return{cls:"overdue",label:Math.abs(days)+" day"+(Math.abs(days)===1?"":"s")+" ago"};
+ if(days===0)return{cls:"soon",label:"due today"};
+ if(days===1)return{cls:"soon",label:"tomorrow"};
+ if(days<=10)return{cls:"soon",label:"in "+days+" days"};
+ return{cls:"upcoming",label:"in "+days+" days"};
+}
+function ttSubject(code){
+ var subs=(window.HUB&&window.HUB.subjects)||[];
+ for(var i=0;i<subs.length;i++)if(subs[i].code===code)return subs[i];
+ return null;
+}
+
+function initHubTimetable(){
+ var host=$("#ttGrid");
+ if(!host||!window.HUB||!window.HUB.timetable)return;
+ var offset=0;   /* weeks away from the current one */
+
+ function render(){
+   var monday=ttMonday(new Date());
+   monday.setDate(monday.getDate()+offset*7);
+   var info=ttWeekInfo(monday),todayIso=ttIso(new Date());
+
+   /* ---- header ---- */
+   var lab=$("#ttWeekLabel");
+   if(lab){
+     var last=new Date(monday);last.setDate(last.getDate()+6);
+     var fmt=function(d){return d.toLocaleDateString(undefined,{day:"numeric",month:"short"});};
+     lab.innerHTML='<strong>'+esc(info.label)+'</strong><span>'+fmt(monday)+" – "+fmt(last)+'</span>';
+   }
+   var btnToday=$("#ttToday"); if(btnToday)btnToday.style.visibility=offset===0?"hidden":"visible";
+
+   /* ---- now / next ---- */
+   var nowHost=$("#ttNow");
+   if(nowHost){
+     var nn=ttNowNext();
+     if(!nn){
+       nowHost.innerHTML='<span class="tt-none">No more scheduled classes this semester.</span>';
+     }else{
+       var s=ttSubject(nn.o.t.code),href=s?s.path:null;
+       var when=nn.live
+         ? '<span class="tt-live">On now</span> · ends '+nn.o.t.end
+         : '<span class="tt-when">'+esc(ttCountdown(nn.start))+'</span> · '
+           +TT_DOW[(ttParse(nn.o.iso).getDay()+6)%7]+" "+nn.o.t.start+"–"+nn.o.t.end;
+       nowHost.innerHTML='<div class="tt-nn'+(nn.live?" live":"")+'">'
+         +'<div class="tt-nn-k">'+(nn.live?"In progress":"Next class")+'</div>'
+         +'<div class="tt-nn-b">'
+         +(href?'<a href="'+esc(href)+'">':'<span>')
+         +'<span class="code">'+esc(nn.o.t.code)+'</span> '+esc(nn.o.t.label)
+         +(href?'</a>':'</span>')
+         +'</div><div class="tt-nn-m">'+when+(nn.o.t.loc?' · '+esc(nn.o.t.loc):'')+'</div></div>';
+     }
+   }
+
+   /* ---- week grid ---- */
+   var dl=(window.HUB.deadlines)||[],cells=[];
+   for(var i=0;i<7;i++){
+     var day=new Date(monday);day.setDate(day.getDate()+i);
+     var iso=ttIso(day),isToday=iso===todayIso,isPast=iso<todayIso;
+     var items="";
+     /* classes on this day */
+     ttOccurrences().filter(function(o){return o.iso===iso;}).forEach(function(o){
+       var s=ttSubject(o.t.code),href=s?s.path:null,live=false;
+       if(isToday){var n=new Date();live=ttAt(iso,o.t.start)<=n&&ttAt(iso,o.t.end)>n;}
+       items+=(href?'<a class="tt-cls'+(live?" live":"")+'" href="'+esc(href)+'">':'<span class="tt-cls">')
+         +'<span class="t">'+esc(o.t.start)+'</span>'
+         +'<span class="c">'+esc(o.t.code)+'</span>'
+         +'<span class="n">'+esc(o.t.short||o.t.label)+'</span>'
+         +(href?'</a>':'</span>');
+     });
+     /* deadlines on this day */
+     dl.filter(function(d){return d.date===iso;}).forEach(function(d){
+       var s=ttSubject(d.code),href=s?s.path.replace(/index\.html$/,"assessments.html"):null;
+       items+=(href?'<a class="tt-due" href="'+esc(href)+'">':'<span class="tt-due">')
+         +'<span class="c">'+esc(d.code)+'</span>'
+         +'<span class="n">'+esc(d.name)+'</span>'
+         +(href?'</a>':'</span>');
+     });
+     cells.push('<div class="tt-day'+(isToday?" today":"")+(isPast?" past":"")+(items?"":" empty")+'">'
+       +'<div class="tt-dname">'+TT_DOW[i]+' <span>'+day.getDate()+'</span></div>'
+       +(items||'<div class="tt-free">—</div>')+'</div>');
+   }
+   host.innerHTML=cells.join("");
+   var banner=$("#ttBanner");
+   if(banner)banner.innerHTML=info.isBreak?'<div class="tt-break">'+esc(info.label)+' — no scheduled teaching this week.</div>':"";
+
+   /* ---- upcoming deadlines (always from today, not the shown week) ---- */
+   var due=$("#ttDue");
+   if(due){
+     var upcoming=dl.filter(function(d){return d.date>=todayIso;}).slice(0,6);
+     due.innerHTML=upcoming.length
+       ? upcoming.map(function(d){
+           var st=ttDueStatus(d.date),s=ttSubject(d.code),
+               href=s?s.path.replace(/index\.html$/,"assessments.html"):null,
+               when=ttParse(d.date).toLocaleDateString(undefined,{weekday:"short",day:"numeric",month:"short"});
+           return(href?'<a class="tt-drow" href="'+esc(href)+'">':'<div class="tt-drow">')
+             +'<span class="code">'+esc(d.code)+'</span>'
+             +'<span class="nm">'+esc(d.name)+(d.time?' <span class="tm">'+esc(d.time)+'</span>':'')+'</span>'
+             +'<span class="dt">'+when+'</span>'
+             +'<span class="countdown '+st.cls+'">'+st.label+'</span>'
+             +(href?'</a>':'</div>');
+         }).join("")
+       : '<p class="tt-none">Nothing due — you\'re all clear.</p>';
+   }
+ }
+
+ var prev=$("#ttPrev"),next=$("#ttNext"),tdy=$("#ttToday");
+ if(prev)prev.addEventListener("click",function(){offset--;render();});
+ if(next)next.addEventListener("click",function(){offset++;render();});
+ if(tdy)tdy.addEventListener("click",function(){offset=0;render();});
+ render();
+ setInterval(render,60000);   /* keep the countdowns and "on now" live */
+}
+
+/* =========================================================
    BOOTSTRAP
    ========================================================= */
 /* favicon: the stress-element glyph as an inline SVG data URI, so no
@@ -569,6 +770,7 @@ document.addEventListener("DOMContentLoaded",function(){
  initAssessmentsPage();
  initSearchPage();
  initHub();
+ initHubTimetable();
  renderMath(document.body);
  addAnchors();
  wireTooltips();
