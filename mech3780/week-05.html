@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="manifest" href="../manifest.webmanifest">
+<link rel="apple-touch-icon" href="../icons/apple-touch-icon.png">
+<meta name="theme-color" content="#161E2B">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<title>Week 5 — Turbulent &amp; Wall-Bounded Flows · MECH3780</title>
+<link rel="stylesheet" href="../assets/styles.css">
+<link rel="stylesheet" href="../assets/katex/katex.min.css">
+</head>
+<body>
+<div class="shell">
+  <main class="main">
+    <div class="page has-rail">
+      <div class="content">
+        <div class="crumb"><a href="../index.html">Study hub</a> / <a href="index.html">MECH3780</a> / Week 5</div>
+        <div class="eyebrow">Week 5 · Lecture notes</div>
+        <h1 class="title">Turbulent &amp; Wall-Bounded Flows</h1>
+        <p class="lede">Turbulent variables fluctuate randomly in space and time, and no exact solution is known. But engineers rarely need the instantaneous field — we need means. Reynolds' time-averaging delivers exactly that, at the cost of introducing new unknowns, and it is the idea every turbulence model in CFD is built on.</p>
+
+        <h2 id="wallbounded">Wall-bounded flows</h2>
+        <p>Flows bounded by at least one wall — pipes, channels and boundary layers — as distinct from free shear flows like jets and wakes. The wall imposes the no-slip condition, forcing a viscosity-dominated region right next to it. That creates <strong>two length scales</strong>: a small viscous one near the wall and a large one for the flow as a whole, and reconciling them is what the layer structure below is about.</p>
+
+        <h2 id="averaging">Reynolds' time-averaging</h2>
+        <p>Split every quantity into a time mean plus a fluctuation, averaging over a period longer than any significant fluctuation:</p>
+        <div class="eqbox">$$u = \bar u + u' \qquad \bar u = \frac{1}{T}\int_0^T u\,dt \qquad \overline{u'} = 0, \quad \overline{u'^2} \neq 0$$</div>
+        <p>The fluctuation averages to zero by construction — but its <em>mean square</em> does not, and that is the measure of turbulence intensity. Substituting into the momentum equation and averaging leaves continuity looking unchanged but momentum carrying extra terms:</p>
+        <div class="eqbox">$$\tau = \mu\frac{d\bar u}{dy} - \rho\,\overline{u'v'}$$</div>
+        <p>The new term <span>$-\rho\overline{u'v'}$</span> is the <a class="gloss" href="glossary.html#g-reynolds-stress">Reynolds stress</a>, and across most of a turbulent flow it dwarfs the viscous stress. It is also unknown — the <a class="gloss" href="glossary.html#g-closure">closure problem</a>. Modelling it with an eddy viscosity <span>$\mu_t$</span> or Prandtl's mixing length is what "turbulence modelling" means, and it is the reason CFD asks you to pick a model.</p>
+
+        <h2 id="lawofwall">The law of the wall</h2>
+        <p>The wall shear stress defines a velocity scale, and with it a set of dimensionless wall coordinates:</p>
+        <div class="eqbox">$$u^* = \sqrt{\frac{\tau_w}{\rho}} \qquad u^+ = \frac{u}{u^*} \qquad y^+ = \frac{y\,u^*}{\nu}$$</div>
+        <p>In these variables, turbulent wall data from every flow collapse onto a single curve with three regions:</p>
+        <ul>
+          <li><strong>Viscous sublayer</strong> (<span>$y^+ &lt; 5$</span>) — viscosity dominates and the profile is linear: <span>$u^+ = y^+$</span>.</li>
+          <li><strong>Buffer layer</strong> (<span>$5 &lt; y^+ &lt; 30$</span>) — the curve bends over to merge with the log law.</li>
+          <li><strong>Logarithmic overlap layer</strong> — <span>$u^+ = \frac{1}{\kappa}\ln y^+ + B$</span>, with <span>$\kappa \approx 0.41$</span> and <span>$B \approx 5.0$</span> for a smooth wall.</li>
+        </ul>
+        <p>Further out sits the outer velocity-defect layer. This structure — Prandtl 1930, von Kármán 1933, Millikan 1937 — is described in the lecture as the approximation that solves nearly every turbulent-flow problem.</p>
+        <div class="note"><span class="k">Solving the log law</span> Because <span>$u^*$</span> appears on both sides, finding it from a measured velocity means solving an implicit equation. The lecture recommends Excel's Goal Seek or Solver — worth practising before Quiz 2, which asks for exactly this.</div>
+
+        <h2 id="pipe">Turbulent pipe flow</h2>
+        <p>A force balance on a cylindrical plug of fluid links wall shear to the pressure gradient, <span>$\tau_w\,2\pi r L = \Delta p\,\pi r^2$</span>, and the head loss follows from the Darcy friction factor (Moody chart or a correlation):</p>
+        <div class="eqbox">$$\tau_w = \frac{\Delta p\,R}{2L} \qquad h_f = f\frac{L}{D}\frac{V^2}{2g}$$</div>
+        <p>Integrating the log law across the pipe relates the mean velocity to the centreline value — and shows the turbulent profile is much <em>flatter</em> than the laminar parabola, since vigorous mixing evens out the momentum. The same treatment applies between parallel plates using the hydraulic diameter <span>$D_h = 4h$</span>.</p>
+
+        <h2 id="boundarylayer">The flat-plate boundary layer</h2>
+        <p>The <a class="gloss" href="glossary.html#g-boundary-layer">boundary layer</a> is where <span>$u$</span> reaches 99% of the free-stream value. Its growth depends entirely on the regime:</p>
+        <div class="eqbox">$$\frac{\delta}{x} \approx \frac{5.0}{Re_x^{1/2}} \ \ \text{(laminar, Blasius)} \qquad \frac{\delta}{x} \approx \frac{0.16}{Re_x^{1/7}} \ \ \text{(turbulent)}$$</div>
+        <div class="note"><span class="k">Always check the regime</span> The worked example does this explicitly: assume laminar, compute <span>$x$</span>, then check <span>$Re_x$</span>. Getting <span>$9\times10^8$</span> against a transition value near <span>$5\times10^5$</span> means the assumption was wrong — redo it with the turbulent relation. Marks are lost by skipping this check.</div>
+
+        <h2 id="integral">Momentum and displacement thickness</h2>
+        <p>Kármán's momentum integral gives the drag directly from the velocity profile:</p>
+        <div class="eqbox">$$\theta = \int_0^\delta \frac{u}{U}\left(1-\frac{u}{U}\right)dy \qquad \delta^* = \int_0^\delta\left(1-\frac{u}{U}\right)dy \qquad D = \rho b U^2\theta$$</div>
+        <p>The <a class="gloss" href="glossary.html#g-displacement-thickness">displacement thickness</a> is how far the outer streamlines must deflect outward to conserve mass past the retarded near-wall flow. Because <span>$\delta^* \ll x$</span> at high Reynolds number, the wall-normal velocity is far smaller than the streamwise one — the key assumption underpinning boundary-layer theory. Their ratio <span>$H = \delta^*/\theta$</span> is the shape factor. Skin friction and drag then follow as coefficients:</p>
+        <div class="eqbox">$$c_f = \frac{\tau_w}{\tfrac12\rho U^2} \qquad C_D = \frac{D}{\tfrac12\rho U^2 bL}$$</div>
+        <p>There is no exact solution for turbulent flat-plate flow; the standard result comes from assuming the log law holds all the way across the layer, plus power-law and curve-fit approximations for the rough and transitional regimes.</p>
+
+        <div class="note"><span class="k">Where this leads</span> The Reynolds stresses are exactly what a CFD turbulence model has to supply, and <span>$y^+$</span> is what decides whether your mesh resolves the near-wall region — both of which return in Week 7.</div>
+      </div>
+
+      <aside class="rail">
+        <h4>On this page</h4>
+        <ul>
+          <li><a href="#wallbounded">Wall-bounded flows</a></li>
+          <li><a href="#averaging">Time-averaging</a></li>
+          <li><a href="#lawofwall">Law of the wall</a></li>
+          <li><a href="#pipe">Turbulent pipe flow</a></li>
+          <li><a href="#boundarylayer">Boundary layer</a></li>
+          <li><a href="#integral">Momentum integral</a></li>
+        </ul>
+        <h4>Related</h4>
+        <ul>
+          <li><span class="tag">eq</span><a href="equations.html#eq-reynolds-stress">Reynolds stress</a></li>
+          <li><span class="tag">eq</span><a href="equations.html#eq-law-wall">Law of the wall</a></li>
+          <li><span class="tag">eq</span><a href="equations.html#eq-bl-thickness">BL thickness</a></li>
+          <li><span class="tag">def</span><a href="glossary.html#g-friction-velocity">Friction velocity</a></li>
+          <li><span class="tag">def</span><a href="glossary.html#g-closure">Closure problem</a></li>
+          <li><span class="tag">flag</span><a href="assessments.html#a-quiz2">Quiz 2: Fluids B</a></li>
+        </ul>
+      </aside>
+    </div>
+  </main>
+</div>
+<script src="../assets/katex/katex.min.js"></script>
+<script src="../assets/katex/auto-render.min.js"></script>
+<script src="subject.js"></script>
+<script src="../assets/hub.js"></script>
+</body>
+</html>

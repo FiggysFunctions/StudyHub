@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="manifest" href="../manifest.webmanifest">
+<link rel="apple-touch-icon" href="../icons/apple-touch-icon.png">
+<meta name="theme-color" content="#161E2B">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<title>Week 4 — Compressible Flow · MECH3780</title>
+<link rel="stylesheet" href="../assets/styles.css">
+<link rel="stylesheet" href="../assets/katex/katex.min.css">
+</head>
+<body>
+<div class="shell">
+  <main class="main">
+    <div class="page has-rail">
+      <div class="content">
+        <div class="crumb"><a href="../index.html">Study hub</a> / <a href="index.html">MECH3780</a> / Week 4</div>
+        <div class="eyebrow">Week 4 · Lecture notes</div>
+        <h1 class="title">Compressible Flow</h1>
+        <p class="lede">Everything before this assumed the fluid velocity was far below its speed of sound. Once <span>$Ma \gtrsim 0.3$</span> density changes stop being negligible, and with them come significant temperature and pressure changes — so the energy equation can no longer be ignored. The work doubles from two equations to four.</p>
+
+        <h2 id="four">Four equations, four unknowns</h2>
+        <p>Compressible flow requires continuity, momentum, <strong>energy</strong> and the <strong>equation of state</strong>, solved simultaneously for <span>$p$</span>, <span>$\rho$</span>, <span>$T$</span> and <span>$V$</span>. The general theory is complicated, so we simplify hard — usually by assuming reversible adiabatic (isentropic) flow.</p>
+        <div class="note"><span class="k">Continuity changes</span> Incompressible: <span>$A_1V_1 = A_2V_2$</span>. Compressible: <span>$\rho_1A_1V_1 = \rho_2A_2V_2$</span>. Dropping the density is exactly the approximation that fails here.</div>
+
+        <h2 id="thermo">The thermodynamic toolkit</h2>
+        <div class="eqbox">$$p = \rho R T \qquad h = u + \frac{p}{\rho} \qquad c_p - c_v = R \qquad k = \frac{c_p}{c_v} \qquad c_p = \frac{kR}{k-1}$$</div>
+        <p>with <span>$du = c_v dT$</span> and <span>$dh = c_p dT$</span> for a perfect gas. For air <span>$R = 287$</span> J/kg·K and <span>$k = 1.4$</span>. Entropy comes from the Gibbs relation <span>$T\,ds = dh - dp/\rho$</span>, integrating to:</p>
+        <div class="eqbox">$$s_2 - s_1 = c_p\ln\frac{T_2}{T_1} - R\ln\frac{p_2}{p_1}$$</div>
+        <p>An <a class="gloss" href="glossary.html#g-isentropic">isentropic</a> process is adiabatic <em>and</em> reversible, giving <span>$p/\rho^k = \text{const}$</span>. Note carefully: all isentropic processes are adiabatic, but not all adiabatic processes are isentropic — the normal shock is the counterexample that matters.</p>
+
+        <h2 id="sound">Speed of sound and the Mach number</h2>
+        <p>Applying continuity and momentum across a weak pressure pulse (with friction confined inside the wave) gives the propagation speed as a thermodynamic property:</p>
+        <div class="eqbox">$$a = \sqrt{\left(\frac{\partial p}{\partial\rho}\right)_{\!s}} = \sqrt{kRT} \qquad Ma = \frac{V}{a}$$</div>
+        <p>For air at 20 °C, <span>$a \approx 340$</span> m/s — so a shout carries 34 m in about a tenth of a second. The <a class="gloss" href="glossary.html#g-mach">Mach number</a> classifies everything: <span>$Ma&lt;0.3$</span> effectively incompressible, <span>$0.3&lt;Ma&lt;1$</span> subsonic compressible, <span>$Ma\approx1$</span> transonic, <span>$Ma&gt;1$</span> supersonic, <span>$3&lt;Ma&lt;5$</span> high supersonic and beyond that hypersonic.</p>
+
+        <h2 id="stagnation">Stagnation and sonic states</h2>
+        <p>For adiabatic flow past an insulated wall with no shaft work, the steady-flow energy equation gives a constant along every streamtube — the <a class="gloss" href="glossary.html#g-stagnation">stagnation enthalpy</a>, the value the fluid would reach if brought to rest:</p>
+        <div class="eqbox">$$h_0 = h + \tfrac12 V^2 \qquad \frac{T_0}{T} = 1 + \frac{k-1}{2}Ma^2 \qquad \frac{p_0}{p} = \left(1 + \frac{k-1}{2}Ma^2\right)^{\!k/(k-1)}$$</div>
+        <div class="note"><span class="k">Which relation needs what</span> The <em>temperature</em> ratio needs only adiabatic flow. The <em>pressure</em> and <em>density</em> ratios additionally require isentropic flow. That distinction is precisely why <span>$T_0$</span> survives a shock but <span>$p_0$</span> does not.</div>
+        <p>The sonic (critical) state where <span>$Ma=1$</span> is the other useful reference, marked with an asterisk:</p>
+        <div class="eqbox">$$\frac{T^*}{T_0} = \frac{2}{k+1} \qquad \frac{p^*}{p_0} = \left(\frac{2}{k+1}\right)^{\!k/(k-1)} \approx 0.528\ (k=1.4)$$</div>
+
+        <h2 id="area">Isentropic flow with area change</h2>
+        <p>Combining continuity and the Bernoulli-type momentum relation for isentropic duct flow yields the central result:</p>
+        <div class="eqbox">$$\frac{dV}{V} = -\frac{dA}{A}\,\frac{1}{1 - Ma^2}$$</div>
+        <p>The sign of <span>$(1-Ma^2)$</span> flips everything. Subsonically a contraction accelerates the flow, as intuition expects; supersonically an <em>expansion</em> accelerates it. To pass smoothly from subsonic to supersonic you therefore need a throat at <span>$Ma=1$</span> followed by a diverging section — the <a class="gloss" href="glossary.html#g-nozzle">converging-diverging (de Laval) nozzle</a>. The area–Mach relation gives the required contour, and once the throat reaches sonic conditions the duct is <a class="gloss" href="glossary.html#g-choked">choked</a>: lowering the back pressure further cannot increase the mass flow.</p>
+
+        <h2 id="friction">Friction and heat transfer</h2>
+        <p>Two non-isentropic duct flows worth knowing by name. <strong>Fanno flow</strong> is adiabatic with wall friction: friction drives subsonic flow <em>up</em> toward <span>$Ma=1$</span> and supersonic flow <em>down</em> toward it. <strong>Rayleigh flow</strong> is frictionless with heat addition or removal; because it is not adiabatic, the stagnation temperature is no longer constant. In both, properties at any station follow from the known Mach number relative to the critical reference.</p>
+
+        <h2 id="shock">Normal shock waves</h2>
+        <p>When supersonic flow meets an abrupt area decrease or too high a back pressure, a <a class="gloss" href="glossary.html#g-shock">normal shock</a> forms — a region only a few micrometres thick across which properties jump. The flow goes supersonic → subsonic; pressure, temperature and density rise; velocity and Mach number fall.</p>
+        <div class="eqbox">$$Ma_2^2 = \frac{1 + \tfrac12(k-1)Ma_1^2}{k\,Ma_1^2 - \tfrac12(k-1)} \qquad \frac{p_2}{p_1} = \frac{2k\,Ma_1^2 - (k-1)}{k+1}$$</div>
+        <p>The process is adiabatic but <strong>irreversible</strong>, so entropy increases and stagnation pressure is lost. That means the incompressible Bernoulli equation must never be applied across a shock. In a converging-diverging nozzle with insufficient pressure ratio, the supersonic section cannot expand fully and a shock appears in the diverging part.</p>
+
+        <div class="note"><span class="k">Exam note</span> The Week 4 lecture states plainly that being able to solve its worked examples is what matters. The Quiz 2 practice paper reuses the adiabatic-duct example almost verbatim.</div>
+      </div>
+
+      <aside class="rail">
+        <h4>On this page</h4>
+        <ul>
+          <li><a href="#four">Four equations</a></li>
+          <li><a href="#thermo">Thermodynamic toolkit</a></li>
+          <li><a href="#sound">Speed of sound &amp; Mach</a></li>
+          <li><a href="#stagnation">Stagnation &amp; sonic</a></li>
+          <li><a href="#area">Area change</a></li>
+          <li><a href="#friction">Friction &amp; heat</a></li>
+          <li><a href="#shock">Normal shocks</a></li>
+        </ul>
+        <h4>Related</h4>
+        <ul>
+          <li><span class="tag">eq</span><a href="equations.html#eq-speed-sound">Speed of sound</a></li>
+          <li><span class="tag">eq</span><a href="equations.html#eq-stagnation">Stagnation relations</a></li>
+          <li><span class="tag">eq</span><a href="equations.html#eq-area-mach">Area–Mach relation</a></li>
+          <li><span class="tag">eq</span><a href="equations.html#eq-shock">Normal shock</a></li>
+          <li><span class="tag">def</span><a href="glossary.html#g-choked">Choked flow</a></li>
+          <li><span class="tag">flag</span><a href="assessments.html#a-quiz2">Quiz 2: Fluids B</a></li>
+        </ul>
+      </aside>
+    </div>
+  </main>
+</div>
+<script src="../assets/katex/katex.min.js"></script>
+<script src="../assets/katex/auto-render.min.js"></script>
+<script src="subject.js"></script>
+<script src="../assets/hub.js"></script>
+</body>
+</html>

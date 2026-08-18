@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="manifest" href="../manifest.webmanifest">
+<link rel="apple-touch-icon" href="../icons/apple-touch-icon.png">
+<meta name="theme-color" content="#161E2B">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<title>Week 2 — Turbomachinery 2: Systems &amp; Turbines · MECH3780</title>
+<link rel="stylesheet" href="../assets/styles.css">
+<link rel="stylesheet" href="../assets/katex/katex.min.css">
+</head>
+<body>
+<div class="shell">
+  <main class="main">
+    <div class="page has-rail">
+      <div class="content">
+        <div class="crumb"><a href="../index.html">Study hub</a> / <a href="index.html">MECH3780</a> / Week 2</div>
+        <div class="eyebrow">Week 2 · Lecture notes</div>
+        <h1 class="title">Turbomachinery 2 — Systems &amp; Turbines</h1>
+        <p class="lede">A pump curve on its own tells you nothing about what the pump will actually do — that depends on the circuit it is fitted to. This week matches pumps to systems, combines them, and then reverses the machine to extract energy instead of adding it.</p>
+
+        <h2 id="matching">Matching a pump to a system</h2>
+        <p>Apply the energy equation between the two reservoir surfaces: the pump must supply the static lift plus every loss along the way.</p>
+        <div class="eqbox">$$H_{sys}(Q) = \Delta z + \left(f\frac{L}{D} + \sum K\right)\frac{V^2}{2g}$$</div>
+        <p>Since <span>$V \propto Q$</span>, the loss term grows roughly as <span>$Q^2$</span> — the system curve is a rising parabola sitting on the static lift. The pump settles where <em>both</em> conditions hold simultaneously:</p>
+        <div class="eqbox">$$Q_{pump} = Q_{sys} \qquad H_{pump} = H_{sys}$$</div>
+        <p>which is the intersection of the two curves: the <a class="gloss" href="glossary.html#g-operating-point">operating (duty) point</a>. Reading across from it gives the flow, head, efficiency and power draw all at once.</p>
+        <div class="note"><span class="k">Design check</span> A pump is well chosen when its duty point sits near the BEP. Far to either side and you lose efficiency, and at very low flow you risk recirculation and cavitation.</div>
+
+        <h2 id="control">Controlling a pump</h2>
+        <p>Two ways to move the duty point:</p>
+        <ul>
+          <li><strong>Change the system curve</strong> — throttle a valve on the discharge. This steepens the parabola and slides the duty point back along the pump curve. Simple, but the throttling loss is wasted energy.</li>
+          <li><strong>Change the pump curve</strong> — vary the shaft speed <span>$n$</span>. The <a class="eqref" href="equations.html#eq-similarity">similarity rules</a> shift the whole H–Q curve down and left, meeting the unchanged system curve at a lower duty. Since power scales as <span>$n^3$</span>, this is far more efficient — the reason variable-speed drives are standard.</li>
+        </ul>
+
+        <h2 id="combining">Pumps in series and parallel</h2>
+        <div class="eqbox">$$\text{Series: } Q = Q_1 = Q_2,\ \ H = H_1 + H_2 \qquad\qquad \text{Parallel: } H = H_1 = H_2,\ \ Q = Q_1 + Q_2$$</div>
+        <p>Series machines pass the same flow and add their heads — use them when the system needs more lift. Parallel machines share the head and add their flows — use them when it needs more throughput (and they give redundancy).</p>
+        <div class="note"><span class="k">The catch</span> Two pumps in parallel do <em>not</em> give twice the flow. Adding flow pushes the operating point up the steepening system curve, so each machine delivers less than it would alone: <span>$Q_1 + Q_2 &lt; Q_I + Q_{II}$</span>. The same logic limits series pumping. Always find the new intersection rather than doubling.</div>
+
+        <h2 id="turbines">Turbines</h2>
+        <p>A turbine extracts energy from high-head fluid — but it is <em>not</em> simply a pump run backwards. Two families, distinguished by how the head is converted:</p>
+        <ul>
+          <li><strong><a class="gloss" href="glossary.html#g-reaction-turbine">Reaction turbines</a></strong> — the blade passages run full and the pressure drop happens <em>inside</em> the runner. Radial, mixed and axial designs: the <strong>Francis</strong> (mixed flow, medium head) and the <strong>Kaplan</strong> (axial, propeller-like, low head and high flow). These are dynamic machines that admit high-energy fluid and take its momentum.</li>
+          <li><strong><a class="gloss" href="glossary.html#g-impulse-turbine">Impulse turbines</a></strong> — a nozzle first converts the head into a high-velocity jet, which strikes the buckets one at a time at essentially atmospheric pressure. Suits very high head with low flow (the Pelton wheel).</li>
+        </ul>
+
+        <h2 id="jet">Force of a jet on a blade</h2>
+        <p>The impulse machine is analysed with the momentum theorem on a control volume moving with the bucket. For a jet of speed <span>$V_j$</span> striking a blade moving at <span>$u$</span> and turned through angle <span>$\theta$</span>:</p>
+        <div class="eqbox">$$F = \rho Q\,(V_j - u)(1 - \cos\theta) \qquad P = F u$$</div>
+        <p>Two results fall out: deflection is most effective as <span>$\theta \to 180^\circ$</span> (hence the split-bucket shape of a Pelton wheel), and differentiating the power shows it peaks when the bucket runs at about <strong>half the jet speed</strong>.</p>
+
+        <div class="note"><span class="k">Selecting a turbine</span> The tutorial asks you to pick type, number and size for a given net head and flow with a fixed generator speed — that is really a specific-speed argument: high head and low flow favours impulse, low head and high flow favours Kaplan, with Francis between.</div>
+      </div>
+
+      <aside class="rail">
+        <h4>On this page</h4>
+        <ul>
+          <li><a href="#matching">Matching to a system</a></li>
+          <li><a href="#control">Controlling a pump</a></li>
+          <li><a href="#combining">Series &amp; parallel</a></li>
+          <li><a href="#turbines">Turbines</a></li>
+          <li><a href="#jet">Jet force on a blade</a></li>
+        </ul>
+        <h4>Related</h4>
+        <ul>
+          <li><span class="tag">eq</span><a href="equations.html#eq-system-curve">System curve</a></li>
+          <li><span class="tag">eq</span><a href="equations.html#eq-pumps-combined">Series &amp; parallel</a></li>
+          <li><span class="tag">eq</span><a href="equations.html#eq-jet-force">Jet force</a></li>
+          <li><span class="tag">def</span><a href="glossary.html#g-operating-point">Operating point</a></li>
+          <li><span class="tag">def</span><a href="glossary.html#g-impulse-turbine">Impulse turbine</a></li>
+          <li><span class="tag">flag</span><a href="assessments.html#a-quiz1">Quiz 1: Fluids A</a></li>
+        </ul>
+      </aside>
+    </div>
+  </main>
+</div>
+<script src="../assets/katex/katex.min.js"></script>
+<script src="../assets/katex/auto-render.min.js"></script>
+<script src="subject.js"></script>
+<script src="../assets/hub.js"></script>
+</body>
+</html>

@@ -13,7 +13,7 @@
 */
 "use strict";
 
-var CACHE = "studyhub-v9";
+var CACHE = "studyhub-v10";
 
 var PRECACHE = [
   "./",
@@ -124,7 +124,12 @@ var PRECACHE = [
   "mech3780/glossary.html",
   "mech3780/index.html",
   "mech3780/search.html",
-  "mech3780/subject.js"
+  "mech3780/subject.js",
+  "mech3780/week-01.html",
+  "mech3780/week-02.html",
+  "mech3780/week-04.html",
+  "mech3780/week-05.html",
+  "mech3780/week-07.html"
 ];
 
 /* HTML and subject data get network-first so edits show up */

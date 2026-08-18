@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="manifest" href="../manifest.webmanifest">
+<link rel="apple-touch-icon" href="../icons/apple-touch-icon.png">
+<meta name="theme-color" content="#161E2B">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<title>Week 7 — Introduction to CFD with ANSYS Fluent · MECH3780</title>
+<link rel="stylesheet" href="../assets/styles.css">
+<link rel="stylesheet" href="../assets/katex/katex.min.css">
+</head>
+<body>
+<div class="shell">
+  <main class="main">
+    <div class="page has-rail">
+      <div class="content">
+        <div class="crumb"><a href="../index.html">Study hub</a> / <a href="index.html">MECH3780</a> / Week 7</div>
+        <div class="eyebrow">Week 7 · Lecture notes</div>
+        <h1 class="title">Introduction to CFD with ANSYS Fluent</h1>
+        <p class="lede">CFD solves the governing equations numerically over a discretised domain. It earns its place when analytical solutions do not exist and experiments are unaffordable — new designs, detailed process investigation, testing that cannot be done physically. Half the skill is running the software; the other half is knowing whether to believe the answer.</p>
+
+        <h2 id="what">What a solver actually solves</h2>
+        <p>CFD simulates fluid flow, heat and mass transfer, chemical reaction and more by numerically solving the governing equations: continuity, the Navier-Stokes (momentum) equations, energy, and species transport. ANSYS solvers use the <a class="gloss" href="glossary.html#g-fvm">finite volume method</a> — the domain is divided into a finite set of control volumes and the conservation equations are integrated over each one.</p>
+        <p>All of them share a single template, the general transport equation:</p>
+        <div class="eqbox">$$\underbrace{\frac{\partial(\rho\phi)}{\partial t}}_{\text{unsteady}} + \underbrace{\nabla\!\cdot\!(\rho\mathbf V\phi)}_{\text{convection}} = \underbrace{\nabla\!\cdot\!(\Gamma\nabla\phi)}_{\text{diffusion}} + \underbrace{S_\phi}_{\text{generation}}$$</div>
+        <p>Setting <span>$\phi = 1$</span> recovers continuity; <span>$\phi = u,v,w$</span> give the three momentum equations; <span>$\phi = h$</span> gives energy. The partial differential equations become a system of algebraic equations, which is solved numerically to render the solution field.</p>
+        <div class="note"><span class="k">Cell-centred</span> Fluent's control volumes are cell-centred — they correspond directly to the mesh cells. (CFX, by contrast, is node-centred.)</div>
+
+        <h2 id="workflow">The Workbench workflow</h2>
+        <p>A Fluent project runs through four linked stages, each opened from the Workbench schematic:</p>
+        <ol>
+          <li><strong>Geometry</strong> (DesignModeler) — sketch or import the fluid domain.</li>
+          <li><strong>Mesh</strong> — discretise it, and name the boundaries.</li>
+          <li><strong>Setup &amp; Solution</strong> (Fluent) — physics, boundary conditions, solver settings, iterate.</li>
+          <li><strong>Results</strong> (CFD-Post) — contours, vectors, streamlines, plots.</li>
+        </ol>
+
+        <h2 id="methodology">The five-step methodology</h2>
+        <p><strong>1. Set the goal.</strong> What outcome do you need — pressure drop, velocity profile, temperature distribution — and what will it be used for? What physical models must be included, what simplifying assumptions must you make, and which <em>can</em> you make (symmetry, periodicity)? What accuracy is required, how fast, and is CFD even the right tool?</p>
+        <p><strong>2. Pre-process.</strong> Obtain the fluid region (existing CAD, extracted from a solid part, or from scratch) and simplify it — strip fillets and bolts that only complicate meshing, and exploit symmetry, but only if <em>both</em> the solution and the boundary conditions are symmetric. Then mesh: the mesh must resolve the geometric features of interest and capture the gradients you care about. Predict where those gradients will be steep and refine there, within the computer resources you have.</p>
+        <p><strong>3. Physics and solver settings.</strong> Define material properties, select the physical models (turbulence, combustion, multiphase), prescribe operating and boundary conditions at every boundary zone, provide initial values, and set up solver controls and convergence monitors.</p>
+        <p><strong>4. Compute.</strong> The discretised equations are solved iteratively until convergence.</p>
+        <p><strong>5. Post-process and validate</strong> — then, if the results do not stand up, go back to step 2.</p>
+        <div class="note"><span class="k">Start simple</span> For a complex problem, solving a simplified or 2-D version first buys valuable experience with the models and solver settings in a fraction of the time.</div>
+
+        <h2 id="convergence">Convergence — and why it is not enough</h2>
+        <p><a class="gloss" href="glossary.html#g-convergence">Convergence</a> is reached when changes between iterations become negligible (watch the residuals), overall property conservation is achieved (imbalances are small), and the quantities you actually care about — drag, pressure drop — have levelled off at monitor points.</p>
+        <p>But the accuracy of a converged solution still depends on the appropriateness of the physical models, the mesh resolution and independence, and numerical error. As the slides put it: a converged <em>and</em> mesh-independent solution to a well-posed problem is what provides useful engineering results — all three conditions, not just the first.</p>
+
+        <h2 id="validation">Validation</h2>
+        <p><a class="gloss" href="glossary.html#g-validation">Validation</a> asks three questions. Is there any analytical, numerical or experimental result to judge these against? Is the solution <a class="gloss" href="glossary.html#g-mesh-independence">mesh independent</a> and time-step independent — have you done the sensitivity study? Are the residuals sufficiently small? If not, revise the model and go round again. Two of the course's six learning outcomes are about exactly this: awareness of the limitations and assumptions in CFD, and the value of validation.</p>
+
+        <h2 id="firstsim">Your first simulation</h2>
+        <p>The guided case is turbulent air flow in a pipe: <span>$D = 0.1$</span> m, <span>$L = 1$</span> m, <span>$V = 1$</span> m/s, <span>$\rho = 1.225$</span> kg/m³, <span>$\mu = 1.7894\times10^{-5}$</span> kg/m·s. The first move is always the Reynolds number:</p>
+        <div class="eqbox">$$Re_D = \frac{\rho V D}{\mu} \approx 6.8\times10^3 > 2300 \ \Rightarrow\ \text{turbulent}$$</div>
+        <p>which settles whether a turbulence model is needed at all. The walkthrough then covers: sketching a rectangle in DesignModeler and creating a surface from the sketch; generating a mesh, setting element size to 5 mm, adding face meshing and edge sizing with 100 divisions and a bias factor of 5 to pack cells toward the walls; creating <strong>named selections</strong> for inlet, wall and outlet; launching Fluent in double precision; setting the velocity inlet to 1 m/s; standard initialisation computed from the inlet; running 200 iterations; and finally plotting velocity and pressure contours in CFD-Post.</p>
+        <div class="note"><span class="k">Why the bias</span> The edge bias clusters cells near the wall — which is exactly the Week 5 point about resolving the viscous sublayer and the near-wall gradients that set the wall shear stress.</div>
+      </div>
+
+      <aside class="rail">
+        <h4>On this page</h4>
+        <ul>
+          <li><a href="#what">What a solver solves</a></li>
+          <li><a href="#workflow">Workbench workflow</a></li>
+          <li><a href="#methodology">Five-step methodology</a></li>
+          <li><a href="#convergence">Convergence</a></li>
+          <li><a href="#validation">Validation</a></li>
+          <li><a href="#firstsim">First simulation</a></li>
+        </ul>
+        <h4>Related</h4>
+        <ul>
+          <li><span class="tag">eq</span><a href="equations.html#eq-transport">Transport equation</a></li>
+          <li><span class="tag">eq</span><a href="equations.html#eq-reynolds-pipe">Pipe Reynolds number</a></li>
+          <li><span class="tag">def</span><a href="glossary.html#g-fvm">Finite volume method</a></li>
+          <li><span class="tag">def</span><a href="glossary.html#g-mesh-independence">Mesh independence</a></li>
+          <li><span class="tag">flag</span><a href="assessments.html#a-quiz3">Quiz 3: Basic CFD</a></li>
+        </ul>
+      </aside>
+    </div>
+  </main>
+</div>
+<script src="../assets/katex/katex.min.js"></script>
+<script src="../assets/katex/auto-render.min.js"></script>
+<script src="subject.js"></script>
+<script src="../assets/hub.js"></script>
+</body>
+</html>

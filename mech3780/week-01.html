@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="manifest" href="../manifest.webmanifest">
+<link rel="apple-touch-icon" href="../icons/apple-touch-icon.png">
+<meta name="theme-color" content="#161E2B">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<title>Week 1 — Turbomachinery 1: Pumps · MECH3780</title>
+<link rel="stylesheet" href="../assets/styles.css">
+<link rel="stylesheet" href="../assets/katex/katex.min.css">
+</head>
+<body>
+<div class="shell">
+  <main class="main">
+    <div class="page has-rail">
+      <div class="content">
+        <div class="crumb"><a href="../index.html">Study hub</a> / <a href="index.html">MECH3780</a> / Week 1</div>
+        <div class="eyebrow">Week 1 · Lecture notes</div>
+        <h1 class="title">Turbomachinery 1 — Pumps</h1>
+        <p class="lede">The aim is elementary engineering estimates of fluid-machine performance, for nearly incompressible flow. We care about the flow principles, not the detailed mechanical construction — enough to size a pump, read its curve, and keep it from destroying itself.</p>
+
+        <h2 id="classification">Classifying pumps</h2>
+        <p>Two families, with very different characters:</p>
+        <ul>
+          <li><strong><a class="gloss" href="glossary.html#g-pdp">Positive-displacement pumps (PDPs)</a></strong> — a cavity opens, traps and squeezes the fluid, so flow is pulsating but near-constant. Reciprocating (piston, plunger, diaphragm) or rotary (gear, lobe, screw, sliding vane, peristaltic). They reach very high pressures (~300 atm) at low flow (~100 gal/min), and handle any viscosity.</li>
+          <li><strong><a class="gloss" href="glossary.html#g-dynamic-pump">Dynamic pumps</a></strong> — fast-moving blades add momentum, which a diffuser converts to pressure. Radial (centrifugal), axial or mixed flow. Very high flow (up to 300,000 gal/min) at moderate pressure rise, but high viscosity degrades them sharply.</li>
+        </ul>
+        <div class="note"><span class="k">Reading the p–Q comparison</span> A PDP gives essentially constant flow with virtually unlimited pressure rise — which is why PDPs dominate metering. A dynamic pump varies continuously from maximum head at shutoff to zero head at maximum flow.</div>
+
+        <h2 id="centrifugal">The centrifugal pump</h2>
+        <p>Fluid enters axially through the <em>eye</em>, is caught by the impeller blades and whirled tangentially and radially outward, gaining both velocity and pressure. It leaves into the doughnut-shaped scroll (volute), which decelerates the flow and converts more of that velocity into pressure.</p>
+
+        <h2 id="output">Output parameters</h2>
+        <p>The <a class="gloss" href="glossary.html#g-net-head">net head</a> is the Bernoulli-head rise across the machine, and multiplying by <span>$\rho g Q$</span> gives the power actually delivered to the fluid:</p>
+        <div class="eqbox">$$H = \left(\frac{p}{\rho g} + \frac{V^2}{2g} + z\right)_2 - \left(\frac{p}{\rho g} + \frac{V^2}{2g} + z\right)_1 \qquad P_w = \rho g Q H$$</div>
+        <p>If suction and discharge pipes match in size and height, the velocity and elevation terms cancel. Real shaft power (<em>brake horsepower</em>) exceeds <span>$P_w$</span>, and the shortfall splits three ways:</p>
+        <div class="eqbox">$$\eta = \frac{P_w}{bhp} = \eta_v\,\eta_h\,\eta_m$$</div>
+        <p>volumetric (leakage), hydraulic (friction and shock in the flow) and mechanical (bearings and seals).</p>
+
+        <h2 id="theory">Elementary pump theory</h2>
+        <p>Assume one-dimensional flow and apply the angular-momentum theorem to a control volume around the impeller. Fluid enters at <span>$r_1$</span> with relative velocity <span>$w_1$</span> tangent to the blade plus tip speed <span>$u_1 = \omega r_1$</span>; their vector sum is the absolute velocity <span>$V_1$</span>. Same at exit. That gives the Euler relations:</p>
+        <div class="eqbox">$$T = \rho Q(r_2V_{t2} - r_1V_{t1}) \qquad P = \omega T \qquad H = \frac{u_2V_{t2} - u_1V_{t1}}{g}$$</div>
+        <p>with continuity through the impeller <span>$Q = 2\pi r_1 b_1 V_{n1} = 2\pi r_2 b_2 V_{n2}$</span> and, from the exit triangle, <span>$V_{t2} = u_2 - V_{n2}\cot\beta_2$</span>. At the design point flow enters radially, so <span>$\alpha_1 = 90^\circ$</span> and <span>$V_{t1}=0$</span> — which kills the second term and simplifies everything.</p>
+        <div class="note"><span class="k">Draw the triangles</span> The lecture is explicit about this: sketch both <a class="gloss" href="glossary.html#g-velocity-triangle">velocity triangles</a> with every component labelled — <span>$\alpha$</span>, <span>$\beta$</span>, <span>$u$</span>, <span>$w$</span>, <span>$V$</span>, <span>$V_t$</span>. Nearly every marking scheme rewards this.</div>
+
+        <h2 id="bladeangle">Blade angle and performance curves</h2>
+        <p>Substituting continuity into the Euler head gives a straight line in <span>$Q$</span>:</p>
+        <div class="eqbox">$$H = \frac{u_2^2}{g} - \frac{u_2\cot\beta_2}{2\pi r_2 b_2\, g}\,Q$$</div>
+        <p>with a <a class="gloss" href="glossary.html#g-shutoff">shutoff head</a> of <span>$u_2^2/g$</span>, sloping down for backward-curved blades (<span>$\beta_2 &lt; 90^\circ$</span>) and up for forward-curved. Real measured curves add the losses: efficiency is zero at both no-flow and <span>$Q_{max}$</span>, peaking 80–90% at roughly <span>$0.6\,Q_{max}$</span> — the <a class="gloss" href="glossary.html#g-bep">best efficiency point</a>. Backward-curved blades level off in power above the BEP (a "non-overloading" curve), which is why they are preferred.</p>
+
+        <h2 id="cavitation">Cavitation and NPSH</h2>
+        <p><a class="gloss" href="glossary.html#g-cavitation">Cavitation</a> is vapour bubbles forming where the pressure drops below the liquid's vapour pressure; carried into higher pressure they collapse and erode the blades. The guard against it is net positive-suction head:</p>
+        <div class="eqbox">$$NPSH = \frac{p_i}{\rho g} + \frac{V_i^2}{2g} - \frac{p_v}{\rho g} = \frac{p_a}{\rho g} - z_i - h_f - \frac{p_v}{\rho g}$$</div>
+        <p>The right-hand form comes from Bernoulli back to the free surface and is what the installation provides — so position the pump (reduce <span>$z_i$</span> and the suction friction <span>$h_f$</span>) until the available NPSH comfortably exceeds the manufacturer's required value. Note that <span>$p_v$</span> climbs steeply with temperature, so hot liquids cavitate far more readily.</p>
+
+        <h2 id="similarity">Similarity rules</h2>
+        <p>Dimensional analysis says head and power depend on <span>$Q$</span>, impeller diameter <span>$D$</span>, speed <span>$n$</span>, density, viscosity and roughness. For geometrically similar pumps that collapses to:</p>
+        <div class="eqbox">$$\frac{Q_2}{Q_1} = \frac{n_2}{n_1}\!\left(\frac{D_2}{D_1}\right)^{\!3} \qquad \frac{H_2}{H_1} = \left(\frac{n_2}{n_1}\right)^{\!2}\!\left(\frac{D_2}{D_1}\right)^{\!2} \qquad \frac{P_2}{P_1} = \frac{\rho_2}{\rho_1}\!\left(\frac{n_2}{n_1}\right)^{\!3}\!\left(\frac{D_2}{D_1}\right)^{\!5}$$</div>
+        <p>so one tested curve rescales across a whole pump family. Note the strong dependences: power goes as speed cubed and diameter to the fifth.</p>
+
+        <div class="note"><span class="k">Units</span> The lecture examples are worked in US units (inches, gal/min, horsepower) and then explicitly ask you to convert to SI. 1 US gallon ≈ 3.785 L.</div>
+        <div class="note"><span class="k">Where this leads</span> Week 2 puts the pump into a circuit, combines pumps, and turns the machine around to look at turbines.</div>
+      </div>
+
+      <aside class="rail">
+        <h4>On this page</h4>
+        <ul>
+          <li><a href="#classification">Classifying pumps</a></li>
+          <li><a href="#centrifugal">Centrifugal pump</a></li>
+          <li><a href="#output">Output parameters</a></li>
+          <li><a href="#theory">Elementary pump theory</a></li>
+          <li><a href="#bladeangle">Blade angle &amp; curves</a></li>
+          <li><a href="#cavitation">Cavitation &amp; NPSH</a></li>
+          <li><a href="#similarity">Similarity rules</a></li>
+        </ul>
+        <h4>Related</h4>
+        <ul>
+          <li><span class="tag">eq</span><a href="equations.html#eq-euler-turbo">Euler turbomachine eqn</a></li>
+          <li><span class="tag">eq</span><a href="equations.html#eq-npsh">NPSH</a></li>
+          <li><span class="tag">eq</span><a href="equations.html#eq-similarity">Similarity rules</a></li>
+          <li><span class="tag">def</span><a href="glossary.html#g-cavitation">Cavitation</a></li>
+          <li><span class="tag">def</span><a href="glossary.html#g-bep">Best efficiency point</a></li>
+          <li><span class="tag">flag</span><a href="assessments.html#a-quiz1">Quiz 1: Fluids A</a></li>
+        </ul>
+      </aside>
+    </div>
+  </main>
+</div>
+<script src="../assets/katex/katex.min.js"></script>
+<script src="../assets/katex/auto-render.min.js"></script>
+<script src="subject.js"></script>
+<script src="../assets/hub.js"></script>
+</body>
+</html>
