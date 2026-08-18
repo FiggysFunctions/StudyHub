@@ -13,7 +13,7 @@
 */
 "use strict";
 
-var CACHE = "studyhub-v8";
+var CACHE = "studyhub-v9";
 
 var PRECACHE = [
   "./",
@@ -56,6 +56,18 @@ var PRECACHE = [
   "engg2440/index.html",
   "engg2440/search.html",
   "engg2440/subject.js",
+  "engg2440/week-01.html",
+  "engg2440/week-02.html",
+  "engg2440/week-03.html",
+  "engg2440/week-04.html",
+  "engg2440/week-05.html",
+  "engg2440/week-06.html",
+  "engg2440/week-07.html",
+  "engg2440/week-08.html",
+  "engg2440/week-09.html",
+  "engg2440/week-10.html",
+  "engg2440/week-11.html",
+  "engg2440/week-12.html",
   "icons/apple-touch-icon.png",
   "icons/icon-192.png",
   "icons/icon-512.png",

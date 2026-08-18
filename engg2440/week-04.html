@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="manifest" href="../manifest.webmanifest">
+<link rel="apple-touch-icon" href="../icons/apple-touch-icon.png">
+<meta name="theme-color" content="#161E2B">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<title>Week 4 — Fluid Power Systems · ENGG2440</title>
+<link rel="stylesheet" href="../assets/styles.css">
+<link rel="stylesheet" href="../assets/katex/katex.min.css">
+</head>
+<body>
+<div class="shell">
+  <main class="main">
+    <div class="page has-rail">
+      <div class="content">
+        <div class="crumb"><a href="../index.html">Study hub</a> / <a href="index.html">ENGG2440</a> / Week 4</div>
+        <div class="eyebrow">Week 4 · Lecture notes</div>
+        <h1 class="title">Fluid Power Systems</h1>
+        <p class="lede">The last physical domain: systems that use a nearly incompressible fluid — water or hydraulic oil — to transmit power. Hydraulics dominate where large forces must move quickly; a hydraulic motor can produce roughly ten times the torque of an electric motor of similar size.</p>
+
+        <h2 id="variables">Slotting fluid power into the framework</h2>
+        <div class="eqbox">$$\text{Effort} \to P(t) \qquad \text{Flow} \to Q(t) \qquad \text{Momentum} \to P_p(t) \qquad \text{Displacement} \to V(t)$$</div>
+        <p>Pressure is the effort and volumetric flow rate the flow, so their product is power. The energy variables are <a class="gloss" href="glossary.html#g-pressure-momentum">pressure momentum</a> (the momentum of fluid moving along a pipe) and stored <strong>volume</strong>. As in the electrical domain, the number of states equals the number of independent energy-storing elements — the tanks and the long pipes.</p>
+
+        <h2 id="inertia">Fluid inertia</h2>
+        <p>These systems are usually high-pressure and low-flow, so inertia is often ignored — but in a long, thin pipe the mass of the fluid matters. Treating that fluid column as a mass driven by the pressure difference across it, <span>$\rho A l \dot v = A\,\Delta P$</span>, and writing velocity in terms of flow rate <span>$Q = vA$</span>:</p>
+        <div class="eqbox">$$\mathcal I\,\dot Q(t) = \Delta P(t), \qquad \mathcal I = \frac{\rho\,l}{A}$$</div>
+        <p>which is only appreciable for small area and large length — exactly the intuition that a long narrow pipe is hard to start and stop flow in.</p>
+
+        <h2 id="capacitance">Capacitance, resistance and compressibility</h2>
+        <p>A tank or accumulator is the generalised capacitor: volume is the state, its derivative is the flow rate, and pressure rises as it fills.</p>
+        <div class="eqbox">$$\dot V = Q \qquad P = \frac{V}{C}$$</div>
+        <p>Valves and orifices are the generalised resistors, relating pressure drop to flow — often <em>non-linearly</em>, which is one of the main sources of nonlinearity the course later linearises. Where fluid <strong>compressibility</strong> matters it is modelled by hanging a dummy accumulator off the pressure side of a chamber.</p>
+
+        <h2 id="cylinders">Piston-cylinders as transformers</h2>
+        <p>Cylinders are the <a class="gloss" href="glossary.html#g-transformer">transformers</a> connecting fluid power to the mechanical domains — pressure becomes force, velocity becomes flow, both scaled by the plunger area. Neglecting the plunger mass, a free-body diagram gives:</p>
+        <div class="eqbox">$$\text{Single-acting: } F = P A_p,\quad Q = v A_p \qquad\qquad \text{Symmetric: } F = (P_1 - P_2)A_p$$</div>
+        <p>An <strong>asymmetric</strong> cylinder differs only in the exposed face area on each side — the rod occupies part of one face — so a higher pressure is needed on the plunger side to produce the same force. Check the drawn positive directions: as usually drawn, positive velocity pushes fluid <em>out</em> of the cylinder (positive <span>$Q$</span>).</p>
+
+        <div class="note"><span class="k">Domain complete</span> Mechanical (translational and rotational), electrical and fluid power — with transformers and gyrators to join them, you can now model multi-domain systems such as a valve-controlled hydraulic actuator driven by a motorised pump.</div>
+        <div class="note"><span class="k">Where this leads</span> Week 5 linearises these (often nonlinear) models and converts them to transfer functions, which is the bridge into the control half.</div>
+      </div>
+
+      <aside class="rail">
+        <h4>On this page</h4>
+        <ul>
+          <li><a href="#variables">The framework</a></li>
+          <li><a href="#inertia">Fluid inertia</a></li>
+          <li><a href="#capacitance">Capacitance &amp; resistance</a></li>
+          <li><a href="#cylinders">Piston-cylinders</a></li>
+        </ul>
+        <h4>Related</h4>
+        <ul>
+          <li><span class="tag">eq</span><a href="equations.html#eq-fluid-inertia">Fluid inertia</a></li>
+          <li><span class="tag">eq</span><a href="equations.html#eq-fluid-cap">Fluid capacitance</a></li>
+          <li><span class="tag">eq</span><a href="equations.html#eq-piston">Piston-cylinder CCRs</a></li>
+          <li><span class="tag">def</span><a href="glossary.html#g-pressure-momentum">Pressure momentum</a></li>
+          <li><span class="tag">def</span><a href="glossary.html#g-transformer">Transformer</a></li>
+          <li><span class="tag">flag</span><a href="assessments.html#a-quiz-w5">Quiz — Week 5</a></li>
+        </ul>
+      </aside>
+    </div>
+  </main>
+</div>
+<script src="../assets/katex/katex.min.js"></script>
+<script src="../assets/katex/auto-render.min.js"></script>
+<script src="subject.js"></script>
+<script src="../assets/hub.js"></script>
+</body>
+</html>

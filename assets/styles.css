@@ -188,6 +188,16 @@ a.eqref:hover{text-decoration:none;background:#DEEAF6}
   text-align:center;color:var(--ink-faint);min-height:150px}
 .subj-card.add:hover{transform:none;border-color:var(--blueprint-soft);color:var(--blueprint)}
 
+/* ---------- Tables inside content pages ---------- */
+.content table{width:100%;border-collapse:collapse;margin:18px 0;font-size:14.5px;
+  display:block;overflow-x:auto;white-space:nowrap}
+.content table thead th{font-family:var(--font-mono);font-size:10.5px;letter-spacing:1.2px;
+  text-transform:uppercase;color:var(--ink-faint);text-align:left;font-weight:500;
+  border-bottom:1px solid var(--line-strong);padding:0 14px 7px 0}
+.content table td{padding:7px 14px 7px 0;border-bottom:1px solid var(--line);color:var(--ink-soft)}
+.content table tbody tr:last-child td{border-bottom:none}
+.content table td:first-child{color:var(--ink);font-weight:500}
+
 /* ---------- Hub home: running timetable ---------- */
 .tt{max-width:var(--maxpage);margin:0 auto;padding:6px 56px 4px}
 .tt-card{background:var(--surface);border:1px solid var(--line);border-radius:var(--rad);

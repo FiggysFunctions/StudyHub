@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="manifest" href="../manifest.webmanifest">
+<link rel="apple-touch-icon" href="../icons/apple-touch-icon.png">
+<meta name="theme-color" content="#161E2B">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<title>Week 12 — Frequency-Domain Design · ENGG2440</title>
+<link rel="stylesheet" href="../assets/styles.css">
+<link rel="stylesheet" href="../assets/katex/katex.min.css">
+</head>
+<body>
+<div class="shell">
+  <main class="main">
+    <div class="page has-rail">
+      <div class="content">
+        <div class="crumb"><a href="../index.html">Study hub</a> / <a href="index.html">ENGG2440</a> / Week 12</div>
+        <div class="eyebrow">Week 12 · Lecture notes</div>
+        <h1 class="title">Frequency-Domain Design</h1>
+        <p class="lede">The final week joins the two halves of the control course. Week 7 expressed specifications in the time domain; Week 11 measured systems in the frequency domain. If the two can be related, then specs written as overshoot and settling time can be met using measurements taken on real hardware — which is how much industrial control design is actually done.</p>
+
+        <h2 id="pmzeta">Phase margin and damping ratio</h2>
+        <p>Take the standard second-order loop <span>$G(s) = \omega_n^2 / [s(s+2\zeta\omega_n)]$</span>, which under unity feedback gives the familiar closed-loop form. Finding the gain-crossover frequency where <span>$|G(j\omega)| = 1$</span> and evaluating the phase there yields an exact relation between phase margin and damping ratio:</p>
+        <div class="eqbox">$$\phi_M = \tan^{-1}\!\frac{2\zeta}{\sqrt{\sqrt{4\zeta^4+1} - 2\zeta^2}}$$</div>
+        <p>Plotted, this is very nearly a straight line up to about <span>$\phi_M = 60^\circ$</span>, which gives the rule of thumb every control engineer carries:</p>
+        <div class="eqbox">$$\boxed{\ \zeta \approx \frac{\phi_M}{100}\ }$$</div>
+        <p>So a phase margin of 50° corresponds to a damping ratio of about 0.5. Combined with Week 7, a <em>frequency-domain</em> measurement now predicts <em>time-domain</em> overshoot.</p>
+        <div class="note"><span class="k">The design chain</span> Overshoot spec → required <span>$\zeta$</span> (Week 7 inverse formula) → required phase margin (<span>$\phi_M \approx 100\zeta$</span>) → shape the open-loop Bode plot until that margin is achieved. That is frequency-domain design in one line.</div>
+
+        <h2 id="resonance">Resonance peak</h2>
+        <p>The closed-loop magnitude response of the same system is:</p>
+        <div class="eqbox">$$|T_{cl}(j\omega)| = \frac{\omega_n^2}{\sqrt{(\omega_n^2 - \omega^2)^2 + 4\zeta^2\omega_n^2\omega^2}}$$</div>
+        <p>Differentiating to find its maximum shows that the height of the <strong>resonance peak</strong> is set by the damping ratio alone — a lightly damped system has a tall peak, a well-damped one barely any. This gives a second frequency-domain read on <span>$\zeta$</span>, this time from the closed-loop response, and the frequency at which the peak occurs relates to <span>$\omega_n$</span>.</p>
+
+        <h2 id="bandwidth">Bandwidth and speed</h2>
+        <p>Where damping shows up as the peak, <em>speed</em> shows up as <a class="gloss" href="glossary.html#g-bandwidth">bandwidth</a> — the frequency range over which the loop still tracks its reference, conventionally where the closed-loop magnitude has fallen 3 dB below its DC value. Higher bandwidth means faster response, so bandwidth plays the role that <span>$\omega_n$</span> played in the time domain.</p>
+        <p>The pairing is neat and worth memorising as the summary of the whole control half:</p>
+        <div class="eqbox">$$\underbrace{\zeta \ \leftrightarrow\ \phi_M \ \leftrightarrow\ \text{resonance peak}}_{\text{shape / overshoot}} \qquad\qquad \underbrace{\omega_n \ \leftrightarrow\ \text{bandwidth}}_{\text{speed}}$$</div>
+
+        <h2 id="compensator">Compensator design</h2>
+        <p>With specifications translated into margin and bandwidth targets, design becomes <em>loop shaping</em>: add compensator dynamics that lift the gain at low frequency (for small steady-state error), push the gain crossover to the frequency that gives the required speed, and add phase near crossover to secure the phase margin — the role played by lead and lag compensators, and by the derivative and integral terms of a PID.</p>
+
+        <div class="note"><span class="k">Course complete</span> Weeks 1–5 built models of systems in any physical domain; Weeks 6–12 analysed and controlled them in both the time and frequency domains. The labs bring it together on a 1-link robotic manipulator, and the course's stated end goal — modelling, predicting and controlling an inverted pendulum — is now within reach.</div>
+      </div>
+
+      <aside class="rail">
+        <h4>On this page</h4>
+        <ul>
+          <li><a href="#pmzeta">Phase margin &amp; damping</a></li>
+          <li><a href="#resonance">Resonance peak</a></li>
+          <li><a href="#bandwidth">Bandwidth &amp; speed</a></li>
+          <li><a href="#compensator">Compensator design</a></li>
+        </ul>
+        <h4>Related</h4>
+        <ul>
+          <li><span class="tag">eq</span><a href="equations.html#eq-pm-zeta">Phase margin vs damping</a></li>
+          <li><span class="tag">eq</span><a href="equations.html#eq-resonance">Resonance peak</a></li>
+          <li><span class="tag">eq</span><a href="equations.html#eq-overshoot">Percent overshoot</a></li>
+          <li><span class="tag">def</span><a href="glossary.html#g-bandwidth">Bandwidth</a></li>
+          <li><span class="tag">def</span><a href="glossary.html#g-phase-margin">Phase margin</a></li>
+          <li><span class="tag">flag</span><a href="assessments.html#a-final">Final Quiz</a></li>
+        </ul>
+      </aside>
+    </div>
+  </main>
+</div>
+<script src="../assets/katex/katex.min.js"></script>
+<script src="../assets/katex/auto-render.min.js"></script>
+<script src="subject.js"></script>
+<script src="../assets/hub.js"></script>
+</body>
+</html>

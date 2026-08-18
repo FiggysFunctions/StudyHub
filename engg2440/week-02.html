@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="manifest" href="../manifest.webmanifest">
+<link rel="apple-touch-icon" href="../icons/apple-touch-icon.png">
+<meta name="theme-color" content="#161E2B">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<title>Week 2 — Model Representations &amp; the Generalised Framework · ENGG2440</title>
+<link rel="stylesheet" href="../assets/styles.css">
+<link rel="stylesheet" href="../assets/katex/katex.min.css">
+</head>
+<body>
+<div class="shell">
+  <main class="main">
+    <div class="page has-rail">
+      <div class="content">
+        <div class="crumb"><a href="../index.html">Study hub</a> / <a href="index.html">ENGG2440</a> / Week 2</div>
+        <div class="eyebrow">Week 2 · Lecture notes</div>
+        <h1 class="title">Model Representations &amp; the Generalised Framework</h1>
+        <p class="lede">This week contains the single most important idea in the modelling half: every physical domain runs on the same two variables. Once you see force/velocity, torque/angular-velocity, voltage/current and pressure/flow as the same pair wearing different clothes, each new domain costs you almost nothing.</p>
+
+        <h2 id="representations">Three representations</h2>
+        <p>The same linear system can be written as a <strong>block diagram</strong>, an <strong>ODE</strong>, or a <strong>state-space model</strong>, and you must be able to move between them. Converting an <span>$n$</span>th-order ODE to state-space is mechanical: take the output and its first <span>$n-1$</span> derivatives as states. The <strong>order</strong> of a model is the number of states — equivalently the order of the governing ODE.</p>
+
+        <h2 id="ports">Power ports and power variables</h2>
+        <p>Components interact by exchanging energy. At each point of interaction — a <a class="gloss" href="glossary.html#g-power-port">power port</a> — two variables multiply to give power:</p>
+        <div class="eqbox">$$P_W(t) = e(t)\,f(t)$$</div>
+        <p>We call <span>$e$</span> the generalised <strong>effort</strong> and <span>$f$</span> the generalised <strong>flow</strong>. Some components have one port; a DC motor has two (an electrical port carrying <span>$V\!I$</span> and a mechanical one carrying <span>$T\omega$</span>).</p>
+        <table>
+          <thead><tr><th>Domain</th><th>Effort <span>$e$</span></th><th>Flow <span>$f$</span></th></tr></thead>
+          <tbody>
+            <tr><td>Mech. translational</td><td>Force <span>$F$</span></td><td>Linear velocity <span>$v$</span></td></tr>
+            <tr><td>Mech. rotational</td><td>Torque <span>$T$</span></td><td>Angular velocity <span>$\omega$</span></td></tr>
+            <tr><td>Electrical</td><td>Voltage <span>$V$</span></td><td>Current <span>$I$</span></td></tr>
+            <tr><td>Fluid power</td><td>Pressure <span>$P$</span></td><td>Volumetric flow <span>$Q$</span></td></tr>
+          </tbody>
+        </table>
+
+        <h2 id="energyvars">Energy variables — why those states?</h2>
+        <p>Integrating the power variables gives the <a class="gloss" href="glossary.html#g-energy-variable">energy variables</a>: generalised <strong>momentum</strong> (the integral of effort) and generalised <strong>displacement</strong> (the integral of flow).</p>
+        <div class="eqbox">$$p(t) = \int e(t)\,dt \qquad q(t) = \int f(t)\,dt$$</div>
+        <p>This finally answers why we chose momentum and position as states last week. <strong>In every domain we select the energy variables as the states</strong> — so state derivatives are power variables, and solving the model means watching the system's energy evolve.</p>
+
+        <h2 id="rotational">Rotational mechanical systems</h2>
+        <p>The rotational domain is the translational one with new labels: angular momentum <span>$L$</span> and angular displacement <span>$\theta$</span> are the energy variables, and the <a class="eqref" href="equations.html#eq-rotational-ccr">CCRs</a> mirror exactly:</p>
+        <div class="eqbox">$$L = J\omega,\quad \dot L = T \qquad T = k\theta \qquad T = b\omega \qquad J = \int_Q r^2\,dm$$</div>
+        <p>Unlike point masses, shape matters — captured by the moment of inertia <span>$J$</span>, the rotational analogue of mass. Two masses on the same shaft share a speed and are <em>not</em> disconnected, so they count as one degree of freedom.</p>
+
+        <h2 id="generalised">The generalised elements</h2>
+        <p>Every component you will meet is one of six archetypes:</p>
+        <ul>
+          <li><strong>Resistors</strong> <span>$e = R(f)$</span> — dissipate energy (damper, resistor, valve). Often linear, but not always: viscous friction <span>$F = bv|v|$</span> is not.</li>
+          <li><strong>Inertias</strong> <span>$e = \dot{\mathcal I}(f)$</span> — store energy via momentum (mass, inertia, inductor, fluid in a pipe).</li>
+          <li><strong>Capacitors</strong> <span>$e = \mathcal C(q)$</span> — store energy via displacement (spring, capacitor, tank).</li>
+          <li><strong>Sources</strong> — supply one power variable regardless of the other. An idealisation implying infinite power, so always ask whether your system meaningfully loads the source.</li>
+          <li><strong><a class="gloss" href="glossary.html#g-transformer">Transformers</a></strong> — map effort→effort and flow→flow (lever, gearbox, piston). Ideal if <span>$e_1f_1 = e_2f_2$</span>.</li>
+          <li><strong><a class="gloss" href="glossary.html#g-gyrator">Gyrators</a></strong> — swap the roles, mapping effort→flow (the DC motor of Week 3).</li>
+        </ul>
+        <div class="note"><span class="k">Fill in the table</span> The lecture notes give these tables partly blank on purpose. Completing the electrical and fluid-power rows as you meet them in Weeks 3–4 is the single best revision exercise for the mid-semester quiz.</div>
+
+        <div class="note"><span class="k">Where this leads</span> Weeks 3 and 4 slot the electrical and fluid-power domains into exactly this framework — new symbols, identical machinery.</div>
+      </div>
+
+      <aside class="rail">
+        <h4>On this page</h4>
+        <ul>
+          <li><a href="#representations">Three representations</a></li>
+          <li><a href="#ports">Power ports</a></li>
+          <li><a href="#energyvars">Energy variables</a></li>
+          <li><a href="#rotational">Rotational systems</a></li>
+          <li><a href="#generalised">Generalised elements</a></li>
+        </ul>
+        <h4>Related</h4>
+        <ul>
+          <li><span class="tag">eq</span><a href="equations.html#eq-power">Power = effort × flow</a></li>
+          <li><span class="tag">eq</span><a href="equations.html#eq-energy-vars">Energy variables</a></li>
+          <li><span class="tag">eq</span><a href="equations.html#eq-generalised">Generalised elements</a></li>
+          <li><span class="tag">def</span><a href="glossary.html#g-effort-flow">Effort &amp; flow</a></li>
+          <li><span class="tag">def</span><a href="glossary.html#g-gyrator">Gyrator</a></li>
+          <li><span class="tag">flag</span><a href="assessments.html#a-quiz-w3">Quiz — Week 3</a></li>
+        </ul>
+      </aside>
+    </div>
+  </main>
+</div>
+<script src="../assets/katex/katex.min.js"></script>
+<script src="../assets/katex/auto-render.min.js"></script>
+<script src="subject.js"></script>
+<script src="../assets/hub.js"></script>
+</body>
+</html>

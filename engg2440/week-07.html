@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="manifest" href="../manifest.webmanifest">
+<link rel="apple-touch-icon" href="../icons/apple-touch-icon.png">
+<meta name="theme-color" content="#161E2B">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<title>Week 7 — Time-Domain Response &amp; Specifications · ENGG2440</title>
+<link rel="stylesheet" href="../assets/styles.css">
+<link rel="stylesheet" href="../assets/katex/katex.min.css">
+</head>
+<body>
+<div class="shell">
+  <main class="main">
+    <div class="page has-rail">
+      <div class="content">
+        <div class="crumb"><a href="../index.html">Study hub</a> / <a href="index.html">ENGG2440</a> / Week 7</div>
+        <div class="eyebrow">Week 7 · Lecture notes</div>
+        <h1 class="title">Time-Domain Response &amp; Specifications</h1>
+        <p class="lede">"Fast enough, accurate enough, not too oscillatory" has to become numbers before it can be designed for. This week turns the step response into five measurable specifications, all expressed through two parameters of a second-order system — and shows why you cannot have everything at once.</p>
+
+        <h2 id="step">The step response</h2>
+        <p>We probe with a step because the transient and the steady state are both visible in one plot. The <a class="gloss" href="glossary.html#g-dc-gain">DC gain</a> follows from the final value theorem:</p>
+        <div class="eqbox">$$y_\infty = \lim_{t\to\infty}y(t) = \lim_{s\to0}sY(s) = \lim_{s\to0}s\,\frac{1}{s}G(s) = G(0)$$</div>
+        <p>and applying the same theorem to the error signal gives the steady-state error. Both results assume the system is <strong>stable</strong> — apply them to an unstable system and you will get a confident, meaningless number.</p>
+        <p>A <strong>first-order</strong> system has a single real pole and a time constant; changing its parameter only changes the speed. A <strong>second-order</strong> system is far richer — the parameters change the <em>form</em> of the response, not just its rate.</p>
+
+        <h2 id="secondorder">The second-order standard form</h2>
+        <div class="eqbox">$$G(s) = \frac{K\,\omega_n^2}{s^2 + 2\zeta\omega_n s + \omega_n^2} \qquad p_{1,2} = -\zeta\omega_n \pm \omega_n\sqrt{\zeta^2-1}$$</div>
+        <p>with <span>$K$</span> the steady-state gain, <span>$\omega_n$</span> the <a class="gloss" href="glossary.html#g-natural-frequency">natural frequency</a> and <span>$\zeta$</span> the <a class="gloss" href="glossary.html#g-damping-ratio">damping ratio</a>. Three cases:</p>
+        <ul>
+          <li><strong>Under-damped</strong> (<span>$\zeta &lt; 1$</span>) — complex conjugate poles, oscillatory decay. Poles sit at radius <span>$\omega_n$</span> and angle <span>$\sin^{-1}\zeta$</span> in the s-plane, with damped natural frequency <span>$\omega_d = \omega_n\sqrt{1-\zeta^2}$</span>.</li>
+          <li><strong>Critically damped</strong> (<span>$\zeta = 1$</span>) — repeated real poles, fastest non-oscillatory response.</li>
+          <li><strong>Over-damped</strong> (<span>$\zeta &gt; 1$</span>) — distinct real poles, sluggish, no overshoot.</li>
+        </ul>
+
+        <h2 id="specs">The five specifications</h2>
+        <p>For an under-damped second-order step response:</p>
+        <div class="eqbox">$$T_r \approx \frac{2.16\zeta + 0.6}{\omega_n} \qquad T_s \approx \frac{4}{\zeta\omega_n} \qquad T_p = \frac{\pi}{\omega_n\sqrt{1-\zeta^2}} \qquad P.O. = 100\,e^{-\pi\zeta/\sqrt{1-\zeta^2}}$$</div>
+        <p>plus the steady-state error. The overshoot formula is worth committing to memory along with its inverse, which converts a specification directly into a required damping ratio:</p>
+        <div class="eqbox">$$\zeta = \frac{-\ln(P.O./100)}{\sqrt{\pi^2 + \ln^2(P.O./100)}}$$</div>
+        <div class="note"><span class="k">The key asymmetry</span> Percent overshoot depends on <span>$\zeta$</span> <em>alone</em> — <span>$\omega_n$</span> does not appear. So the usual design route is: overshoot spec fixes <span>$\zeta$</span>, then the speed specs (rise, peak, settling time) fix <span>$\omega_n$</span>.</div>
+
+        <h2 id="compromise">The design compromise</h2>
+        <p>Response quality splits into swiftness (rise and peak time) and closeness to the target (overshoot and settling time), and these fight each other. For fixed <span>$\zeta$</span>, larger <span>$\omega_n$</span> is faster with unchanged overshoot. For fixed <span>$\omega_n$</span>, lower <span>$\zeta$</span> is faster but overshoots more. Design is picking a point on that trade-off.</p>
+
+        <h2 id="zeros">Zeros and extra poles</h2>
+        <p>So far only poles have mattered. <strong>Zeros</strong> modify the coefficients of the response terms whose shapes the poles set. A zero in the right half-plane makes the system <a class="gloss" href="glossary.html#g-nmp">non-minimum phase</a>: the step response initially heads the <em>wrong way</em> before recovering — a genuine limit on achievable speed, not just an annoyance.</p>
+        <p>A <strong>third pole</strong> far to the left of the dominant pair contributes a fast-decaying term and can be neglected, which is what justifies approximating higher-order systems by the second-order model in the first place. If it is not far away, the approximation breaks.</p>
+
+        <div class="note"><span class="k">Where this leads</span> All of this assumed stability. Week 8 makes stability itself the object of study.</div>
+      </div>
+
+      <aside class="rail">
+        <h4>On this page</h4>
+        <ul>
+          <li><a href="#step">The step response</a></li>
+          <li><a href="#secondorder">Second-order form</a></li>
+          <li><a href="#specs">Five specifications</a></li>
+          <li><a href="#compromise">Design compromise</a></li>
+          <li><a href="#zeros">Zeros &amp; extra poles</a></li>
+        </ul>
+        <h4>Related</h4>
+        <ul>
+          <li><span class="tag">eq</span><a href="equations.html#eq-fvt">Final value theorem</a></li>
+          <li><span class="tag">eq</span><a href="equations.html#eq-second-order">Second-order form</a></li>
+          <li><span class="tag">eq</span><a href="equations.html#eq-overshoot">Percent overshoot</a></li>
+          <li><span class="tag">eq</span><a href="equations.html#eq-settling">Rise, settling &amp; peak</a></li>
+          <li><span class="tag">def</span><a href="glossary.html#g-damping-ratio">Damping ratio</a></li>
+          <li><span class="tag">flag</span><a href="assessments.html#a-quiz-w8">Quiz — Week 8</a></li>
+        </ul>
+      </aside>
+    </div>
+  </main>
+</div>
+<script src="../assets/katex/katex.min.js"></script>
+<script src="../assets/katex/auto-render.min.js"></script>
+<script src="subject.js"></script>
+<script src="../assets/hub.js"></script>
+</body>
+</html>

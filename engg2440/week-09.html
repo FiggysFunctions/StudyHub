@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="manifest" href="../manifest.webmanifest">
+<link rel="apple-touch-icon" href="../icons/apple-touch-icon.png">
+<meta name="theme-color" content="#161E2B">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<title>Week 9 — Steady-State Error &amp; Pole Placement · ENGG2440</title>
+<link rel="stylesheet" href="../assets/styles.css">
+<link rel="stylesheet" href="../assets/katex/katex.min.css">
+</head>
+<body>
+<div class="shell">
+  <main class="main">
+    <div class="page has-rail">
+      <div class="content">
+        <div class="crumb"><a href="../index.html">Study hub</a> / <a href="index.html">ENGG2440</a> / Week 9</div>
+        <div class="eyebrow">Week 9 · Lecture notes</div>
+        <h1 class="title">Steady-State Error &amp; Pole Placement</h1>
+        <p class="lede">Two halves that meet in the middle: how accurately a loop settles onto its target, and how to choose a controller that puts the closed-loop poles exactly where the transient specifications demand — turning design from trial-and-error into solving equations.</p>
+
+        <h2 id="ess">Steady-state error</h2>
+        <p>For a unity-feedback loop the error is <span>$E(s) = R(s) - Y(s)$</span>, and since <span>$Y = RT$</span>, the final value theorem gives two equivalent routes:</p>
+        <div class="eqbox">$$e_\infty = \lim_{s\to0}sR(s)\,[1 - T(s)] = \lim_{s\to0}\frac{sR(s)}{1 + C(s)G(s)}$$</div>
+        <p>The second form is the more revealing: error shrinks as the loop gain at low frequency grows. Both assume stability — checking that first is not optional.</p>
+
+        <h2 id="constants">Static error constants and system type</h2>
+        <p>Rather than redo the limit each time, define three constants from the open-loop transfer function:</p>
+        <div class="eqbox">$$K_p = \lim_{s\to0}C(s)G(s) \qquad K_v = \lim_{s\to0}sC(s)G(s) \qquad K_a = \lim_{s\to0}s^2C(s)G(s)$$</div>
+        <p>and the steady-state error for the three standard inputs follows immediately:</p>
+        <div class="eqbox">$$\text{step: } e_\infty = \frac{1}{1+K_p} \qquad \text{ramp: } e_\infty = \frac{1}{K_v} \qquad \text{parabola: } e_\infty = \frac{1}{K_a}$$</div>
+        <p>Which constants are finite depends on the <a class="gloss" href="glossary.html#g-system-type">system type</a> — the number of pure integrators <span>$1/s$</span> in the forward path:</p>
+        <ul>
+          <li><strong>Type 0</strong> — finite <span>$K_p$</span>: a step is tracked with a finite error; a ramp is not tracked at all.</li>
+          <li><strong>Type 1</strong> — <span>$K_p = \infty$</span>: a step is tracked <em>exactly</em>; a ramp with finite error.</li>
+          <li><strong>Type 2</strong> — a ramp is tracked exactly; a parabola with finite error.</li>
+        </ul>
+        <div class="note"><span class="k">Why integral action works</span> This is the whole reason the I in PID eliminates steady-state error: adding an integrator raises the system type by one.</div>
+
+        <h2 id="placement">Pole placement</h2>
+        <p>Pole locations set the transient response, so rather than tweaking gains and re-checking, choose the closed-loop poles first and then solve for the controller that delivers them. Write the plant as <span>$G = B/A$</span> and the controller as <span>$C = P/L$</span>; the closed-loop characteristic polynomial is <span>$A L + B P$</span>. Setting it equal to a desired polynomial:</p>
+        <div class="eqbox">$$A(s)L(s) + B(s)P(s) = A_{cl}(s)$$</div>
+        <p>Choose <span>$A_{cl}$</span> from the specifications — typically a dominant second-order pair with the <span>$\zeta$</span> and <span>$\omega_n$</span> derived in Week 7, plus any extra poles placed far to the left so they stay non-dominant. Expanding both sides and matching coefficients of each power of <span>$s$</span> gives a linear system of equations in the unknown controller coefficients.</p>
+        <p>The controller must have enough free parameters to match every coefficient, which sets the minimum controller order. This <strong>polynomial (Diophantine) approach</strong> is exactly how PI and PID controllers are designed systematically rather than tuned by hand — and it is the basis of the Week 9 lab.</p>
+
+        <div class="note"><span class="k">Freedom cuts both ways</span> A higher-order controller can place more poles, but demands more effort from the actuator and is more sensitive to modelling error. The lecture notes pose this directly: with freedom comes the question of what you actually <em>should</em> choose.</div>
+        <div class="note"><span class="k">Where this leads</span> Week 10 takes the most common controller structure of all — PID — and examines what each term does, plus the systematic case for feedback itself.</div>
+      </div>
+
+      <aside class="rail">
+        <h4>On this page</h4>
+        <ul>
+          <li><a href="#ess">Steady-state error</a></li>
+          <li><a href="#constants">Error constants &amp; type</a></li>
+          <li><a href="#placement">Pole placement</a></li>
+        </ul>
+        <h4>Related</h4>
+        <ul>
+          <li><span class="tag">eq</span><a href="equations.html#eq-ess">Steady-state error</a></li>
+          <li><span class="tag">eq</span><a href="equations.html#eq-error-constants">Static error constants</a></li>
+          <li><span class="tag">eq</span><a href="equations.html#eq-pole-placement">Pole placement</a></li>
+          <li><span class="tag">def</span><a href="glossary.html#g-system-type">System type</a></li>
+          <li><span class="tag">def</span><a href="glossary.html#g-pole-placement">Pole placement</a></li>
+          <li><span class="tag">flag</span><a href="assessments.html#a-lab4">Lab 4</a></li>
+        </ul>
+      </aside>
+    </div>
+  </main>
+</div>
+<script src="../assets/katex/katex.min.js"></script>
+<script src="../assets/katex/auto-render.min.js"></script>
+<script src="subject.js"></script>
+<script src="../assets/hub.js"></script>
+</body>
+</html>

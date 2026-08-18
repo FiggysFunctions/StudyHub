@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="manifest" href="../manifest.webmanifest">
+<link rel="apple-touch-icon" href="../icons/apple-touch-icon.png">
+<meta name="theme-color" content="#161E2B">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<title>Week 5 — Linearisation &amp; Transfer Functions · ENGG2440</title>
+<link rel="stylesheet" href="../assets/styles.css">
+<link rel="stylesheet" href="../assets/katex/katex.min.css">
+</head>
+<body>
+<div class="shell">
+  <main class="main">
+    <div class="page has-rail">
+      <div class="content">
+        <div class="crumb"><a href="../index.html">Study hub</a> / <a href="index.html">ENGG2440</a> / Week 5</div>
+        <div class="eyebrow">Week 5 · Lecture notes</div>
+        <h1 class="title">Linearisation &amp; Transfer Functions</h1>
+        <p class="lede">The hinge of the course. Real models are frequently nonlinear, but almost all of classical control theory assumes linearity — so we approximate. This week linearises a state-space model about an equilibrium and then converts it to the transfer function that the control half runs on.</p>
+
+        <h2 id="linearity">Why linear?</h2>
+        <p>A system is linear if it obeys homogeneity and superposition, <span>$T(a u) = aT(u)$</span> and <span>$T(u_1+u_2) = T(u_1)+T(u_2)$</span>. Products or quotients of states, and trigonometric or exponential functions of them, break this. Nonlinearity complicates simulation, and — more importantly for us — makes controller design far harder. The engineering world is consequently built on linear approximations to nonlinear reality.</p>
+
+        <h2 id="equilibria">Equilibrium points</h2>
+        <p>Linearisation is always performed about an <a class="gloss" href="glossary.html#g-equilibrium">equilibrium</a>: a state where, for a constant input, nothing changes.</p>
+        <div class="eqbox">$$f(\mathbf z^*, \mathbf u^*) = \mathbf 0$$</div>
+        <p>A pendulum has two: hanging down and balanced upright. They behave very differently — which the linearised models will reveal, and which motivates the inverted-pendulum problem the labs build toward.</p>
+
+        <h2 id="taylor">The Taylor series</h2>
+        <p>Linearisation is a first-order Taylor truncation. In the scalar case:</p>
+        <div class="eqbox">$$\tilde f(x) = f(x_0) + \frac{df(x_0)}{dx}(x - x_0)$$</div>
+        <p>The approximation is exact at <span>$x_0$</span> and degrades as you move away — so a linear model is only trustworthy near the operating point it was built around. Go too far and you must re-linearise.</p>
+        <p>For a scalar function of several variables, add a gradient term per variable. For a <strong>vector-valued</strong> function, apply that to each component, which assembles into the Jacobian matrices:</p>
+        <div class="eqbox">$$A = \left.\frac{\partial f}{\partial \mathbf z}\right|_{*} \quad B = \left.\frac{\partial f}{\partial \mathbf u}\right|_{*} \quad C = \left.\frac{\partial g}{\partial \mathbf z}\right|_{*} \quad D = \left.\frac{\partial g}{\partial \mathbf u}\right|_{*}$$</div>
+        <p>The result is the familiar linear model <span>$\dot{\mathbf z} = A\mathbf z + B\mathbf u$</span>, <span>$\mathbf y = C\mathbf z + D\mathbf u$</span> — but written in <strong>deviation variables</strong>, measured from the equilibrium rather than from zero. Forgetting that is a classic error.</p>
+
+        <h2 id="transferfunctions">Transfer functions</h2>
+        <p>Laplace-transforming an ODE with zero initial conditions and rearranging into the ratio of output to input gives the <a class="gloss" href="glossary.html#g-transfer-function">transfer function</a> <span>$H(s) = Y(s)/U(s)$</span>. Doing the same to the linear state equations lets the state vector be eliminated:</p>
+        <div class="eqbox">$$s\mathbf Z = A\mathbf Z + B\mathbf U \ \Rightarrow\ \mathbf Z = (sI-A)^{-1}B\,\mathbf U \ \Rightarrow\ H(s) = C(sI-A)^{-1}B + D$$</div>
+        <p>The poles of <span>$H(s)$</span> are the eigenvalues of <span>$A$</span> — the same dynamics seen a different way.</p>
+
+        <h2 id="backwards">And back again</h2>
+        <p>The reverse path is transfer function → ODE (inverse Laplace) → state-space. Note that state-space representations are <em>not</em> unique: going backwards you may get states that are no longer the tidy momenta and displacements you started with, because the transfer function has discarded the domain-specific structure.</p>
+
+        <div class="note"><span class="k">Where this leads</span> This is the last modelling week — the mid-semester quiz covers Weeks 1–5. From Week 6 the transfer function becomes the object of study, and the question shifts from "how does this behave?" to "how do I make it behave the way I want?"</div>
+      </div>
+
+      <aside class="rail">
+        <h4>On this page</h4>
+        <ul>
+          <li><a href="#linearity">Why linear?</a></li>
+          <li><a href="#equilibria">Equilibrium points</a></li>
+          <li><a href="#taylor">The Taylor series</a></li>
+          <li><a href="#transferfunctions">Transfer functions</a></li>
+          <li><a href="#backwards">And back again</a></li>
+        </ul>
+        <h4>Related</h4>
+        <ul>
+          <li><span class="tag">eq</span><a href="equations.html#eq-jacobian">Jacobian linearisation</a></li>
+          <li><span class="tag">eq</span><a href="equations.html#eq-equilibrium">Equilibrium condition</a></li>
+          <li><span class="tag">eq</span><a href="equations.html#eq-ss-to-tf">State-space → TF</a></li>
+          <li><span class="tag">def</span><a href="glossary.html#g-equilibrium">Equilibrium point</a></li>
+          <li><span class="tag">def</span><a href="glossary.html#g-transfer-function">Transfer function</a></li>
+          <li><span class="tag">flag</span><a href="assessments.html#a-midsem">Mid-semester Quiz</a></li>
+        </ul>
+      </aside>
+    </div>
+  </main>
+</div>
+<script src="../assets/katex/katex.min.js"></script>
+<script src="../assets/katex/auto-render.min.js"></script>
+<script src="subject.js"></script>
+<script src="../assets/hub.js"></script>
+</body>
+</html>

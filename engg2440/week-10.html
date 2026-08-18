@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="manifest" href="../manifest.webmanifest">
+<link rel="apple-touch-icon" href="../icons/apple-touch-icon.png">
+<meta name="theme-color" content="#161E2B">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<title>Week 10 — PID Control &amp; the Value of Feedback · ENGG2440</title>
+<link rel="stylesheet" href="../assets/styles.css">
+<link rel="stylesheet" href="../assets/katex/katex.min.css">
+</head>
+<body>
+<div class="shell">
+  <main class="main">
+    <div class="page has-rail">
+      <div class="content">
+        <div class="crumb"><a href="../index.html">Study hub</a> / <a href="index.html">ENGG2440</a> / Week 10</div>
+        <div class="eyebrow">Week 10 · Lecture notes</div>
+        <h1 class="title">PID Control &amp; the Value of Feedback</h1>
+        <p class="lede">Two threads this week. First the controller structure that runs most of industry — three terms responding to the present, past and predicted future of the error. Then the systematic argument for feedback itself, comparing open and closed loop across the four properties that matter.</p>
+
+        <h2 id="pid">The three terms</h2>
+        <div class="eqbox">$$u(t) = K_P e(t) + K_I\!\int_0^t\! e(\tau)\,d\tau + K_D\frac{de(t)}{dt} \qquad C(s) = K_P + \frac{K_I}{s} + K_D s = \frac{K_Ds^2 + K_Ps + K_I}{s}$$</div>
+        <p>As a transfer function it has one pole at the origin and two zeros. What each term does:</p>
+        <ul>
+          <li><strong>Proportional</strong> — a plain gain. Steady-state error becomes <span>$1/(1 + G(0)K_P)$</span>, so error only vanishes as <span>$K_P \to \infty$</span> — and large <span>$K_P$</span> drives the root locus toward instability. Proportional action alone always leaves an offset.</li>
+          <li><strong>Integral</strong> — accumulates error, so the control action keeps growing while <em>any</em> error remains. It drives steady-state error to zero exactly (it raises the system type by one, per Week 9), at the cost of a slower, more oscillatory loop.</li>
+          <li><strong>Derivative</strong> — responds to the <em>rate of change</em> of error, giving an anticipative effect. It improves stability and reduces overshoot, but amplifies measurement noise.</li>
+        </ul>
+
+        <h2 id="practical">Practical structures</h2>
+        <p>A pure derivative is improper — the numerator outranks the denominator — so it cannot be built. Real controllers add a filter pole:</p>
+        <div class="eqbox">$$C(s) = K_P + \frac{K_I}{s} + \frac{K_D s}{\tau_D s + 1} \qquad C(s) = K_P\!\left(1 + \frac{1}{T_i s} + \frac{T_d s}{\tau_D s + 1}\right)$$</div>
+        <p>The second (parallel form 2) parameterises the same controller by <strong>reset time</strong> <span>$T_i$</span> and <strong>derivative time</strong> <span>$T_d$</span>, with the filter chosen in the range <span>$T_d/10 \le \tau_D \le T_d/2$</span>.</p>
+
+        <h2 id="tuning">Tuning</h2>
+        <p><strong>Ziegler–Nichols oscillation method:</strong> set <span>$K_I = K_D = 0$</span>, raise <span>$K_P$</span> until the closed loop oscillates steadily (marginal stability), then read the ultimate gain and oscillation period off and apply the standard table. The <strong>reaction-curve method</strong> instead fits a first-order-plus-delay model to the open-loop step response. Both are empirical starting points — useful precisely when no good model exists. With a model, pole placement (Week 9) is more systematic.</p>
+
+        <h2 id="windup">Integrator windup</h2>
+        <p>A practical trap worth knowing. Every real actuator saturates. If a large error persists while the actuator is already at its limit, the integral term keeps accumulating even though the control action cannot increase. When the error finally reverses, the controller must "unwind" that accumulated integral before it responds — producing a large, late overshoot.</p>
+        <p><a class="gloss" href="glossary.html#g-windup">Anti-windup protection</a> fixes this by stopping or back-calculating the integrator whenever the actuator is saturated.</p>
+
+        <h2 id="feedback">Why feedback? Four properties</h2>
+        <p>Comparing open loop (<span>$T = GC$</span>) with closed loop (<span>$T = GC/(1+GC)$</span>):</p>
+        <ul>
+          <li><strong>Stability</strong> — open loop cannot stabilise an unstable plant: cancelling a right-half-plane pole leaves the unstable mode present. Closed loop can, by shaping <span>$AL + BP$</span>.</li>
+          <li><strong>Tracking</strong> — open loop requires <span>$G(0)C(0) = 1$</span> by calibration, which drifts as the plant ages. Closed loop achieves it automatically through loop gain.</li>
+          <li><strong>Disturbance rejection</strong> — open loop cannot react to a disturbance it never measures; closed loop sees the effect in the output and corrects.</li>
+          <li><strong>Sensitivity</strong> — the sharpest result of all.</li>
+        </ul>
+        <div class="eqbox">$$S_G^T = \frac{\partial T/T}{\partial G/G} \qquad S_{ol} = 1 \qquad S_{cl} = \frac{1}{1 + G(s)C(s)}$$</div>
+        <p>Open-loop <a class="gloss" href="glossary.html#g-sensitivity">sensitivity</a> is exactly 1 — a 10% plant error gives a 10% output error, always. Closed loop divides that by the loop gain, so a loop gain of 100 reduces the same error roughly a hundredfold. That single line is the quantitative case for feedback control.</p>
+
+        <div class="note"><span class="k">Where this leads</span> Weeks 11 and 12 approach all of the same questions from the frequency domain, where stability and robustness can be read directly off a measurement.</div>
+      </div>
+
+      <aside class="rail">
+        <h4>On this page</h4>
+        <ul>
+          <li><a href="#pid">The three terms</a></li>
+          <li><a href="#practical">Practical structures</a></li>
+          <li><a href="#tuning">Tuning</a></li>
+          <li><a href="#windup">Integrator windup</a></li>
+          <li><a href="#feedback">Why feedback?</a></li>
+        </ul>
+        <h4>Related</h4>
+        <ul>
+          <li><span class="tag">eq</span><a href="equations.html#eq-pid">Ideal PID</a></li>
+          <li><span class="tag">eq</span><a href="equations.html#eq-pid-practical">Practical PID</a></li>
+          <li><span class="tag">eq</span><a href="equations.html#eq-sensitivity">Sensitivity function</a></li>
+          <li><span class="tag">def</span><a href="glossary.html#g-pid">PID controller</a></li>
+          <li><span class="tag">def</span><a href="glossary.html#g-windup">Integrator windup</a></li>
+          <li><span class="tag">flag</span><a href="assessments.html#a-quiz-w11">Quiz — Week 11</a></li>
+        </ul>
+      </aside>
+    </div>
+  </main>
+</div>
+<script src="../assets/katex/katex.min.js"></script>
+<script src="../assets/katex/auto-render.min.js"></script>
+<script src="subject.js"></script>
+<script src="../assets/hub.js"></script>
+</body>
+</html>

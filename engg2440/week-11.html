@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="manifest" href="../manifest.webmanifest">
+<link rel="apple-touch-icon" href="../icons/apple-touch-icon.png">
+<meta name="theme-color" content="#161E2B">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<title>Week 11 — Frequency Response &amp; Bode Plots · ENGG2440</title>
+<link rel="stylesheet" href="../assets/styles.css">
+<link rel="stylesheet" href="../assets/katex/katex.min.css">
+</head>
+<body>
+<div class="shell">
+  <main class="main">
+    <div class="page has-rail">
+      <div class="content">
+        <div class="crumb"><a href="../index.html">Study hub</a> / <a href="index.html">ENGG2440</a> / Week 11</div>
+        <div class="eyebrow">Week 11 · Lecture notes</div>
+        <h1 class="title">Frequency Response &amp; Bode Plots</h1>
+        <p class="lede">A different lens on the same systems. Drive a stable linear system with a sine and, once the transient dies, you get a sine back — same frequency, different amplitude and phase. Sweeping the frequency traces out the frequency response, from which stability and robustness can be read directly.</p>
+
+        <h2 id="response">Sine in, sine out</h2>
+        <p>Any response splits into transient and steady state, <span>$y(t) = y_{tr}(t) + y_{ss}(t)$</span>, and for a stable system the transient decays. For a sinusoidal input the steady-state part is a sinusoid at the <em>same</em> frequency:</p>
+        <div class="eqbox">$$u(t) = A\sin(\omega t + \phi) \quad\Longrightarrow\quad y_{ss}(t) = |G(j\omega)|\,A\,\sin\!\big(\omega t + \phi + \angle G(j\omega)\big)$$</div>
+        <p>Both the magnitude and phase depend on the excitation frequency. Negative phase means the output <strong>lags</strong> the input; positive means it leads. The <a class="gloss" href="glossary.html#g-frequency-response">frequency response function</a> comes from substituting <span>$s = j\omega$</span>:</p>
+        <div class="eqbox">$$G(j\omega) = G(s)\big|_{s=j\omega} = G_R(\omega) + jG_I(\omega) = |G(j\omega)|\,e^{\,j\angle G(j\omega)}$$</div>
+        <div class="note"><span class="k">Why this is practical</span> Unlike pole locations, the frequency response can be <em>measured</em> on real hardware — drive the system at a series of frequencies and record amplitude ratio and phase shift. No model required.</div>
+
+        <h2 id="bode">Bode plots</h2>
+        <p>A <a class="gloss" href="glossary.html#g-bode">Bode plot</a> is two graphs against a logarithmic frequency axis: magnitude in decibels, and phase in degrees.</p>
+        <div class="eqbox">$$|G(j\omega)|_{dB} = 20\log_{10}|G(j\omega)|$$</div>
+        <p>The logarithm is the whole trick. Cascaded systems multiply their magnitudes and add their phases — but in decibels the magnitudes <em>add</em> too. So a transfer function can be broken into its elementary factors (gains, integrators, first-order poles and zeros, second-order pairs), each sketched as straight-line asymptotes, and the pieces simply summed.</p>
+        <p>Useful asymptotic rules: a constant gain is a horizontal line at <span>$20\log_{10}K$</span>; an integrator <span>$1/s$</span> is <span>$-20$</span> dB/decade with <span>$-90^\circ$</span> phase; a simple pole breaks downward by <span>$-20$</span> dB/decade at its corner frequency, contributing <span>$-90^\circ$</span> spread over roughly two decades; a zero does the mirror image upward.</p>
+
+        <h2 id="stability">Stability from the open loop</h2>
+        <p>The closed-loop transfer function usually is not known until the controller is finalised — but the <em>open-loop</em> response is available. The closed-loop characteristic equation is <span>$1 + G(s)C(s) = 0$</span>, i.e.</p>
+        <div class="eqbox">$$G(s)C(s) = -1 \qquad\Longrightarrow\qquad |C(j\omega)G(j\omega)| = 1 \ \text{ and }\ \angle C(j\omega)G(j\omega) = \pm180^\circ$$</div>
+        <p>So the critical point is <span>$-1$</span>, and how close the open-loop response passes to it measures how close the closed loop is to instability.</p>
+
+        <h2 id="margins">Gain and phase margin</h2>
+        <ul>
+          <li><strong><a class="gloss" href="glossary.html#g-gain-margin">Gain margin</a></strong> — find the phase-crossover frequency where the phase is <span>$-180^\circ$</span>; the gain margin is how far the magnitude curve sits below 0 dB there, i.e. the extra gain that would destabilise the loop.</li>
+          <li><strong><a class="gloss" href="glossary.html#g-phase-margin">Phase margin</a></strong> — find the gain-crossover frequency where the magnitude is 0 dB; the phase margin is how far the phase there is above <span>$-180^\circ$</span>:</li>
+        </ul>
+        <div class="eqbox">$$\phi_M = 180^\circ + \angle G(j\omega_{pm})C(j\omega_{pm})$$</div>
+        <p>Larger margins mean the loop tolerates more change in the plant before going unstable — the frequency-domain expression of robustness, and qualitatively the same message as poles being far from the imaginary axis.</p>
+
+        <div class="note"><span class="k">Where this leads</span> Week 12 connects these margins back to the time-domain specifications of Week 7, closing the loop between the two views.</div>
+      </div>
+
+      <aside class="rail">
+        <h4>On this page</h4>
+        <ul>
+          <li><a href="#response">Sine in, sine out</a></li>
+          <li><a href="#bode">Bode plots</a></li>
+          <li><a href="#stability">Stability from open loop</a></li>
+          <li><a href="#margins">Gain &amp; phase margin</a></li>
+        </ul>
+        <h4>Related</h4>
+        <ul>
+          <li><span class="tag">eq</span><a href="equations.html#eq-freq-response">Frequency response</a></li>
+          <li><span class="tag">eq</span><a href="equations.html#eq-decibels">Magnitude in dB</a></li>
+          <li><span class="tag">eq</span><a href="equations.html#eq-margins">Gain &amp; phase margin</a></li>
+          <li><span class="tag">def</span><a href="glossary.html#g-bode">Bode plot</a></li>
+          <li><span class="tag">def</span><a href="glossary.html#g-phase-margin">Phase margin</a></li>
+          <li><span class="tag">flag</span><a href="assessments.html#a-final">Final Quiz</a></li>
+        </ul>
+      </aside>
+    </div>
+  </main>
+</div>
+<script src="../assets/katex/katex.min.js"></script>
+<script src="../assets/katex/auto-render.min.js"></script>
+<script src="subject.js"></script>
+<script src="../assets/hub.js"></script>
+</body>
+</html>

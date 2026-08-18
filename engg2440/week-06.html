@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="manifest" href="../manifest.webmanifest">
+<link rel="apple-touch-icon" href="../icons/apple-touch-icon.png">
+<meta name="theme-color" content="#161E2B">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<title>Week 6 — Introduction to Control Systems · ENGG2440</title>
+<link rel="stylesheet" href="../assets/styles.css">
+<link rel="stylesheet" href="../assets/katex/katex.min.css">
+</head>
+<body>
+<div class="shell">
+  <main class="main">
+    <div class="page has-rail">
+      <div class="content">
+        <div class="crumb"><a href="../index.html">Study hub</a> / <a href="index.html">ENGG2440</a> / Week 6</div>
+        <div class="eyebrow">Week 6 · Lecture notes</div>
+        <h1 class="title">Introduction to Control Systems</h1>
+        <p class="lede">The control half begins. Having spent five weeks learning to describe how a system behaves, we now ask how to <em>make</em> it behave — measuring the output, feeding it back to a controller, and shaping the response. This week sets up the vocabulary, the objectives and the block-diagram algebra everything else uses.</p>
+
+        <h2 id="elements">The elements of a control system</h2>
+        <ul>
+          <li><strong><a class="gloss" href="glossary.html#g-plant">Plant</a></strong> — the physical thing being controlled. The first five weeks were about producing a model of it.</li>
+          <li><strong>Control objectives</strong> — decided <em>before</em> any hardware: what are we trying to achieve, which variables must be controlled, and to what level of accuracy and speed?</li>
+          <li><strong>Sensors</strong> — the eyes of the loop. "If you can measure it, you can control it."</li>
+          <li><strong>Actuators</strong> — the muscle, converting the control signal into physical action (a motor driving a manipulator).</li>
+          <li><strong>Control algorithm</strong> — the rule computing the action from the error.</li>
+        </ul>
+
+        <h2 id="objectives">Three design objectives</h2>
+        <p>A control system is dynamic: it undergoes a transient before settling into steady state. Analysis and design revolve around three goals:</p>
+        <ol>
+          <li><strong>Transient response</strong> — a lift that responds too slowly frustrates passengers, too quickly discomforts them, and oscillating at the destination floor is worse still. Excessive speed can also cause physical damage.</li>
+          <li><strong>Steady-state error</strong> — the lift must stop level enough with the floor for people to walk out.</li>
+          <li><strong>Stability</strong> — without which the other two are meaningless. The total response is the natural response plus the forced response; for a useful system the natural part must decay away, leaving only the forced part.</li>
+        </ol>
+
+        <h2 id="process">The design process</h2>
+        <p>Requirements → physical system → schematic → block diagram and transfer function → block-diagram reduction → analysis and design. Modelling produced the transfer function; control uses it to test whether specifications are met and, if not, to change parameters or add components until they are.</p>
+
+        <h2 id="algebra">Block-diagram algebra</h2>
+        <p>Blocks are unidirectional operators carrying transfer functions. Series blocks multiply, parallel blocks add, and a feedback loop collapses to forward-path-over-one-plus-loop-gain:</p>
+        <div class="eqbox">$$\text{Series: } \frac{Y}{R} = G_1G_2 \qquad \text{Parallel: } \frac{Y}{R} = G_1 + G_2 \qquad \text{Feedback: } \frac{Y}{R} = \frac{GC}{1 + GCH}$$</div>
+        <p>With unity feedback (<span>$H = 1$</span>) — the case used throughout this course — that becomes the form you will write more than any other:</p>
+        <div class="eqbox">$$T(s) = \frac{G(s)C(s)}{1 + G(s)C(s)}$$</div>
+        <div class="note"><span class="k">Sign matters</span> Negative feedback gives the <span>$1 + GCH$</span> denominator; positive feedback gives <span>$1 - GCH$</span>. Check the sign at the summing junction before reducing.</div>
+
+        <h2 id="tfchar">Transfer function vocabulary</h2>
+        <p>A transfer function is <strong>rational</strong> if it is a ratio of polynomials:</p>
+        <div class="eqbox">$$G(s) = \frac{B(s)}{A(s)} = \frac{b_ms^m + \dots + b_0}{s^n + a_{n-1}s^{n-1} + \dots + a_0}$$</div>
+        <p>Roots of <span>$B(s)$</span> are the <a class="gloss" href="glossary.html#g-pole-zero">zeros</a>, roots of <span>$A(s)$</span> the <strong>poles</strong>, and the <strong>order</strong> of the system is <span>$n$</span>. It is <em>proper</em> if <span>$m \le n$</span>, <em>strictly proper</em> if <span>$m &lt; n$</span> and <em>biproper</em> if <span>$m = n$</span>. Properness matters later: a pure derivative is improper and cannot be built, which is why practical PID controllers need a filter pole.</p>
+        <p>Standard <strong>test signals</strong> — step, ramp, parabola and impulse — let different designs be compared on equal terms; the step is the workhorse because both transient and steady-state behaviour are visible in one plot.</p>
+
+        <div class="note"><span class="k">Where this leads</span> Week 7 makes the transient response quantitative, defining the specifications a design must hit.</div>
+      </div>
+
+      <aside class="rail">
+        <h4>On this page</h4>
+        <ul>
+          <li><a href="#elements">Elements of a loop</a></li>
+          <li><a href="#objectives">Three objectives</a></li>
+          <li><a href="#process">Design process</a></li>
+          <li><a href="#algebra">Block-diagram algebra</a></li>
+          <li><a href="#tfchar">TF vocabulary</a></li>
+        </ul>
+        <h4>Related</h4>
+        <ul>
+          <li><span class="tag">eq</span><a href="equations.html#eq-closed-loop">Closed-loop transfer fn</a></li>
+          <li><span class="tag">eq</span><a href="equations.html#eq-rational-tf">Rational transfer function</a></li>
+          <li><span class="tag">def</span><a href="glossary.html#g-plant">Plant</a></li>
+          <li><span class="tag">def</span><a href="glossary.html#g-feedback">Feedback</a></li>
+          <li><span class="tag">def</span><a href="glossary.html#g-pole-zero">Pole &amp; zero</a></li>
+          <li><span class="tag">flag</span><a href="assessments.html#a-quiz-w7">Quiz — Week 7</a></li>
+        </ul>
+      </aside>
+    </div>
+  </main>
+</div>
+<script src="../assets/katex/katex.min.js"></script>
+<script src="../assets/katex/auto-render.min.js"></script>
+<script src="subject.js"></script>
+<script src="../assets/hub.js"></script>
+</body>
+</html>

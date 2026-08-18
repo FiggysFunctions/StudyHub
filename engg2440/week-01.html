@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="manifest" href="../manifest.webmanifest">
+<link rel="apple-touch-icon" href="../icons/apple-touch-icon.png">
+<meta name="theme-color" content="#161E2B">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<title>Week 1 — Modelling &amp; State-Space Models · ENGG2440</title>
+<link rel="stylesheet" href="../assets/styles.css">
+<link rel="stylesheet" href="../assets/katex/katex.min.css">
+</head>
+<body>
+<div class="shell">
+  <main class="main">
+    <div class="page has-rail">
+      <div class="content">
+        <div class="crumb"><a href="../index.html">Study hub</a> / <a href="index.html">ENGG2440</a> / Week 1</div>
+        <div class="eyebrow">Week 1 · Lecture notes</div>
+        <h1 class="title">Modelling &amp; State-Space Models</h1>
+        <p class="lede">Engineers learn about the world by building mathematical models — cheaper and faster than repeated real-world testing, and sometimes the only option at all. This week sets up what a model is, introduces the state-space form that everything in the modelling half targets, and gives the structured procedure that makes even complicated systems routine.</p>
+
+        <h2 id="models">What a model is — and validating it</h2>
+        <p>A mathematical model is a set of rules relating system variables. <strong>Inputs</strong> drive change (some controllable like an applied voltage, some not — gravity, road bumps — which we call disturbances); <strong>outputs</strong> are the variables we want to track. Models can be theoretical (from physics), empirical (<em>black box</em>, inferred from data), or a mix.</p>
+        <div class="note"><span class="k">"All models are wrong, but some are useful"</span> A model is only as good as its assumptions. Validation against experimental data is what earns you the right to make decisions from it — an unvalidated model should not be used.</div>
+
+        <h2 id="statespace">The state-space model</h2>
+        <p>The <a class="gloss" href="glossary.html#g-state">state</a> of a system is a set of variables that, at an instant, are sufficient to determine every other dependent variable. We collect them into a state vector <span>$\mathbf z(t)$</span>, and the target of every model we build is:</p>
+        <div class="eqbox">$$\dot{\mathbf z}(t) = f(\mathbf z(t),\mathbf u(t),t) \qquad \mathbf y(t) = g(\mathbf z(t),\mathbf u(t),t)$$</div>
+        <p>These are coupled <strong>first-order</strong> ODEs. The form is easy to simulate numerically — integrate from an initial state — and a solution carries a great deal of information, since from <span>$\mathbf z(t)$</span> any other variable follows.</p>
+
+        <h2 id="procedure">The bullet-proof modelling procedure</h2>
+        <p>First-principles modelling can feel like hoarding equations until something works. The course replaces that with a fixed seven-step recipe, applied identically in every physical domain:</p>
+        <ol>
+          <li><strong>Inputs</strong> — list everything that drives the system. To call something an input you must know its value at every instant.</li>
+          <li><strong>Outputs</strong> — list what you want to know. These can be added later without re-modelling.</li>
+          <li><strong>States</strong> — choose the variables the model will be written around (Week 2 gives the general rule).</li>
+          <li><strong><a class="gloss" href="glossary.html#g-ccr">CCRs</a></strong> — the governing equation of each component in isolation.</li>
+          <li><strong><a class="gloss" href="glossary.html#g-ssr">SSRs</a></strong> — how the components are interconnected.</li>
+          <li><strong>State equations</strong> — differentiate each state and substitute CCRs and SSRs until it depends <em>only</em> on states, inputs, time and constants.</li>
+          <li><strong>Output equations</strong> — do the same for each output.</li>
+        </ol>
+        <div class="note"><span class="k">Where the marks are</span> CCRs are largely equations other people derived. The SSRs are where you do the physics — and that is where most of the marks in a quiz sit.</div>
+
+        <h2 id="translational">Translational mechanical systems</h2>
+        <p>We start in the simplest domain: bodies free only to translate, treated as point masses in one dimension. State counting follows the <a class="gloss" href="glossary.html#g-dof">degrees of freedom</a> — the independent ways the disconnected masses can move:</p>
+        <div class="eqbox">$$N_{DOF} = n_1 + n_2 + \dots + n_N \qquad N_{states} = 2 \times N_{DOF}$$</div>
+        <p>Masses rigidly linked are <em>not</em> disconnected and count once. The three basic components give us our first CCRs:</p>
+        <div class="eqbox">$$\underbrace{P = mv,\quad \dot P = F}_{\text{mass (inertia)}} \qquad \underbrace{F = k\Delta}_{\text{spring}} \qquad \underbrace{F = bv}_{\text{damper}}$$</div>
+        <p>The mass stores kinetic energy <span>$E_k=\tfrac12 mv^2$</span>, the spring stores potential energy <span>$E_p=\tfrac12 k\Delta^2$</span>, and the damper dissipates. The SSR for a mass is <a class="eqref" href="equations.html#eq-newton">Newton's second law</a>, applied by drawing a free-body diagram.</p>
+        <div class="note"><span class="k">Sign discipline</span> Momentum, velocity and net force must all be taken positive in the same direction. Draw the direction of motion on your free-body diagram — even if the algebra goes wrong afterwards, that earns partial marks.</div>
+
+        <div class="note"><span class="k">Where this leads</span> Week 2 reveals why momentum and displacement are the natural states, and generalises every component into a handful of archetypes that work in any domain.</div>
+      </div>
+
+      <aside class="rail">
+        <h4>On this page</h4>
+        <ul>
+          <li><a href="#models">What a model is</a></li>
+          <li><a href="#statespace">State-space model</a></li>
+          <li><a href="#procedure">The procedure</a></li>
+          <li><a href="#translational">Translational systems</a></li>
+        </ul>
+        <h4>Related</h4>
+        <ul>
+          <li><span class="tag">eq</span><a href="equations.html#eq-state-space">State-space form</a></li>
+          <li><span class="tag">eq</span><a href="equations.html#eq-mass-ccr">Point-mass CCRs</a></li>
+          <li><span class="tag">eq</span><a href="equations.html#eq-state-count">State count</a></li>
+          <li><span class="tag">def</span><a href="glossary.html#g-state">State</a></li>
+          <li><span class="tag">def</span><a href="glossary.html#g-ccr">CCR</a></li>
+          <li><span class="tag">flag</span><a href="assessments.html#a-quiz-w2">Quiz — Week 2</a></li>
+        </ul>
+      </aside>
+    </div>
+  </main>
+</div>
+<script src="../assets/katex/katex.min.js"></script>
+<script src="../assets/katex/auto-render.min.js"></script>
+<script src="subject.js"></script>
+<script src="../assets/hub.js"></script>
+</body>
+</html>

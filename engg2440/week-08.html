@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="manifest" href="../manifest.webmanifest">
+<link rel="apple-touch-icon" href="../icons/apple-touch-icon.png">
+<meta name="theme-color" content="#161E2B">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<title>Week 8 — Stability: Root Locus &amp; Routh–Hurwitz · ENGG2440</title>
+<link rel="stylesheet" href="../assets/styles.css">
+<link rel="stylesheet" href="../assets/katex/katex.min.css">
+</head>
+<body>
+<div class="shell">
+  <main class="main">
+    <div class="page has-rail">
+      <div class="content">
+        <div class="crumb"><a href="../index.html">Study hub</a> / <a href="index.html">ENGG2440</a> / Week 8</div>
+        <div class="eyebrow">Week 8 · Lecture notes</div>
+        <h1 class="title">Stability: Root Locus &amp; Routh–Hurwitz</h1>
+        <p class="lede">An unstable closed loop is worthless, so stability comes before every other specification. This week ties stability to pole location, gives a way to test it without solving for the poles, and shows how the poles move as a gain is turned up.</p>
+
+        <h2 id="bibo">BIBO stability</h2>
+        <p>A system is <a class="gloss" href="glossary.html#g-bibo">bounded-input bounded-output stable</a> if every bounded input produces a bounded output:</p>
+        <div class="eqbox">$$|u(t)| \le K_u < \infty \quad\Longrightarrow\quad |y(t)| \le K_y < \infty$$</div>
+        <p>and this holds exactly when every pole has a strictly negative real part — all poles in the open left half-plane. Poles on the imaginary axis are marginally stable (an input at the resonant frequency produces an unbounded response), and any right-half-plane pole is unstable.</p>
+        <div class="note"><span class="k">Feedback can create stability</span> Many real systems are open-loop unstable — most modern fighter aircraft are unstable by design and simply cannot fly without active control. Feedback is what stabilises them; only then can transient performance be addressed.</div>
+
+        <h2 id="chareq">The characteristic equation</h2>
+        <p>For a unity-feedback loop <span>$T(s) = C(s)G(s)/[1 + C(s)G(s)]$</span>, so the closed-loop poles are the roots of:</p>
+        <div class="eqbox">$$1 + C(s)G(s) = 0 \qquad\Longleftrightarrow\qquad A(s)L(s) + B(s)P(s) = 0$$</div>
+        <p>writing the plant as <span>$G = B/A$</span> and the controller as <span>$C = P/L$</span>. The second form shows why feedback is so powerful: the designer shapes the closed-loop polynomial through <span>$P$</span> and <span>$L$</span>, which open-loop control cannot do.</p>
+        <div class="note"><span class="k">Never cancel an unstable pole</span> Trying to fix a right-half-plane plant pole by placing a controller zero on top of it does not work — the unstable mode is still there, and the slightest noise or disturbance makes the output grow until something saturates or breaks.</div>
+
+        <h2 id="routh">The Routh–Hurwitz criterion</h2>
+        <p>We can determine how many roots lie in the right half-plane <em>without</em> computing them. Order the characteristic polynomial's coefficients into the Routh array:</p>
+        <div class="eqbox">$$a_ns^n + a_{n-1}s^{n-1} + \dots + a_1s + a_0 = 0$$</div>
+        <p>The first two rows take alternate coefficients; each subsequent row is built from determinants of the two above it. Then:</p>
+        <ul>
+          <li>The system is stable <strong>if and only if every entry in the first column is positive</strong>.</li>
+          <li>The number of sign changes down the first column equals the number of right-half-plane roots.</li>
+        </ul>
+        <p>Its enduring value is with <strong>symbolic</strong> coefficients: leaving a gain <span>$K$</span> in the polynomial and demanding a positive first column gives the exact <em>range of <span>$K$</span></em> for which the loop is stable — a design result, not just an analysis one.</p>
+
+        <h2 id="rootlocus">Root locus</h2>
+        <p>The <a class="gloss" href="glossary.html#g-root-locus">root locus</a> plots how the closed-loop poles travel through the s-plane as a single parameter — usually the loop gain — sweeps from zero to infinity. Branches start at the open-loop poles and end at the open-loop zeros (or run off to infinity along asymptotes).</p>
+        <p>Because pole location determines stability, damping ratio and speed, one plot answers several questions at once: the gain at which branches cross into the right half-plane is the stability limit, and the gain where a branch meets a desired damping line is the design value. In practice these are generated with MATLAB (<code>rlocus</code>) and read for design.</p>
+
+        <div class="note"><span class="k">Where this leads</span> With stability secured, Week 9 returns to accuracy — how much steady-state error remains, and how to place the poles deliberately rather than just checking where they are.</div>
+      </div>
+
+      <aside class="rail">
+        <h4>On this page</h4>
+        <ul>
+          <li><a href="#bibo">BIBO stability</a></li>
+          <li><a href="#chareq">Characteristic equation</a></li>
+          <li><a href="#routh">Routh–Hurwitz</a></li>
+          <li><a href="#rootlocus">Root locus</a></li>
+        </ul>
+        <h4>Related</h4>
+        <ul>
+          <li><span class="tag">eq</span><a href="equations.html#eq-bibo">BIBO stability</a></li>
+          <li><span class="tag">eq</span><a href="equations.html#eq-char-eq">Characteristic equation</a></li>
+          <li><span class="tag">eq</span><a href="equations.html#eq-routh">Routh array</a></li>
+          <li><span class="tag">def</span><a href="glossary.html#g-root-locus">Root locus</a></li>
+          <li><span class="tag">def</span><a href="glossary.html#g-char-eq">Characteristic equation</a></li>
+          <li><span class="tag">flag</span><a href="assessments.html#a-quiz-w9">Quiz — Week 9</a></li>
+        </ul>
+      </aside>
+    </div>
+  </main>
+</div>
+<script src="../assets/katex/katex.min.js"></script>
+<script src="../assets/katex/auto-render.min.js"></script>
+<script src="subject.js"></script>
+<script src="../assets/hub.js"></script>
+</body>
+</html>

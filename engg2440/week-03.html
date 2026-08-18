@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="manifest" href="../manifest.webmanifest">
+<link rel="apple-touch-icon" href="../icons/apple-touch-icon.png">
+<meta name="theme-color" content="#161E2B">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<title>Week 3 — Electrical &amp; Electromechanical Systems · ENGG2440</title>
+<link rel="stylesheet" href="../assets/styles.css">
+<link rel="stylesheet" href="../assets/katex/katex.min.css">
+</head>
+<body>
+<div class="shell">
+  <main class="main">
+    <div class="page has-rail">
+      <div class="content">
+        <div class="crumb"><a href="../index.html">Study hub</a> / <a href="index.html">ENGG2440</a> / Week 3</div>
+        <div class="eyebrow">Week 3 · Lecture notes</div>
+        <h1 class="title">Electrical &amp; Electromechanical Systems</h1>
+        <p class="lede">The third domain, dropped straight into last week's framework. Nothing new is required except identifying which variables play the roles of effort, flow, momentum and displacement — then the CCRs, state counting and modelling procedure all carry over unchanged.</p>
+
+        <h2 id="variables">Slotting electrical into the framework</h2>
+        <p>The power variables are the familiar pair, and the energy variables follow by integration:</p>
+        <div class="eqbox">$$\text{Effort} \to V(t) \qquad \text{Flow} \to I(t) \qquad \text{Momentum} \to \lambda(t) \qquad \text{Displacement} \to q(t)$$</div>
+        <p><strong>Charge</strong> <span>$q$</span> is the displacement (current is its derivative, <span>$I = \dot q$</span>) and <strong><a class="gloss" href="glossary.html#g-linked-flux">magnetic linked flux</a></strong> <span>$\lambda$</span> is the momentum. So the states are the linked flux in inductors and the charge in capacitors.</p>
+        <div class="note"><span class="k">State counting</span> Unlike mechanical systems there is no "twice the DOF" rule. The number of states equals the number of <em>independent energy-storing elements</em> — capacitors and inductors. Capacitors in parallel or inductors in series are dependent and count once.</div>
+
+        <h2 id="components">The three basic components</h2>
+        <p>Each is one of the archetypes from Week 2:</p>
+        <div class="eqbox">$$\underbrace{\lambda = LI,\ \ V = \dot\lambda}_{\text{inductor (inertia)}} \qquad \underbrace{q = CV,\ \ I = \dot q}_{\text{capacitor}} \qquad \underbrace{V = RI}_{\text{resistor}}$$</div>
+        <p>An <strong>inductor</strong> stores energy in a magnetic field; because field and current are co-dependent neither can change instantly, which is what lets inductors smooth current. A <strong>capacitor</strong> stores energy in an electric field between plates. A <strong>resistor</strong> dissipates it as heat.</p>
+        <div class="note"><span class="k">Symbol collision</span> Watch out in multi-domain problems: <span>$L$</span> is angular momentum in rotational mechanics <em>and</em> inductance here. Likewise <span>$C$</span> is capacitance and compliance. Define your symbols.</div>
+
+        <h2 id="kirchhoff">Kirchhoff's laws are the SSRs</h2>
+        <p>Where mechanical systems used free-body diagrams, electrical systems use Kirchhoff:</p>
+        <div class="eqbox">$$\sum_{\text{node}} I = 0 \qquad \sum_{\text{loop}} V = 0$$</div>
+        <p>KCL says charge does not accumulate at a node; KVL says potential differences around a closed loop sum to zero. These supply exactly the relations needed to eliminate non-state variables from the state equations.</p>
+
+        <h2 id="motors">Motors and generators</h2>
+        <p>A permanent-magnet DC motor couples the electrical and rotational domains. Current through the armature induces a field that interacts with the stator magnet, producing torque; a commutator keeps the torque one-directional. Conversely, rotation induces a <a class="gloss" href="glossary.html#g-back-emf">back-EMF</a> voltage. The two CCRs are:</p>
+        <div class="eqbox">$$T(t) = K_T\,I_a(t) \qquad e(t) = K_\omega\,\omega(t)$$</div>
+        <p>This is a <a class="gloss" href="glossary.html#g-gyrator">gyrator</a> — effort on one side produces flow-proportional quantities on the other. In SI units <span>$K_T$</span> and <span>$K_\omega$</span> have the same magnitude and are often written as a single motor constant <span>$K_m$</span>. A generator is the same device run backwards; the CCRs are unchanged.</p>
+        <p>A realistic motor model adds the armature resistance <span>$R_a$</span> and inductance <span>$L_a$</span> in the electrical loop, so that a KVL around the armature ties the supply voltage, the resistive drop, the inductive term and the back-EMF together — giving one electrical state and one mechanical state.</p>
+        <div class="note"><span class="k">Sign conventions</span> Motor CCRs come with built-in sign conventions. If a problem fixes the torque direction or the terminal polarity, the other is then determined — you do not get to choose both.</div>
+
+        <div class="note"><span class="k">Where this leads</span> Week 4 completes the set with fluid power, after which every domain has been covered and we can turn to linearisation.</div>
+      </div>
+
+      <aside class="rail">
+        <h4>On this page</h4>
+        <ul>
+          <li><a href="#variables">The framework</a></li>
+          <li><a href="#components">Basic components</a></li>
+          <li><a href="#kirchhoff">Kirchhoff's laws</a></li>
+          <li><a href="#motors">Motors &amp; generators</a></li>
+        </ul>
+        <h4>Related</h4>
+        <ul>
+          <li><span class="tag">eq</span><a href="equations.html#eq-electrical-ccr">Electrical CCRs</a></li>
+          <li><span class="tag">eq</span><a href="equations.html#eq-kirchhoff">Kirchhoff's laws</a></li>
+          <li><span class="tag">eq</span><a href="equations.html#eq-dc-motor">DC motor CCRs</a></li>
+          <li><span class="tag">def</span><a href="glossary.html#g-linked-flux">Linked flux</a></li>
+          <li><span class="tag">def</span><a href="glossary.html#g-back-emf">Back EMF</a></li>
+          <li><span class="tag">flag</span><a href="assessments.html#a-quiz-w4">Quiz — Week 4</a></li>
+        </ul>
+      </aside>
+    </div>
+  </main>
+</div>
+<script src="../assets/katex/katex.min.js"></script>
+<script src="../assets/katex/auto-render.min.js"></script>
+<script src="subject.js"></script>
+<script src="../assets/hub.js"></script>
+</body>
+</html>
