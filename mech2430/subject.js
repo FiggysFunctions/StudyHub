@@ -22,10 +22,12 @@ window.SUBJECT = {
     code:"MECH2430",
     title:"Mechanics of Solids 1",
     inst:"University of Newcastle · Callaghan",
-    term:"Semester 2, 2025",
+    term:"Semester 2, 2026",
     coordinator:"A/Prof Chris Wensrich",
     text:"Hibbeler — Mechanics of Materials (any SI edition)",
-    weekOneMonday:"2025-07-28"   // <-- EDIT to your real Week 1 Monday
+    weekOneMonday:"2026-08-17",  // Week 1 begins 17 Aug 2026
+    /* non-teaching weeks — week numbers after these skip over them */
+    breaks:["2026-09-28"]        // mid-semester recess
   },
 
   /* ---- fixed sidebar entries (weekly pages are added automatically) ---- */
