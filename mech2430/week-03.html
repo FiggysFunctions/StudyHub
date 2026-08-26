@@ -85,6 +85,23 @@
         <div class="eqbox">$$\sigma_x = \frac{P}{A} - \frac{My}{I}$$</div>
         <p>This is the model for clamps, hooks and offset columns — Prob. 4.113 (the G-clamp) is worked exactly this way. See <a class="eqref" href="equations.html#eq-eccentric-axial">eccentric axial loading</a>.</p>
 
+        <h2 id="worked">Worked examples</h2>
+        <p>Three from this week's tutorial set, with the setups paraphrased and the method shown. Full solutions are in the uploaded tutorial PDFs.</p>
+
+        <p><strong>Curvature fixes the stress (4.22).</strong> Straight 6&nbsp;mm-diameter rods, 30&nbsp;m long, are stored coiled inside a drum of 1.25&nbsp;m inside diameter (<span>$E = 200$</span> GPa). This runs the flexure relations <em>backwards</em>: the geometry fixes <span>$\rho$</span>, and everything else follows. The rod centreline sits one rod-radius inside the drum, <span>$\rho = 0.625 - 0.003 = 0.622\ \text{m}$</span>, so from <span>$\varepsilon = c/\rho$</span> and Hooke's law:</p>
+        <div class="eqbox">$$\sigma_{\max} = \frac{Ec}{\rho} = \frac{(200\times10^{9})(0.003)}{0.622} \approx 965\ \text{MPa}, \qquad M = \frac{EI}{\rho} \approx 20.5\ \text{N}\cdot\text{m}$$</div>
+        <p>using <span>$I = \pi c^4/4 = 6.36\times10^{-11}\ \text{m}^4$</span>. Note how little moment it takes — but how enormous the stress is. Coiling thin rod is a severe operation, and the problem's caveat "assuming the yield strength is not exceeded" is doing a lot of work.</p>
+
+        <p><strong>Composite timber–aluminium beam (Question 3).</strong> Two 100&nbsp;mm × 300&nbsp;mm timber planks (<span>$E = 8$</span> GPa) are bolted either side of a 25&nbsp;mm × 300&nbsp;mm aluminium plate (<span>$E = 73$</span> GPa), spanning 4&nbsp;m simply supported with a 15&nbsp;kN central load, so <span>$M = PL/4 = 15\ \text{kN}\cdot\text{m}$</span>. Transform to all-timber with <span>$n = 73/8 = 9.125$</span>: the aluminium's 25&nbsp;mm becomes <span>$25 \times 9.125 = 228\ \text{mm}$</span> of timber, giving a transformed width of <span>$100+228+100 = 428\ \text{mm}$</span> at the same 300&nbsp;mm depth. Then</p>
+        <div class="eqbox">$$I = \frac{bd^3}{12} = 9.63\times10^{-4}\ \text{m}^4 \qquad \sigma_{\text{timber}} = \frac{Mc}{I} \approx 2.34\ \text{MPa} \qquad \sigma_{\text{Al}} = n\,\sigma_{\text{transf}} \approx 21.3\ \text{MPa}$$</div>
+        <p>and the curvature from the reference material, <span>$\rho = E_{\text{timber}}I/M \approx 514\ \text{m}$</span>. The aluminium carries roughly nine times the stress of the timber beside it — same strain, stiffer material.</p>
+
+        <p><strong>Elastoplastic rectangle (4.42).</strong> A 50&nbsp;mm × 120&nbsp;mm section carries <span>$M = 36.8\ \text{kN}\cdot\text{m}$</span>, with <span>$\sigma_y = 240$</span> MPa and <span>$E = 200$</span> GPa. First check whether it has yielded at all: <span>$I = bd^3/12 = 7.2\times10^{-6}\ \text{m}^4$</span> gives <span>$M_y = \sigma_y I/c = 28.8\ \text{kN}\cdot\text{m}$</span>, and <span>$36.8 > 28.8$</span>, so an elastic core exists. Invert the rectangular elastoplastic formula:</p>
+        <div class="eqbox">$$36.8 = \tfrac32(28.8)\left(1 - \tfrac13\frac{y_y^2}{Y^2}\right) \;\Longrightarrow\; \frac{y_y}{Y} = \tfrac23, \quad y_y = 40\ \text{mm}$$</div>
+        <p>so the elastic core is <span>$2y_y = 80\ \text{mm}$</span> thick. For the curvature, the fibre at <span>$y_y$</span> is exactly at yield, so <span>$\varepsilon_y = \sigma_y/E = 1.2\times10^{-3}$</span> and</p>
+        <div class="eqbox">$$\rho = \frac{y_y}{\varepsilon_y} = \frac{0.040}{1.2\times10^{-3}} \approx 33.3\ \text{m}$$</div>
+        <div class="note"><span class="k">Always check first</span> Before reaching for any elastoplastic formula, compute <span>$M_y$</span> and compare. If <span>$M \le M_y$</span> the section is still fully elastic and the plain flexure formula applies — using the plastic equations there will give you nonsense.</div>
+
         <div class="note"><span class="k">Where this leads</span> Bending completes the trio of basic load cases — axial (Week&nbsp;1), torsion (Week&nbsp;2), bending (Week&nbsp;3) — and all three share the same skeleton: linear strain from geometry, stress from the material, and superposition for everything else. Next we add the shear force that accompanies real transverse loads. Quiz&nbsp;1 (Week&nbsp;4) covers Weeks&nbsp;1–3, and the flexure formula and second moment of area are the most heavily tested part.</div>
       </div>
 
@@ -101,6 +118,7 @@
           <li><a href="#elastoplastic">Elastoplastic bending</a></li>
           <li><a href="#residual">Residual stress</a></li>
           <li><a href="#eccentric">Eccentric loading</a></li>
+          <li><a href="#worked">Worked examples</a></li>
         </ul>
         <h4>Key equations</h4>
         <ul>

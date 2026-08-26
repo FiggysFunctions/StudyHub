@@ -50,12 +50,16 @@ window.SUBJECT = {
     {
       f:"week-01.html", week:1,
       t:"Stress, Strain & Elasticity",
-      summary:"Foundations: normal/shear/bearing stress, stress as a tensor, strain, Hooke's law, axial deformation, thermal effects, Poisson's ratio, generalised Hooke's law, dilation and bulk modulus.",
-      keywords:"stress strain elasticity normal shear bearing oblique plane tensor poisson hooke young modulus axial deformation thermal expansion statically indeterminate superposition dilation bulk modulus shear modulus tensile test yield constitutive",
+      summary:"Foundations of the whole subject: normal, shear and bearing stress and why the maximum matters rather than the average; stress on an oblique plane; stress as a rank-2 tensor mapping a plane's normal to a traction; strain and the engineering-vs-tensor notation trap; the tensile test and Hooke's law; axial deformation; statically indeterminate members and the superposition method; thermal stress; Poisson's ratio, generalised Hooke's law, the shear modulus, dilation and bulk modulus.",
+      keywords:"stress strain elasticity normal shear bearing pin bolt rivet single double projected area maximum not average distribution oblique plane 45 degrees tensor rank-2 linear map traction unit normal poisson hooke young modulus typical values steel aluminium brass axial deformation rigidity thermal expansion thermal stress restrained statically indeterminate redundant superposition method compatibility dilation bulk modulus incompressible shear modulus elastic constants engineering tensor shear strain factor of two tensile test yield constitutive",
       related:[
+        {type:"eq", label:"Shear & bearing stress", href:"equations.html#eq-shear-bearing"},
+        {type:"eq", label:"Oblique plane",        href:"equations.html#eq-oblique"},
         {type:"eq", label:"Hooke's law (1D)",     href:"equations.html#eq-hooke-1d"},
-        {type:"eq", label:"Generalised Hooke",    href:"equations.html#eq-hooke-3d"},
         {type:"eq", label:"Axial deformation",    href:"equations.html#eq-axial-deformation"},
+        {type:"eq", label:"Thermal stress",       href:"equations.html#eq-thermal-stress"},
+        {type:"eq", label:"Generalised Hooke",    href:"equations.html#eq-hooke-3d"},
+        {type:"eq", label:"Elastic constants",    href:"equations.html#eq-elastic-constants"},
         {type:"def",label:"Poisson's ratio",      href:"glossary.html#g-poisson"},
         {type:"def",label:"Stress tensor",        href:"glossary.html#g-stress-tensor"},
         {type:"flag",label:"Quiz 1 (covers W1–3)", href:"assessments.html#a-quiz1"}
@@ -65,7 +69,7 @@ window.SUBJECT = {
       f:"week-02.html", week:2,
       t:"Torsion",
       summary:"Twisting of circular shafts: shear stress and strain from torque, the polar moment of area J, angle of twist, statically indeterminate and composite shafts, stress concentrations at steps, brittle failure on oblique planes, and elastoplastic shafts with residual stress.",
-      keywords:"torsion torque shaft circular shear stress strain polar moment of area J angle of twist phi GJ torsional rigidity statically indeterminate compatibility equilibrium composite shaft hollow solid stress concentration factor fillet step brittle failure oblique plane pure shear elastoplastic elastic core plastic yield first yield residual stress permanent twist springback superposition spindle sleeve aluminium jacket steel core",
+      keywords:"torsion torque shaft circular shear stress strain polar moment of area J angle of twist phi GJ torsional rigidity statically indeterminate compatibility equilibrium composite shaft hollow solid stress concentration factor fillet step brittle failure oblique plane pure shear elastoplastic elastic core plastic yield first yield residual stress permanent twist springback superposition spindle sleeve aluminium jacket steel core analogy comparison axial torsion bending table rigidity elastic core radius angle of twist at yield phi_y",
       related:[
         {type:"eq", label:"Torsional shear stress (Tr/J)",  href:"equations.html#eq-torsion-stress"},
         {type:"eq", label:"Angle of twist (TL/JG)",         href:"equations.html#eq-torsion-angle"},
@@ -85,7 +89,7 @@ window.SUBJECT = {
       f:"week-03.html", week:3,
       t:"Bending",
       summary:"Bending of beams: pure bending and the flexure formula (σ=My/I), the neutral axis and second moment of area, curvature and flexural rigidity, anticlastic (transverse) curvature from Poisson effects, composite beams via transformed sections, elastoplastic bending with an elastic core (yield and plastic moments, shape factor), residual stress and curvature after unloading, and eccentric axial loading by superposition.",
-      keywords:"bending flexure beam pure bending transverse eccentric loading neutral axis centroid second moment of area I parallel axis theorem curvature radius of curvature rho flexural rigidity EI moment of couple flexure formula My/I stress distribution linear anticlastic curvature poisson transverse deformation composite beam transformed section modular ratio n equivalent width timber aluminium brass reinforced concrete laminated elastoplastic bending elastic core yield moment My plastic moment Mp shape factor fully plastic residual stress residual curvature springback unloading superposition eccentric axial loading combined P/A My/I clamp channel I-beam H-section",
+      keywords:"bending flexure beam pure bending transverse eccentric loading neutral axis centroid second moment of area I parallel axis theorem curvature radius of curvature rho flexural rigidity EI moment of couple flexure formula My/I stress distribution linear anticlastic curvature poisson transverse deformation composite beam transformed section modular ratio n equivalent width timber aluminium brass reinforced concrete laminated elastoplastic bending elastic core yield moment My plastic moment Mp shape factor fully plastic residual stress residual curvature springback unloading superposition eccentric axial loading combined P/A My/I clamp channel I-beam H-section worked examples coiled rod drum storage composite timber aluminium plate transformed width elastic core thickness check My before plastic formula",
       related:[
         {type:"eq", label:"Flexure formula (My/I)",         href:"equations.html#eq-bending-stress"},
         {type:"eq", label:"Bending strain (y/ρ)",           href:"equations.html#eq-bending-strain"},
@@ -253,6 +257,20 @@ window.SUBJECT = {
      links:[{label:"Week 1",href:"week-01.html"},{label:"Week 6",href:"week-06.html"},{label:"Normal stress",href:"glossary.html#g-normal-stress"}],
      keywords:"average maximum pa mpa concentration force area"},
 
+    {id:"eq-shear-bearing", cat:"Stress, strain & elasticity", name:"Average shear & bearing stress",
+     latex:R`\tau_{\text{avg}} = \frac{V}{A} \qquad \sigma_b = \frac{P}{A_b} = \frac{P}{t\,d}`,
+     desc:"Shear stress acts tangent to the cut surface — pins, bolts, rivets and glued laps. Bearing stress is the contact pressure between a pin and its hole, computed on the PROJECTED area (thickness × diameter), not the curved surface. A pin in double shear carries the load over two sections, halving the shear stress.",
+     vars:[{sym:R`V`,mean:"transverse (shear) force"},{sym:R`A_b = t\,d`,mean:"projected bearing area"},{sym:R`t,d`,mean:"plate thickness, pin diameter"}],
+     links:[{label:"Week 1",href:"week-01.html"},{label:"Shear stress",href:"glossary.html#g-shear-stress"},{label:"Bearing stress",href:"glossary.html#g-bearing-stress"}],
+     keywords:"shear bearing pin bolt rivet single double projected area lap joint"},
+
+    {id:"eq-oblique", cat:"Stress, strain & elasticity", name:"Stress on an oblique plane",
+     latex:R`\sigma_\theta = \frac{P}{A_0}\cos^2\theta \qquad \tau_\theta = \frac{P}{A_0}\sin\theta\cos\theta`,
+     desc:"Cut an axially loaded bar on a plane whose normal makes angle θ with the axis. The force resolves into normal and shear components over the enlarged area A₀/cos θ. Normal stress peaks at θ = 0; shear peaks at θ = 45° with value σ/2 — which is why ductile bars slip on 45° planes. The first hint that stress depends on the plane you choose.",
+     vars:[{sym:R`A_0`,mean:"cross-sectional (transverse) area"},{sym:R`\theta`,mean:"angle of the plane normal to the axis"}],
+     links:[{label:"Week 1",href:"week-01.html"},{label:"Week 2",href:"week-02.html"},{label:"Oblique plane",href:"glossary.html#g-oblique"}],
+     keywords:"oblique inclined plane 45 degrees slip ductile resolve normal shear component"},
+
     {id:"eq-normal-strain", cat:"Stress, strain & elasticity", name:"Normal strain",
      latex:R`\varepsilon = \frac{d\delta}{dL} \qquad \varepsilon = \frac{\delta}{L}`,
      desc:"Strain measures deformation as the ratio of change in length to original length (dimensionless).",
@@ -284,6 +302,13 @@ window.SUBJECT = {
      vars:[{sym:R`\alpha`,mean:"coeff. of thermal expansion"},{sym:R`\Delta T`,mean:"temperature change"}],
      links:[{label:"Thermal expansion",href:"glossary.html#g-thermal"}], keywords:"temperature heat restraint expansion"},
 
+    {id:"eq-thermal-stress", cat:"Stress, strain & elasticity", name:"Thermal stress (fully restrained)",
+     latex:R`R = -AE\,\alpha(\Delta T) \qquad \sigma = -E\,\alpha(\Delta T)`,
+     desc:"Release the redundant support, let the bar expand freely by α(ΔT)L, then apply the reaction that pushes it back to zero net deformation. Note the result is independent of length and area — a fully restrained bar develops the same stress whether it is 10 mm or 10 m long. Heating gives compression (negative σ).",
+     vars:[{sym:R`R`,mean:"restraining reaction force"},{sym:R`\alpha`,mean:"coeff. of thermal expansion"},{sym:R`\Delta T`,mean:"temperature change"}],
+     links:[{label:"Week 1",href:"week-01.html"},{label:"Thermal deformation",href:"equations.html#eq-thermal"},{label:"Superposition",href:"glossary.html#g-superposition"}],
+     keywords:"thermal stress restrained fixed both ends compression heating superposition independent of length"},
+
     {id:"eq-hooke-3d", cat:"Stress, strain & elasticity", name:"Generalised Hooke's law (3D, isotropic)",
      latex:R`\begin{aligned}
        \varepsilon_x &= \tfrac{\sigma_x}{E} - \nu\tfrac{\sigma_y}{E} - \nu\tfrac{\sigma_z}{E}\\[2pt]
@@ -300,6 +325,20 @@ window.SUBJECT = {
      desc:"Elastic shear relation. G is the shear modulus / modulus of rigidity (steel ≈ 75 GPa).",
      vars:[{sym:R`G`,mean:"shear modulus"},{sym:R`\gamma`,mean:"engineering shear strain"}],
      links:[{label:"Shear modulus",href:"glossary.html#g-shear-modulus"}], keywords:"rigidity engineering strain"},
+
+    {id:"eq-elastic-constants", cat:"Stress, strain & elasticity", name:"Relation between elastic constants",
+     latex:R`G = \frac{E}{2(1+\nu)} \qquad K = \frac{E}{3(1-2\nu)}`,
+     desc:"An isotropic material has only TWO independent elastic constants — fix any two of E, G, ν and the rest follow. Typical values: steel E ≈ 210 GPa, G ≈ 75 GPa; aluminium E ≈ 70 GPa, G ≈ 25 GPa; both with ν ≈ 0.3. The bulk modulus K blowing up as ν → ½ is what makes rubber-like materials incompressible.",
+     vars:[{sym:R`E`,mean:"Young's modulus"},{sym:R`G`,mean:"shear modulus"},{sym:R`\nu`,mean:"Poisson's ratio"},{sym:R`K`,mean:"bulk modulus"}],
+     links:[{label:"Week 1",href:"week-01.html"},{label:"Bulk modulus",href:"equations.html#eq-bulk"},{label:"Poisson's ratio",href:"glossary.html#g-poisson"}],
+     keywords:"elastic constants isotropic two independent steel aluminium typical values incompressible"},
+
+    {id:"eq-strain-notation", cat:"Stress, strain & elasticity", name:"Engineering vs tensor shear strain",
+     latex:R`\gamma_{xy} = 2\,\varepsilon_{xy} \qquad \boldsymbol{\varepsilon} = \begin{bmatrix}\varepsilon_x & \tfrac12\gamma_{xy} & \tfrac12\gamma_{xz}\\ \tfrac12\gamma_{yx} & \varepsilon_y & \tfrac12\gamma_{yz}\\ \tfrac12\gamma_{zx} & \tfrac12\gamma_{zy} & \varepsilon_z\end{bmatrix}`,
+     desc:"A notation trap worth knowing. Engineering shear strain γ is the total change in angle between two originally perpendicular fibres — that is what Hooke's law τ = Gγ uses. The strain TENSOR carries half that value off-diagonal, so it transforms the same way the stress tensor does. Halve your γ before putting it in the tensor or a transformation equation.",
+     vars:[{sym:R`\gamma_{xy}`,mean:"engineering shear strain (total angle change)"},{sym:R`\varepsilon_{xy}`,mean:"tensor shear strain component"}],
+     links:[{label:"Week 1",href:"week-01.html"},{label:"Strain tensor",href:"glossary.html#g-strain-tensor"},{label:"Strain transformation",href:"equations.html#eq-strain-transformation"}],
+     keywords:"engineering tensor shear strain notation factor of two half gamma epsilon trap transformation"},
 
     {id:"eq-dilation", cat:"Stress, strain & elasticity", name:"Dilation (volumetric strain)",
      latex:R`e = \frac{1-2\nu}{E}\left(\sigma_x+\sigma_y+\sigma_z\right)`,
@@ -343,6 +382,13 @@ window.SUBJECT = {
      vars:[{sym:R`T_y`,mean:"torque at first yield"},{sym:R`\tau_y`,mean:"yield shear stress"},{sym:R`R`,mean:"outer radius"}],
      links:[{label:"Week 2",href:"week-02.html"},{label:"Elastoplastic torsion",href:"equations.html#eq-torsion-plastic"}],
      keywords:"yield onset elastic limit plastic shaft first"},
+
+    {id:"eq-torsion-core", cat:"Torsional loading", name:"Elastic core radius & twist at yield",
+     latex:R`\phi_y = \frac{L\gamma_y}{R} = \frac{L\tau_y}{GR} \qquad r_y = \frac{L\tau_y}{G\phi} \qquad \frac{r_y}{R} = \frac{\phi_y}{\phi}`,
+     desc:"Because shear strain is fixed by geometry (γ = rφ/L), the elastic core shrinks in exact proportion as the shaft is twisted further. This is what lets the elastoplastic torque be written in terms of either the core radius or the angle of twist — the two forms are interchangeable.",
+     vars:[{sym:R`\phi_y`,mean:"angle of twist at first yield"},{sym:R`r_y`,mean:"elastic-core radius"},{sym:R`\gamma_y`,mean:"yield shear strain"}],
+     links:[{label:"Week 2",href:"week-02.html"},{label:"Elastoplastic torsion",href:"equations.html#eq-torsion-plastic"}],
+     keywords:"elastic core radius angle of twist yield proportion geometry interchangeable"},
 
     {id:"eq-torsion-plastic", cat:"Torsional loading", name:"Elastoplastic torsion (cylindrical)",
      latex:R`T = \tfrac{4}{3}T_y\!\left(1-\tfrac14\Big(\tfrac{r_y}{R}\Big)^{3}\right)

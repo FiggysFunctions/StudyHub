@@ -43,6 +43,18 @@
         <p>Rearranging the surface relation <span>$\gamma_{\max} = R\phi/L$</span> together with <span>$\gamma_{\max} = \tau_{\max}/G = TR/JG$</span> and cancelling <span>$R$</span> gives the angle through which the shaft twists:</p>
         <div class="eqbox">$$\phi = \int_0^L \frac{T}{JG}\,dx = \frac{TL}{JG}$$</div>
         <p>This is the exact mirror of last week's <span>$\delta = NL/AE$</span>. The group <span>$GJ$</span> is the <a class="gloss" href="glossary.html#g-torsional-rigidity">torsional rigidity</a> — a large <span>$GJ$</span> means a shaft that resists twisting, just as a large <span>$AE$</span> resists stretching and a large <span>$EI$</span> resists bending. When the torque, section or material changes along the shaft, sum the segments, <span>$\phi = \sum T_i L_i / J_i G_i$</span>, or integrate when they vary continuously. See <a class="eqref" href="equations.html#eq-torsion-angle">angle of twist</a> and the <a class="gloss" href="glossary.html#g-angle-twist">definition</a>.</p>
+        <p>The parallel is worth setting out in full, because the same skeleton carries through all three basic load cases in this course — and once you see it, Week 3 is largely a matter of changing symbols:</p>
+        <table>
+          <thead><tr><th></th><th>Axial (Week 1)</th><th>Torsion (Week 2)</th><th>Bending (Week 3)</th></tr></thead>
+          <tbody>
+            <tr><td>Internal load</td><td><span>$N$</span></td><td><span>$T$</span></td><td><span>$M$</span></td></tr>
+            <tr><td>Section property</td><td><span>$A$</span></td><td><span>$J=\int r^2 dA$</span></td><td><span>$I=\int y^2 dA$</span></td></tr>
+            <tr><td>Stress</td><td><span>$\sigma = N/A$</span></td><td><span>$\tau = Tr/J$</span></td><td><span>$\sigma = My/I$</span></td></tr>
+            <tr><td>Rigidity</td><td><span>$AE$</span></td><td><span>$GJ$</span></td><td><span>$EI$</span></td></tr>
+            <tr><td>Deformation</td><td><span>$\delta = NL/AE$</span></td><td><span>$\phi = TL/GJ$</span></td><td><span>$1/\rho = M/EI$</span></td></tr>
+          </tbody>
+        </table>
+        <p>In every column the recipe is identical: get the strain distribution from <em>geometry</em>, convert it to stress with the <em>material law</em>, then integrate over the section to match the internal load. Only the geometry changes.</p>
         <div class="note"><span class="k">Why hollow shafts win</span> Because stress and lever arm both grow with radius, the material near the axis does very little work. Hollowing a 30&nbsp;mm shaft out to a 20&nbsp;mm bore (Example&nbsp;3.31) removes 44% of the material but makes the shaft only about 24% more flexible — nearly half the weight for a quarter the loss in stiffness. This is why drive shafts and bicycle frames are tubes.</div>
 
         <h2 id="stress-concentration">Stress concentrations at changes in section</h2>
@@ -63,7 +75,9 @@
         <h2 id="plastic">Plastic deformation and elastoplastic shafts</h2>
         <p>The torsion formula assumes Hooke's law, so it stops being valid once the outer skin reaches the yield stress in shear. To go further we adopt the idealised <a class="gloss" href="glossary.html#g-elastoplastic">elastic–perfectly-plastic</a> model: <span>$\tau = G\gamma$</span> up to <span>$\tau_y$</span>, then a constant <span>$\tau = \tau_y$</span> however large the strain. The geometric relation <span>$\gamma = r\phi/L$</span> still holds, so an over-loaded shaft develops a yielded outer ring at <span>$\tau_y$</span> around an elastic core of radius <span>$r_y$</span>. The torque that first brings the surface to yield is</p>
         <div class="eqbox">$$T_y = \frac{J\tau_y}{R} = \tfrac{1}{2}\pi R^{3}\tau_y$$</div>
-        <p>Integrating the stress over the elastic core plus the fully plastic ring gives the torque for any core radius, and hence for any angle of twist beyond first yield:</p>
+        <p>Because shear strain is fixed by geometry alone (<span>$\gamma = r\phi/L$</span>), the core radius and the angle of twist are two ways of saying the same thing. The surface first yields at</p>
+        <div class="eqbox">$$\phi_y = \frac{L\gamma_y}{R} = \frac{L\tau_y}{GR} \qquad\text{and thereafter}\qquad r_y = \frac{L\tau_y}{G\phi}, \quad\text{so}\quad \frac{r_y}{R} = \frac{\phi_y}{\phi}$$</div>
+        <p>Twist the shaft to twice <span>$\phi_y$</span> and the elastic core has shrunk to half the radius. That equivalence is why the elastoplastic torque can be written either way — see <a class="eqref" href="equations.html#eq-torsion-core">elastic core radius &amp; twist at yield</a>. Integrating the stress over the elastic core plus the fully plastic ring gives the torque for any core radius, and hence for any angle of twist beyond first yield:</p>
         <div class="eqbox">$$T = \tfrac{4}{3}T_y\!\left(1 - \tfrac14\Big(\tfrac{r_y}{R}\Big)^{3}\right) = \tfrac{4}{3}T_y\!\left(1 - \tfrac14\Big(\tfrac{\phi_y}{\phi}\Big)^{3}\right)$$</div>
         <p>As the core shrinks to nothing (<span>$r_y \to 0$</span>) the shaft becomes fully plastic at <span>$T_p = \tfrac{4}{3}T_y$</span> — it can never carry more than a third again its first-yield torque. See <a class="eqref" href="equations.html#eq-torsion-yield">torque at first yield</a> and <a class="eqref" href="equations.html#eq-torsion-plastic">elastoplastic torsion</a>.</p>
 

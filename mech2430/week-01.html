@@ -23,37 +23,60 @@
         <p class="lede">The foundations of the whole subject: how we measure the internal forces in a loaded solid (stress), how we measure its deformation (strain), and the elastic law that ties the two together. Everything in later weeks — torsion, bending, pressure vessels, failure — is built on these ideas.</p>
 
         <h2 id="stress">Force and normal stress</h2>
-        <p>When a body carries a load, the external forces are transmitted through the material as <strong>internal forces</strong> distributed over every cross-section. <a class="gloss" href="glossary.html#g-stress">Stress</a> is the intensity of that internal force — force per unit area — so that we can compare what is happening inside parts of different sizes.</p>
-        <p>If a force acts <em>perpendicular</em> to a cut surface, it produces a <a class="gloss" href="glossary.html#g-normal-stress">normal stress</a>. For a member carrying an axial load <span>$P$</span> spread over a cross-sectional area <span>$A$</span>, the average normal stress is</p>
-        <div class="eqbox">$$\sigma = \frac{P}{A}$$</div>
-        <p>By convention tension is positive and compression is negative. The SI unit is the pascal (<span>$1\ \text{Pa} = 1\ \text{N/m}^2$</span>); in engineering we almost always work in megapascals, <span>$1\ \text{MPa} = 1\ \text{N/mm}^2$</span>, which is convenient because dimensions are usually in millimetres. See <a class="eqref" href="equations.html#eq-normal-stress">the normal-stress relation</a> on the equation sheet.</p>
+        <p>Start with a pin-jointed frame. Statics gives the member forces easily enough — say <span>$F_{AB} = -40\ \text{kN}$</span> (negative meaning compression) and <span>$F_{BC} = 50\ \text{kN}$</span>. But that single number per member hides a lot: the same simple structure contains axial stress in the links, shear stress in the pins, and bearing stress where each pin presses against its hole. Statics tells you the <em>force</em>; this course is about what that force does <em>inside</em> the material.</p>
+        <p>When a body carries a load, the external forces are transmitted through the material as <strong>internal forces</strong> distributed over every cross-section. <a class="gloss" href="glossary.html#g-stress">Stress</a> is the intensity — the concentration — of that internal force, so that parts of different sizes can be compared. Each element of area <span>$dA$</span> carries a force <span>$dF = \sigma\,dA$</span>, and integrating recovers the total:</p>
+        <div class="eqbox">$$\sigma = \frac{dF}{dA} \qquad F = \int_A \sigma\,dA \qquad \sigma_{\text{avg}} = \frac{P}{A}$$</div>
+        <p>If the force acts <em>perpendicular</em> to the cut surface it produces a <a class="gloss" href="glossary.html#g-normal-stress">normal stress</a>. By convention tension is positive and compression negative. The SI unit is the pascal (<span>$1\ \text{Pa} = 1\ \text{N/m}^2$</span>); in engineering we almost always work in megapascals, <span>$1\ \text{MPa} = 1\ \text{N/mm}^2$</span>, which is convenient because dimensions are usually in millimetres. See <a class="eqref" href="equations.html#eq-normal-stress">the normal-stress relation</a> on the equation sheet.</p>
+        <div class="note"><span class="k">The two ideas the whole course rests on</span> <strong>(1) Failure is governed by the maximum stress, not the average.</strong> <span>$P/A$</span> is only an average, and the real distribution across a section is rarely uniform — so MECH2430 is about <em>distributions</em>, not averages. <strong>(2) Normal and shear stress are two sides of the same coin.</strong> They are not independent quantities; as the oblique-plane section below shows, pure tension on one plane <em>is</em> shear on another. Learning to combine and compare them is what the failure theories later in the course are for.</div>
 
         <h2 id="shear">Shear and bearing stress</h2>
         <p>When the internal force acts <em>tangent</em> to the surface instead of perpendicular to it, it produces a <a class="gloss" href="glossary.html#g-shear-stress">shear stress</a>, written <span>$\tau$</span>. The average shear stress over an area <span>$A$</span> carrying a tangential force <span>$V$</span> is</p>
         <div class="eqbox">$$\tau_{\text{avg}} = \frac{V}{A}$$</div>
         <p>Shear shows up wherever material is being "scissored": pins, bolts, rivets and glued laps. A pin in <em>single shear</em> carries the whole load across one cross-section; in <em>double shear</em> the load is split across two, halving the stress.</p>
         <p>A closely related quantity is <a class="gloss" href="glossary.html#g-bearing-stress">bearing stress</a> — the contact pressure pressed between two bodies, such as a bolt shank against the side of its hole. It is computed on the <em>projected</em> contact area rather than the true curved surface:</p>
-        <div class="eqbox">$$\sigma_b = \frac{P}{A_b}$$</div>
+        <div class="eqbox">$$\sigma_b = \frac{P}{A_b} = \frac{P}{t\,d}$$</div>
+        <p>Like <span>$P/A$</span>, both of these are <em>averages</em> — the true shear distribution across a pin and the true pressure around the inside of a hole both vary considerably. Full forms: <a class="eqref" href="equations.html#eq-shear-bearing">average shear &amp; bearing stress</a>.</p>
         <div class="note"><span class="k">Watch out</span> Bearing area is the projected rectangle (diameter × thickness) for a pin in a plate, not the curved area of the hole. Mixing these up is a classic exam slip.</div>
 
         <h2 id="oblique">Stress on an oblique plane</h2>
         <p>Stress is not a single number attached to a point — it depends on the orientation of the plane you choose to look at. Take an axially loaded bar and cut it on a plane whose normal makes an angle <span>$\theta$</span> with the axis. The same internal force now acts over a larger, tilted area, and it resolves into both a normal and a shear component:</p>
-        <div class="eqbox">$$\sigma_\theta = \sigma\cos^2\theta \qquad \tau_\theta = \sigma\sin\theta\cos\theta$$</div>
-        <p>Two lessons follow. First, the normal stress is largest on the transverse plane (<span>$\theta = 0$</span>) while the shear stress peaks at <span>$\theta = 45^\circ$</span> — which is why ductile bars often fail on <span>$45^\circ$</span> slip planes. Second, because the answer depends on orientation, a complete description of stress at a point needs more than one number. That motivates the <a class="gloss" href="glossary.html#g-oblique">oblique-plane</a> view and, ultimately, the stress tensor below.</p>
+        <p>The axial force <span>$P$</span> resolves into a component normal to the plane, <span>$F = P\cos\theta$</span>, and one along it, <span>$V = P\sin\theta$</span>. Both act over the enlarged area <span>$A_\theta = A_0/\cos\theta$</span>, so:</p>
+        <div class="eqbox">$$\sigma_\theta = \frac{P}{A_0}\cos^2\theta \qquad \tau_\theta = \frac{P}{A_0}\sin\theta\cos\theta$$</div>
+        <p>Two lessons follow. First, the normal stress is largest on the transverse plane (<span>$\theta = 0$</span>) while the shear stress peaks at <span>$\theta = 45^\circ$</span>, where it reaches <span>$\sigma/2$</span> — which is why ductile bars often fail on <span>$45^\circ$</span> slip planes. Second, because the answer depends on orientation, a complete description of stress at a point needs more than one number. That motivates the <a class="gloss" href="glossary.html#g-oblique">oblique-plane</a> view and, ultimately, the stress tensor below. Full form: <a class="eqref" href="equations.html#eq-oblique">stress on an oblique plane</a>.</p>
+        <div class="note"><span class="k">Coming back later</span> This one calculation explains two results further into the course: why a twisted piece of chalk breaks on a <span>$45^\circ$</span> helix (Week 2), and why the Tresca failure criterion compares <span>$\tau_{\max}$</span> against <span>$\sigma_y/2$</span> rather than <span>$\sigma_y$</span>.</div>
 
         <h2 id="tensor">Three-dimensional stress and the stress tensor</h2>
-        <p>At any point inside a solid we imagine a tiny cube aligned with the axes. Each face carries one normal stress and two shear stresses, giving nine components. These are collected into the <a class="gloss" href="glossary.html#g-stress-tensor">stress tensor</a>, a rank-2 tensor:</p>
-        <div class="eqbox">$$\boldsymbol{\sigma} = \begin{bmatrix} \sigma_{xx} &amp; \tau_{xy} &amp; \tau_{xz} \\ \tau_{yx} &amp; \sigma_{yy} &amp; \tau_{yz} \\ \tau_{zx} &amp; \tau_{zy} &amp; \sigma_{zz} \end{bmatrix}$$</div>
-        <p>Moment equilibrium of the cube forces the shear stresses to be symmetric, <span>$\tau_{xy} = \tau_{yx}$</span>, <span>$\tau_{yz} = \tau_{zy}$</span>, <span>$\tau_{zx} = \tau_{xz}$</span>, so only six of the nine components are independent. A "tensor" simply means this array transforms in a definite way when you rotate the axes — exactly the oblique-plane behaviour seen above, generalised to 3D. Finding the orientation where all shear terms vanish gives the <a class="gloss" href="glossary.html#g-principal">principal stresses</a>, which we return to in the stress-transformation weeks.</p>
+        <p>Take a general body, cut a plane parallel to the <span>$y$–$z$</span> axes, and look at an element of area <span>$dA$</span> on the exposed face. The resultant force on it decomposes into one normal and two shear components, and shrinking <span>$dA$</span> to a point defines three stresses on that plane:</p>
+        <div class="eqbox">$$\sigma_x = \frac{dF_x}{dA} \qquad \tau_{xy} = \frac{dV_{xy}}{dA} \qquad \tau_{xz} = \frac{dV_{xz}}{dA}$$</div>
+        <p>Repeating for planes normal to <span>$y$</span> and <span>$z$</span> gives nine components in total — the faces of an infinitesimal cube of material at that point.</p>
+        <p>So what kind of object is stress: a vector or a scalar? <strong>Neither.</strong> Stress is a <a class="gloss" href="glossary.html#g-stress-tensor">rank-2 tensor</a> — a <em>linear map that takes one vector and returns another</em>. Feed it the unit normal of any plane you choose and it hands back the force concentration (the traction vector) on that plane. Written as a matrix:</p>
+        <div class="eqbox">$$\boldsymbol{\sigma} = \begin{bmatrix} \sigma_{x} &amp; \tau_{xy} &amp; \tau_{xz} \\ \tau_{yx} &amp; \sigma_{y} &amp; \tau_{yz} \\ \tau_{zx} &amp; \tau_{zy} &amp; \sigma_{z} \end{bmatrix}$$</div>
+        <p>Two quick demonstrations make the idea concrete. Multiply by the unit normal of the plane facing the <span>$x$</span>-axis and you simply read off the first column — the three stresses on that face:</p>
+        <div class="eqbox">$$\boldsymbol{\sigma}\begin{bmatrix}1\\0\\0\end{bmatrix} = \begin{bmatrix}\sigma_x\\ \tau_{yx}\\ \tau_{zx}\end{bmatrix}$$</div>
+        <p>Now try a plane tilted at <span>$45^\circ$</span> between the <span>$x$</span> and <span>$y$</span> axes, whose unit normal is <span>$\tfrac{1}{\sqrt2}(1,1,0)$</span>:</p>
+        <div class="eqbox">$$\boldsymbol{\sigma}\,\tfrac{1}{\sqrt{2}}\begin{bmatrix}1\\1\\0\end{bmatrix} = \tfrac{1}{\sqrt{2}}\begin{bmatrix}\sigma_x + \tau_{xy}\\ \tau_{yx} + \sigma_y\\ \tau_{zx} + \tau_{zy}\end{bmatrix}$$</div>
+        <p>That is the oblique-plane calculation from above, generalised — one object encoding the stress on <em>every</em> plane through the point at once.</p>
+        <p>Moment equilibrium of the cube forces the shear stresses to be symmetric, <span>$\tau_{xy} = \tau_{yx}$</span>, <span>$\tau_{yz} = \tau_{zy}$</span>, <span>$\tau_{zx} = \tau_{xz}$</span>, so only six of the nine components are independent. Finding the orientation in which all the shear terms vanish gives the <a class="gloss" href="glossary.html#g-principal">principal stresses</a> — that is an eigenvalue problem for this matrix, and it is what the stress-transformation weeks are really doing. See <a class="eqref" href="equations.html#eq-traction">traction &amp; the stress tensor</a>.</p>
 
         <h2 id="strain">Strain</h2>
         <p>Where stress measures internal force, <a class="gloss" href="glossary.html#g-strain">strain</a> measures deformation. Normal strain is the change in length per unit original length of a fibre:</p>
-        <div class="eqbox">$$\varepsilon = \frac{\delta}{L} = \frac{L' - L}{L}$$</div>
-        <p>It is dimensionless (often quoted in microstrain, <span>$\mu\varepsilon = 10^{-6}$</span>). Alongside it, <a class="gloss" href="glossary.html#g-shear-strain">shear strain</a> <span>$\gamma$</span> measures the change in angle between two originally perpendicular fibres, in radians. Just like stress, the strains at a point assemble into a symmetric <a class="gloss" href="glossary.html#g-strain-tensor">strain tensor</a>. See <a class="eqref" href="equations.html#eq-normal-strain">normal strain</a> on the equation sheet.</p>
+        <div class="eqbox">$$\varepsilon = \frac{\delta}{L} = \frac{L' - L}{L} \qquad \varepsilon = \lim_{\Delta x\to0}\frac{\Delta\delta}{\Delta x} = \frac{d\delta}{dx}$$</div>
+        <p>The second form is the one that matters when the cross-section varies or the load is distributed — strain is properly a <em>local</em> quantity, defined at a point, exactly as stress is. It is dimensionless (often quoted in microstrain, <span>$\mu\varepsilon = 10^{-6}$</span>). Alongside it, <a class="gloss" href="glossary.html#g-shear-strain">shear strain</a> <span>$\gamma$</span> measures the change in angle between two originally perpendicular fibres, in radians. Just like stress, the strains at a point assemble into a symmetric <a class="gloss" href="glossary.html#g-strain-tensor">strain tensor</a>. See <a class="eqref" href="equations.html#eq-normal-strain">normal strain</a> on the equation sheet.</p>
+        <div class="note"><span class="k">Notation trap — factor of two</span> Engineering shear strain <span>$\gamma_{xy}$</span> is the <em>total</em> change in angle, and that is what <span>$\tau = G\gamma$</span> uses. The strain <em>tensor</em> carries half of it off the diagonal, <span>$\varepsilon_{xy} = \tfrac12\gamma_{xy}$</span>, so that it rotates the same way the stress tensor does. Halve your <span>$\gamma$</span> before putting it into the tensor or a transformation equation — see <a class="eqref" href="equations.html#eq-strain-notation">engineering vs tensor shear strain</a>.</div>
 
         <h2 id="tensile-test">The tensile test and Hooke's law</h2>
         <p>The <a class="gloss" href="glossary.html#g-tensile-test">tensile test</a> pulls a standard specimen and records load against extension, which we convert to a stress–strain curve. For most engineering metals the first portion is straight: stress is proportional to strain. This is <a class="gloss" href="glossary.html#g-hooke">Hooke's law</a>, and the slope of that line is <a class="gloss" href="glossary.html#g-young">Young's modulus</a> <span>$E$</span>, a measure of stiffness:</p>
         <div class="eqbox">$$\sigma = E\,\varepsilon$$</div>
+        <p>Worth carrying in your head, because tutorial problems rarely bother to state them twice:</p>
+        <table>
+          <thead><tr><th>Material</th><th><span>$E$</span> (GPa)</th><th><span>$G$</span> (GPa)</th><th><span>$\nu$</span></th></tr></thead>
+          <tbody>
+            <tr><td>Steel</td><td>≈ 210</td><td>≈ 75</td><td>≈ 0.30</td></tr>
+            <tr><td>Aluminium</td><td>≈ 70</td><td>≈ 25</td><td>≈ 0.33</td></tr>
+            <tr><td>Brass</td><td>≈ 120</td><td>—</td><td>≈ 0.34</td></tr>
+            <tr><td>Diamond</td><td>≈ 1200</td><td>—</td><td>—</td></tr>
+          </tbody>
+        </table>
         <p>The straight region ends at the <a class="gloss" href="glossary.html#g-yield">yield point</a>; beyond it the material deforms permanently (plastically). For this course we mostly work in the linear-elastic region, treating materials as <a class="gloss" href="glossary.html#g-elastoplastic">elastic–perfectly-plastic</a> only when we deliberately study yielding. The relation <span>$\sigma = E\varepsilon$</span> is the simplest <a class="gloss" href="glossary.html#g-constitutive">constitutive law</a> — see <a class="eqref" href="equations.html#eq-hooke-1d">Hooke's law (1D)</a>.</p>
 
         <h2 id="axial">Axial deformation</h2>
@@ -63,12 +86,23 @@
 
         <h2 id="indeterminate">Statically indeterminate members and superposition</h2>
         <p>If equilibrium alone gives enough equations to find every internal force, a problem is statically determinate. When there are more supports or members than equilibrium can resolve — a bar fixed at both ends, say — it is <a class="gloss" href="glossary.html#g-stat-indeterminate">statically indeterminate</a>. These are solved by adding a <strong>compatibility</strong> condition (a geometric statement about how deformations must fit together) to the equilibrium equations, then substituting the load–deformation law <span>$\delta = NL/AE$</span>.</p>
-        <p>A powerful aid here is <a class="gloss" href="glossary.html#g-superposition">superposition</a>: because the governing relations are linear, the response to several loads equals the sum of the responses to each load applied alone. We use it constantly — releasing a redundant support, solving the simpler cases, then recombining.</p>
+        <p>A powerful aid here is <a class="gloss" href="glossary.html#g-superposition">superposition</a>: because the governing relations are linear, the response to several loads equals the sum of the responses to each load applied alone. That turns the compatibility argument into a reliable four-step recipe — <strong>the superposition method</strong>:</p>
+        <ol>
+          <li>Identify the <strong>redundant</strong> reactions — the ones equilibrium cannot resolve.</li>
+          <li><strong>Remove</strong> them, and re-apply each as an unknown <em>load</em> on the now-determinate structure.</li>
+          <li>Work out the deformations from the given loads and from the redundant loads <strong>separately</strong>.</li>
+          <li><strong>Superimpose</strong> them and impose the true support condition (usually zero net deformation) to solve for the unknowns.</li>
+        </ol>
+        <p>The same four steps reappear throughout the course — for indeterminate shafts in Week 2, for residual stresses after yielding, and for beam deflections later on. It is worth getting fluent with it now.</p>
 
         <h2 id="thermal">Thermal effects</h2>
         <p>A temperature change makes most materials expand or contract. The free <a class="gloss" href="glossary.html#g-thermal">thermal</a> strain for a change <span>$\Delta T$</span> is</p>
         <div class="eqbox">$$\delta_T = \alpha\,\Delta T\,L$$</div>
-        <p>where <span>$\alpha$</span> is the coefficient of thermal expansion. If the member is free to move, this produces deformation but <em>no</em> stress. If it is restrained, the prevented expansion shows up as <strong>thermal stress</strong> — combine the thermal term with the mechanical term <span>$NL/AE$</span> in a compatibility equation, exactly as for indeterminate problems. See <a class="eqref" href="equations.html#eq-thermal">thermal deformation</a>.</p>
+        <p>where <span>$\alpha$</span> is the coefficient of thermal expansion. If the member is free to move, this produces deformation but <em>no</em> stress. If it is restrained, the prevented expansion shows up as <strong>thermal stress</strong> — and this is the cleanest possible illustration of the superposition method above. Take a bar fixed at both ends, release the reaction at <span>$B$</span>, let it expand freely, then apply <span>$R_B$</span> as an unknown load that squeezes it back:</p>
+        <div class="eqbox">$$\delta_T + \delta_{R_B} = \alpha(\Delta T)L + \frac{R_B L}{AE} = 0 \;\Longrightarrow\; R_B = -AE\,\alpha(\Delta T), \qquad \sigma = -E\,\alpha(\Delta T)$$</div>
+        <p>Notice what dropped out: both <span>$L$</span> and <span>$A$</span> cancel from the stress. A fully restrained bar develops the <em>same</em> thermal stress whether it is 10 mm or 10 m long, and making it thicker does not help at all — which is why expansion joints, not bigger sections, are how bridges and pipelines deal with temperature. The negative sign says heating a restrained bar puts it in compression. See <a class="eqref" href="equations.html#eq-thermal">thermal deformation</a> and <a class="eqref" href="equations.html#eq-thermal-stress">thermal stress</a>.</p>
+        <div class="note"><span class="k">Worth doing yourself</span> Put numbers in and the result is startling. A fully restrained steel bar (<span>$E = 210\ \text{GPa}$</span>, <span>$\alpha \approx 11.7\times10^{-6}\,/^{\circ}\text{C}$</span>) warmed by just <span>$50^{\circ}\text{C}$</span>:
+        <span>$\sigma = -(210\times10^{9})(11.7\times10^{-6})(50) \approx -123\ \text{MPa}$</span> — around half the yield stress of mild steel, from a temperature change you would barely notice. This is why thermal effects are never an afterthought in design.</div>
 
         <h2 id="poisson">Poisson's ratio</h2>
         <p>Stretch a bar lengthwise and it gets thinner across. <a class="gloss" href="glossary.html#g-poisson">Poisson's ratio</a> <span>$\nu$</span> is the (positive) ratio of lateral contraction to axial extension:</p>
@@ -84,7 +118,7 @@
         <h2 id="shear-modulus">Shear modulus</h2>
         <p>The <a class="gloss" href="glossary.html#g-shear-modulus">shear modulus</a> <span>$G$</span> plays the role of <span>$E$</span> for shear, relating shear stress to shear strain by <span>$\tau = G\gamma$</span>. For an isotropic material the three elastic constants are not independent — they are linked by</p>
         <div class="eqbox">$$G = \frac{E}{2(1+\nu)}$$</div>
-        <p>so any two of <span>$E$</span>, <span>$G$</span>, <span>$\nu$</span> fix the third. See <a class="eqref" href="equations.html#eq-shear-hooke">shear form of Hooke's law</a>.</p>
+        <p>so any two of <span>$E$</span>, <span>$G$</span>, <span>$\nu$</span> fix the third — an isotropic material has only <strong>two</strong> independent elastic constants, not three. A <span>$\tau$–$\gamma$</span> plot looks much like a <span>$\sigma$–$\varepsilon$</span> plot, with its own linear region and yield point; for most engineering materials the strength in shear is roughly <em>half</em> the strength in tension, which is the empirical fact behind the Tresca failure criterion later in the course. See <a class="eqref" href="equations.html#eq-shear-hooke">shear form of Hooke's law</a> and <a class="eqref" href="equations.html#eq-elastic-constants">relation between elastic constants</a>.</p>
 
         <h2 id="dilation">Dilation and bulk modulus</h2>
         <p>The fractional change in volume of a stressed element is its <a class="gloss" href="glossary.html#g-dilation">dilation</a>, equal to the sum of the three normal strains:</p>
@@ -114,9 +148,14 @@
         </ul>
         <h4>Key equations</h4>
         <ul>
+          <li><span class="tag">eq</span><a href="equations.html#eq-shear-bearing">Shear &amp; bearing stress</a></li>
+          <li><span class="tag">eq</span><a href="equations.html#eq-oblique">Oblique plane</a></li>
           <li><span class="tag">eq</span><a href="equations.html#eq-hooke-1d">Hooke's law (1D)</a></li>
-          <li><span class="tag">eq</span><a href="equations.html#eq-hooke-3d">Generalised Hooke</a></li>
           <li><span class="tag">eq</span><a href="equations.html#eq-axial-deformation">Axial deformation</a></li>
+          <li><span class="tag">eq</span><a href="equations.html#eq-thermal-stress">Thermal stress</a></li>
+          <li><span class="tag">eq</span><a href="equations.html#eq-hooke-3d">Generalised Hooke</a></li>
+          <li><span class="tag">eq</span><a href="equations.html#eq-elastic-constants">Elastic constants</a></li>
+          <li><span class="tag">eq</span><a href="equations.html#eq-strain-notation">γ vs ε notation</a></li>
         </ul>
         <h4>Related</h4>
         <ul>
