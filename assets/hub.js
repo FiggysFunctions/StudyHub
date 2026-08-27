@@ -625,6 +625,26 @@ function ttSubject(code){
  for(var i=0;i<subs.length;i++)if(subs[i].code===code)return subs[i];
  return null;
 }
+/* Each subject's assessments page keeps its own state in localStorage under
+   SUBJ_<CODE>_done_<id> / SUBJ_<CODE>_due_<id>. The home page can't load those
+   subject.js files (each declares its own top-level `const R`), but it CAN read
+   that state — so ticking an assessment complete there drops it from the home
+   page, and re-dating it there moves it here too. */
+function ttSubjLS(code,k,d){
+ try{var v=localStorage.getItem("SUBJ_"+code+"_"+k);return v===null?d:v;}catch(e){return d;}
+}
+function ttDeadlines(){
+ return ((window.HUB&&window.HUB.deadlines)||[])
+   .filter(function(d){
+     return !(d.id&&d.code&&ttSubjLS(d.code,"done_"+d.id,"0")==="1");
+   })
+   .map(function(d){
+     var out={},k;for(k in d)out[k]=d[k];
+     if(d.id&&d.code){var ov=ttSubjLS(d.code,"due_"+d.id,null);if(ov)out.date=ov;}
+     return out;
+   })
+   .sort(function(a,b){return a.date<b.date?-1:a.date>b.date?1:0;});
+}
 
 function initHubTimetable(){
  var host=$("#ttGrid");
@@ -668,7 +688,7 @@ function initHubTimetable(){
    }
 
    /* ---- week grid ---- */
-   var dl=(window.HUB.deadlines)||[],cells=[];
+   var dl=ttDeadlines(),cells=[];
    for(var i=0;i<7;i++){
      var day=new Date(monday);day.setDate(day.getDate()+i);
      var iso=ttIso(day),isToday=iso===todayIso,isPast=iso<todayIso;
@@ -702,7 +722,9 @@ function initHubTimetable(){
    /* ---- upcoming deadlines (always from today, not the shown week) ---- */
    var due=$("#ttDue");
    if(due){
-     var upcoming=dl.filter(function(d){return d.date>=todayIso;}).slice(0,6);
+     var pending=dl.filter(function(d){return d.date>=todayIso;}),
+         upcoming=pending.slice(0,6),
+         extra=pending.length-upcoming.length;
      due.innerHTML=upcoming.length
        ? upcoming.map(function(d){
            var st=ttDueStatus(d.date),s=ttSubject(d.code),
@@ -715,6 +737,7 @@ function initHubTimetable(){
              +'<span class="countdown '+st.cls+'">'+st.label+'</span>'
              +(href?'</a>':'</div>');
          }).join("")
+         +(extra>0?'<p class="tt-none">+'+extra+' more still to come this semester.</p>':"")
        : '<p class="tt-none">Nothing due — you\'re all clear.</p>';
    }
  }

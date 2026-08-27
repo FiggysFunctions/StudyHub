@@ -175,26 +175,55 @@ window.HUB = {
     }
   ],
 
+  /* EVERY subject's assessments, so the home page shows the whole
+     semester rather than one subject's.
+
+     `id` must match the assessment's id in that subject's subject.js —
+     it is what lets this page hide an item once you tick it complete on
+     the subject's own assessments page (that state lives in
+     localStorage under SUBJ_<CODE>_done_<id>, and a date you override
+     there under SUBJ_<CODE>_due_<id> is picked up here too).
+
+     Order does not matter — the list is sorted by date at render time. */
   deadlines: [
-    { code:"ENGG2440", name:"Quiz — Week 2",              date:"2026-08-28" },
-    { code:"ENGG2440", name:"Quiz — Week 3",              date:"2026-09-04" },
-    { code:"ENGG2440", name:"Lab 1 (Problems 1 & 2)",     date:"2026-09-06" },
-    { code:"ENGG2440", name:"Quiz — Week 4",              date:"2026-09-11" },
-    { code:"ENGG2440", name:"Quiz — Week 5",              date:"2026-09-18" },
-    { code:"ENGG2440", name:"Lab 2",                      date:"2026-09-20" },
+    /* ---- MECH2430 Mechanics of Solids 1 ---- */
+    { code:"MECH2430", id:"a-quiz1",     name:"Quiz 1 (Weeks 1–3)",        date:"2026-09-07" },
+    { code:"MECH2430", id:"a-quiz2",     name:"Quiz 2",                    date:"2026-10-12" },
+    { code:"MECH2430", id:"a-quiz3",     name:"Quiz 3",                    date:"2026-11-09" },
+    { code:"MECH2430", id:"a-report",    name:"Engineering Report",        date:"2026-11-20" },
+
+    /* ---- ENGG2440 Modelling and Control ---- */
+    { code:"ENGG2440", id:"a-quiz-w2",   name:"Quiz — Week 2",             date:"2026-08-28" },
+    { code:"ENGG2440", id:"a-quiz-w3",   name:"Quiz — Week 3",             date:"2026-09-04" },
+    { code:"ENGG2440", id:"a-lab1",      name:"Lab 1 (Problems 1 & 2)",    date:"2026-09-06" },
+    { code:"ENGG2440", id:"a-quiz-w4",   name:"Quiz — Week 4",             date:"2026-09-11" },
+    { code:"ENGG2440", id:"a-quiz-w5",   name:"Quiz — Week 5",             date:"2026-09-18" },
+    { code:"ENGG2440", id:"a-lab2",      name:"Lab 2",                     date:"2026-09-20" },
+    { code:"ENGG2440", id:"a-midsem",    name:"Mid-semester Quiz (date TBC)", date:"2026-09-21" },
+    { code:"ENGG2440", id:"a-quiz-w7",   name:"Quiz — Week 7",             date:"2026-10-09" },
+    { code:"ENGG2440", id:"a-lab3",      name:"Lab 3 (+ hand-written notes)", date:"2026-10-11" },
+    { code:"ENGG2440", id:"a-quiz-w8",   name:"Quiz — Week 8",             date:"2026-10-16" },
+    { code:"ENGG2440", id:"a-quiz-w9",   name:"Quiz — Week 9",             date:"2026-10-23" },
+    { code:"ENGG2440", id:"a-quiz-w10",  name:"Quiz — Week 10",            date:"2026-10-30" },
+    { code:"ENGG2440", id:"a-lab4",      name:"Lab 4",                     date:"2026-11-01" },
+    { code:"ENGG2440", id:"a-quiz-w11",  name:"Quiz — Week 11",            date:"2026-11-06" },
+    { code:"ENGG2440", id:"a-lab5",      name:"Lab 5 (Problems 1 & 2)",    date:"2026-11-08" },
+    { code:"ENGG2440", id:"a-final",     name:"Final Quiz (date TBC)",     date:"2026-11-16" },
+    { code:"ENGG2440", id:"a-lab6",      name:"Lab 6",                     date:"2026-11-22" },
+
+    /* ---- MECH3720 Thermodynamics ---- */
+    { code:"MECH3720", id:"a-labs",      name:"Lab reports (3 labs)",      date:"2026-09-21" },
     /* Canvas dated this 28 Sep, but the assignment's own description says
        8/10/2026 12 PM, BAG01, 110 min — a Thursday in Week 7, matching the
        lectorial slot and the course outline. Using 8 Oct. */
-    { code:"MECH3720", name:"Mid-Semester Quiz · BAG01",  date:"2026-10-08", time:"12:00" },
-    { code:"ENGG2440", name:"Quiz — Week 7",              date:"2026-10-09" },
-    { code:"ENGG2440", name:"Lab 3 (+ hand-written notes)",date:"2026-10-11" },
-    { code:"ENGG2440", name:"Quiz — Week 8",              date:"2026-10-16" },
-    { code:"ENGG2440", name:"Quiz — Week 9",              date:"2026-10-23" },
-    { code:"ENGG2440", name:"Quiz — Week 10",             date:"2026-10-30" },
-    { code:"ENGG2440", name:"Lab 4",                      date:"2026-11-01" },
-    { code:"ENGG2440", name:"Quiz — Week 11",             date:"2026-11-06" },
-    { code:"ENGG2440", name:"Lab 5 (Problems 1 & 2)",     date:"2026-11-08" },
-    { code:"ENGG2440", name:"Lab 6",                      date:"2026-11-22" }
+    { code:"MECH3720", id:"a-quiz",      name:"Mid-Semester Quiz · BAG01", date:"2026-10-08", time:"12:00" },
+    { code:"MECH3720", id:"a-exam",      name:"Applications Exam",         date:"2026-11-23" },
+
+    /* ---- MECH3780 Fluid Mechanics 2 and CFD ---- */
+    { code:"MECH3780", id:"a-quiz1",     name:"Quiz 1: Fluids A",          date:"2026-08-31" },
+    { code:"MECH3780", id:"a-quiz2",     name:"Quiz 2: Fluids B",          date:"2026-09-21" },
+    { code:"MECH3780", id:"a-quiz3",     name:"Quiz 3: Basic CFD",         date:"2026-10-19" },
+    { code:"MECH3780", id:"a-quiz4",     name:"Quiz 4: Engineering CFD",   date:"2026-11-09" }
   ]
 };
 </script>
