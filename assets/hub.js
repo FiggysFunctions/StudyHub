@@ -268,8 +268,14 @@ function initEquationsPage(){
        +'<div class="eq-render">'+tex(e.latex,true)+'</div>';
      if(e.desc)html+='<p class="eq-desc">'+esc(e.desc)+'</p>';
      if(e.vars&&e.vars.length){
+       /* A var may carry an `href` to its glossary entry. Rendering it as
+          a.gloss gives the click-through AND the hover definition, since
+          wireTooltips() runs after this and picks up every a.gloss. */
        html+='<div class="eq-vars">'+e.vars.map(function(v){
-         return '<div class="v"><span class="sym">'+tex(v.sym)+'</span><span class="mean">'+esc(v.mean)+'</span></div>';
+         var sym=v.href
+           ? '<a class="gloss sym" href="'+esc(v.href)+'">'+tex(v.sym)+'</a>'
+           : '<span class="sym">'+tex(v.sym)+'</span>';
+         return '<div class="v">'+sym+'<span class="mean">'+esc(v.mean)+'</span></div>';
        }).join("")+'</div>';
      }
      if(e.links&&e.links.length){
