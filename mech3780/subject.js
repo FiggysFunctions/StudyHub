@@ -42,6 +42,22 @@ window.SUBJECT = {
      ========================================================= */
   pages:[
     {
+      f:"week-00.html", week:0,
+      t:"Revision — What You Need From ENGG2300",
+      summary:"The prerequisite material, condensed. Fluid properties and the two viscosities; pressure, head and the hydrostatic equation; continuity and the momentum theorem; the extended Bernoulli equation with its loss, pump and turbine terms; pump and turbine power and efficiency; the Reynolds number and flow regime; pipe losses via Darcy–Weisbach, the friction factor and minor losses; vapour pressure and cavitation; the no-slip condition and boundary layers; the Navier–Stokes equations; and dimensional analysis. Each section says where in MECH3780 it comes back.",
+      keywords:"revision recap prerequisite engg2300 bridging fluid mechanics 1 density viscosity dynamic kinematic pressure gauge absolute hydrostatic head continuity mass conservation momentum equation control volume bernoulli extended energy equation head loss pump turbine power efficiency reynolds number laminar turbulent darcy weisbach friction factor moody colebrook minor losses loss coefficient system curve operating point vapour pressure cavitation NPSH no-slip boundary layer separation drag navier stokes dimensional analysis similarity buckingham what you need to know",
+      related:[
+        {type:"eq", label:"Continuity",             href:"equations.html#eq-continuity"},
+        {type:"eq", label:"Extended Bernoulli",     href:"equations.html#eq-bernoulli"},
+        {type:"eq", label:"Momentum equation",      href:"equations.html#eq-momentum-cv"},
+        {type:"eq", label:"Pipe friction loss",     href:"equations.html#eq-pipe-turbulent"},
+        {type:"eq", label:"Pipe Reynolds number",   href:"equations.html#eq-reynolds-pipe"},
+        {type:"def",label:"Cavitation",             href:"glossary.html#g-cavitation"},
+        {type:"def",label:"Reynolds number",        href:"glossary.html#g-reynolds-number"},
+        {type:"def",label:"Boundary layer",         href:"glossary.html#g-boundary-layer"}
+      ]
+    },
+    {
       f:"week-01.html", week:1,
       t:"Turbomachinery 1 — Pumps",
       summary:"Classifying fluid machines into positive-displacement and dynamic pumps and comparing their performance envelopes; the centrifugal pump and how it converts velocity to pressure; net head, water power and the four efficiencies; elementary pump theory from the angular-momentum theorem, velocity triangles and the Euler head; the effect of blade angle; performance curves and the best efficiency point; cavitation and net positive-suction head; and the dimensionless similarity rules.",
@@ -61,7 +77,7 @@ window.SUBJECT = {
     },
     {
       f:"week-02.html", week:2,
-      t:"Turbomachinery 2 — Systems &amp; Turbines",
+      t:"Turbomachinery 2 — Systems & Turbines",
       summary:"Putting a pump into a circuit: the system curve, finding the operating point where pump and system heads match, and the two ways of controlling a pump — throttling the system or changing its speed. Pumps combined in series (heads add) and in parallel (flows add), and why the combination never simply doubles. Then turbines: reaction versus impulse machines, Francis and Kaplan runners, and the force exerted by a fluid jet on a plate or bucket.",
       keywords:"pump system matching system curve operating point duty point static head friction head loss darcy weisbach controlling pumps throttling valve speed control variable speed affinity pumps in series parallel head addition flow addition turbine reaction impulse francis kaplan pelton runner nozzle jet force on plate momentum hydropower reservoir penstock",
       related:[
@@ -95,7 +111,7 @@ window.SUBJECT = {
     },
     {
       f:"week-05.html", week:5,
-      t:"Turbulent &amp; Wall-Bounded Flows",
+      t:"Turbulent & Wall-Bounded Flows",
       summary:"Turbulence handled the engineering way: Reynolds' time-averaging splits every variable into a mean plus a fluctuation, which leaves the Reynolds stresses as the price of averaging and creates the closure problem. Wall-bounded flows then organise into layers — the viscous sublayer, the logarithmic overlap layer and the outer defect layer — giving the law of the wall that solves nearly every turbulent wall problem. Applied to turbulent pipe flow and to the flat-plate boundary layer, with momentum and displacement thickness, skin friction and drag.",
       keywords:"turbulence turbulent flow wall bounded pipe channel boundary layer reynolds time averaging mean fluctuation reynolds stress closure problem eddy viscosity mixing length prandtl wall shear stress friction velocity law of the wall viscous sublayer logarithmic overlap layer velocity defect law karman constant turbulent pipe flow friction factor moody blasius boundary layer thickness momentum thickness displacement thickness shape factor skin friction coefficient drag coefficient flat plate laminar turbulent transition",
       related:[
@@ -131,6 +147,41 @@ window.SUBJECT = {
      EQUATIONS
      ========================================================= */
   equations:[
+    /* ---- Carried over from ENGG2300. Used constantly here but never
+           re-derived, so they are listed for reference. ---- */
+    {id:"eq-continuity", cat:"Prerequisites (ENGG2300)", name:"Conservation of mass (continuity)",
+     latex:R`\dot m = \rho A V = \text{const} \qquad \rho_1 A_1 V_1 = \rho_2 A_2 V_2 \qquad A_1V_1 = A_2V_2\ \ (\text{incompressible})`,
+     desc:"Mass in equals mass out for steady flow. The incompressible form is the one used throughout the turbomachinery weeks; the general form is what compressible duct flow needs, since there the density is exactly what changes.",
+     vars:[{sym:R`\dot m`,mean:"mass flow rate (kg/s)",href:"glossary.html#g-mass-flow"},
+           {sym:R`\rho`,mean:"density (kg/m³)",href:"glossary.html#g-density"},
+           {sym:R`A`,mean:"cross-sectional area (m²)",href:"glossary.html#g-area"},
+           {sym:R`V`,mean:"velocity normal to the area (m/s)",href:"glossary.html#g-velocity"}],
+     links:[{label:"Week 0",href:"week-00.html"},{label:"Week 4",href:"week-04.html"}],
+     keywords:"continuity conservation of mass steady incompressible compressible prerequisite engg2300"},
+
+    {id:"eq-bernoulli", cat:"Prerequisites (ENGG2300)", name:"Extended Bernoulli (energy) equation",
+     latex:R`\frac{p_1}{\rho g} + \frac{V_1^2}{2g} + z_1 + h_{pump} = \frac{p_2}{\rho g} + \frac{V_2^2}{2g} + z_2 + h_{turbine} + h_{loss}`,
+     desc:"Energy conservation in head form, with the friction, pump and turbine terms that plain Bernoulli omits. The net head of a pump is exactly the difference between the two sides, which is why this equation underlies the whole turbomachinery treatment.",
+     vars:[{sym:R`p_1,p_2`,mean:"pressures at the two sections (Pa)",href:"glossary.html#g-pressure"},
+           {sym:R`\rho`,mean:"density (kg/m³)",href:"glossary.html#g-density"},
+           {sym:R`g`,mean:"gravitational acceleration (9.81 m/s²)",href:"glossary.html#g-gravity"},
+           {sym:R`V_1,V_2`,mean:"mean velocities (m/s)",href:"glossary.html#g-velocity"},
+           {sym:R`z_1,z_2`,mean:"elevations (m)",href:"glossary.html#g-elevation"},
+           {sym:R`h_{pump}`,mean:"head added by a pump (m)",href:"glossary.html#g-net-head"},
+           {sym:R`h_{turbine}`,mean:"head extracted by a turbine (m)",href:"glossary.html#g-net-head"},
+           {sym:R`h_{loss}`,mean:"head lost to friction — always positive (m)",href:"glossary.html#g-head-loss"}],
+     links:[{label:"Week 0",href:"week-00.html"},{label:"Net head & water power",href:"equations.html#eq-pump-head"}],
+     keywords:"bernoulli energy equation head loss pump turbine extended prerequisite engg2300"},
+
+    {id:"eq-momentum-cv", cat:"Prerequisites (ENGG2300)", name:"Momentum equation (control volume)",
+     latex:R`\sum \vec F = \dot m\,(\vec V_{out} - \vec V_{in})`,
+     desc:"Newton's second law for a steady control volume: net force equals the rate momentum leaves minus the rate it enters. A vector equation — resolve into components. It is what gives the force on a turbine bucket and, in angular form, the Euler turbomachine equation.",
+     vars:[{sym:R`\sum \vec F`,mean:"net force on the control volume (N)",href:"glossary.html#g-force"},
+           {sym:R`\dot m`,mean:"mass flow rate (kg/s)",href:"glossary.html#g-mass-flow"},
+           {sym:R`\vec V_{in},\vec V_{out}`,mean:"inlet and outlet velocities (m/s)",href:"glossary.html#g-velocity"}],
+     links:[{label:"Week 0",href:"week-00.html"},{label:"Force of a jet",href:"equations.html#eq-jet-force"},{label:"Euler turbomachine eqn",href:"equations.html#eq-euler-turbo"}],
+     keywords:"momentum equation control volume newton second law vector jet force prerequisite engg2300"},
+
     /* ---- Turbomachinery ---- */
     {id:"eq-pump-head", cat:"Turbomachinery", name:"Net head & water power",
      latex:R`H = \left(\frac{p}{\rho g} + \frac{V^2}{2g} + z\right)_2 - \left(\frac{p}{\rho g} + \frac{V^2}{2g} + z\right)_1 \qquad P_w = \rho g Q H`,

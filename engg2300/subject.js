@@ -55,7 +55,7 @@ window.SUBJECT = {
     },
     {
       f:"week-02.html", week:2,
-      t:"Hydrostatic Forces &amp; Buoyancy",
+      t:"Hydrostatic Forces & Buoyancy",
       summary:"Integrating the hydrostatic pressure distribution over a submerged surface. The resultant force on a plane surface is the centroid pressure times the area, but it acts below the centroid at the centre of pressure — located with the second moment of area. Curved surfaces are handled by resolving into horizontal and vertical components. Then buoyancy: Archimedes' principle, the centre of buoyancy, and the metacentre that decides whether a floating body is stable.",
       keywords:"hydrostatic force submerged plane surface resultant force centroid centre of pressure second moment of area parallel axis inclined gate hinge moment balance curved surface horizontal vertical component buoyancy buoyant force archimedes principle displaced volume centre of buoyancy floating body stability metacentre metacentric height overturning righting moment",
       related:[
@@ -69,7 +69,7 @@ window.SUBJECT = {
     },
     {
       f:"week-03.html", week:3,
-      t:"Continuity &amp; the Bernoulli Equation",
+      t:"Continuity & the Bernoulli Equation",
       summary:"Moving from statics to motion. Classifying flows — steady or unsteady, laminar or turbulent, viscous or inviscid — and the Reynolds number that decides the second of those. Streamlines and streamtubes, the Reynolds transport theorem that converts system laws into control-volume laws, and from it conservation of mass (continuity) and the linear momentum equation. Finally the Bernoulli equation as energy conservation along a streamline, and the strict conditions under which it may be used.",
       keywords:"steady unsteady uniform laminar turbulent transitional reynolds number inertial viscous forces streamline streamtube pathline streakline system control volume reynolds transport theorem conservation of mass continuity equation mass flow rate volumetric flow rate linear momentum equation newton second law bernoulli equation energy conservation pressure velocity elevation head total head stagnation inviscid incompressible frictionless along a streamline",
       related:[
@@ -84,7 +84,7 @@ window.SUBJECT = {
     },
     {
       f:"week-04.html", week:4,
-      t:"Flow Measurement &amp; the Extended Bernoulli Equation",
+      t:"Flow Measurement & the Extended Bernoulli Equation",
       summary:"Using Bernoulli to measure flow, and then repairing it. Venturi meters, orifice plates and Pitot tubes; the vena contracta and the three coefficients — contraction, velocity and discharge — that reconcile ideal theory with reality. Then the extended (energy) form of Bernoulli, adding friction head loss, pump work and turbine work, plus the kinetic-energy correction factor that fixes the velocity-head term for a non-uniform profile.",
       keywords:"flow measurement venturi meter orifice plate sharp edged nozzle pitot tube stagnation vena contracta contraction coefficient velocity coefficient discharge coefficient Cd Cc Cv ideal actual flow rate extended bernoulli energy equation head loss friction pump head turbine head shaft work power efficiency kinetic energy correction factor alpha velocity profile",
       related:[
@@ -98,7 +98,7 @@ window.SUBJECT = {
     },
     {
       f:"week-05.html", week:5,
-      t:"Viscosity &amp; the Navier–Stokes Equations",
+      t:"Viscosity & the Navier–Stokes Equations",
       summary:"The differential governing equations. Newton's law of viscosity and the distinction between Newtonian and non-Newtonian fluids; the no-slip condition that every real flow obeys; then the differential continuity equation and the Navier–Stokes equations in compressible and incompressible form, term by term. Solving them exactly in the two classic cases where the geometry is simple enough — Couette flow between plates and Poiseuille flow in a pipe.",
       keywords:"newton law of viscosity shear stress velocity gradient newtonian non-newtonian shear thinning thickening bingham plastic no-slip condition differential continuity equation navier stokes equations compressible incompressible conservation of momentum inertia pressure gradient viscous term body force exact solutions couette flow poiseuille flow parabolic profile hagen poiseuille",
       related:[
@@ -112,7 +112,7 @@ window.SUBJECT = {
     },
     {
       f:"week-06.html", week:6,
-      t:"Boundary Layers, Lift &amp; Drag",
+      t:"Boundary Layers, Lift & Drag",
       summary:"External flow around bodies. The boundary layer and how it grows, laminar then turbulent, and why a turbulent layer — despite more skin friction — resists separation better and can reduce total drag (the dimpled-golf-ball result). Resolving the surface force into drag along the flow and lift across it, splitting drag into friction and pressure (form) components, and the drag and lift coefficients used to make either dimensionless.",
       keywords:"external flow boundary layer thickness laminar turbulent transition separation point wake pressure drag form drag friction drag skin friction streamlining drag coefficient lift coefficient frontal area planform dynamic pressure terminal velocity golf ball dimples cylinder sphere aerofoil angle of attack stall",
       related:[
@@ -139,7 +139,7 @@ window.SUBJECT = {
     },
     {
       f:"week-08.html", week:8,
-      t:"Dimensional Analysis &amp; Similarity",
+      t:"Dimensional Analysis & Similarity",
       summary:"Getting the most out of the fewest experiments. Dimensions versus units and the primary dimensions M, L, T, Θ; the Buckingham Pi theorem reducing k variables in r dimensions to k−r dimensionless groups, worked through its step-by-step recipe including the choice of repeating variables. Then similarity — geometric, kinematic and dynamic — and how matching the governing dimensionless group (Reynolds, Froude, Mach or Weber) lets a scale model predict the prototype.",
       keywords:"dimensional analysis dimensions units primary dimensions mass length time temperature MLT dimensional homogeneity buckingham pi theorem repeating variables non-repeating dimensionless groups reduce experiments similarity geometric kinematic dynamic similitude scale model prototype reynolds froude mach weber euler number matching",
       related:[
