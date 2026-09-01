@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="manifest" href="../manifest.webmanifest">
+<link rel="apple-touch-icon" href="../icons/apple-touch-icon.png">
+<meta name="theme-color" content="#161E2B">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<title>Week 5 — Viscosity &amp; the Navier–Stokes Equations · ENGG2300</title>
+<link rel="stylesheet" href="../assets/styles.css">
+<link rel="stylesheet" href="../assets/katex/katex.min.css">
+</head>
+<body>
+<div class="shell">
+  <main class="main">
+    <div class="page has-rail">
+      <div class="content">
+        <div class="crumb"><a href="../index.html">Study hub</a> / <a href="index.html">ENGG2300</a> / Week 5</div>
+        <div class="eyebrow">Week 5 · Lecture notes</div>
+        <h1 class="title">Viscosity &amp; the Navier–Stokes Equations</h1>
+        <p class="lede">So far the conservation laws have been applied to finite control volumes. This week writes them at a <em>point</em> instead, producing the differential equations that govern all fluid motion — and then solves them exactly in the two geometries simple enough to allow it.</p>
+
+        <h2 id="newton">Newton's law of viscosity</h2>
+        <p>Viscosity relates the shear stress in a fluid to how fast the velocity changes across it:</p>
+        <div class="eqbox">$$\tau = \mu\frac{du}{dy}$$</div>
+        <p>A fluid obeying this with constant <span>$\mu$</span> is <a class="gloss" href="glossary.html#g-newtonian">Newtonian</a> — water, air and most oils. Many practical fluids are not:</p>
+        <ul>
+          <li><strong>Shear-thinning</strong> (pseudoplastic) — viscosity falls as shear rate rises: paint, blood, ketchup.</li>
+          <li><strong>Shear-thickening</strong> (dilatant) — viscosity rises with shear rate: cornflour in water.</li>
+          <li><strong>Bingham plastic</strong> — behaves as a solid until a yield stress is exceeded, then flows: toothpaste, drilling mud.</li>
+        </ul>
+
+        <h2 id="noslip">The no-slip condition</h2>
+        <p>At any solid boundary the fluid takes the velocity of the surface — zero relative motion. This is not an assumption but an observed fact for every real (viscous) fluid, and it is the origin of boundary layers, of pipe friction, and of drag. An inviscid flow, by contrast, would simply slide along the wall.</p>
+
+        <h2 id="continuity">The differential continuity equation</h2>
+        <p>Applying conservation of mass to an infinitesimal element rather than a control volume gives:</p>
+        <div class="eqbox">$$\frac{\partial\rho}{\partial t} + \nabla\!\cdot\!(\rho\vec u) = 0 \qquad \xrightarrow{\ \text{incompressible}\ }\qquad \nabla\!\cdot\!\vec u = 0$$</div>
+        <p>For an incompressible fluid the velocity field must be divergence-free: whatever flows into an element flows out of it.</p>
+
+        <h2 id="ns">The Navier–Stokes equations</h2>
+        <p>Newton's second law applied to a fluid particle, for an incompressible Newtonian fluid:</p>
+        <div class="eqbox">$$\rho\!\left(\underbrace{\frac{\partial \vec u}{\partial t}}_{\text{unsteady}} + \underbrace{\vec u\!\cdot\!\nabla\vec u}_{\text{convective}}\right) = \underbrace{-\nabla P}_{\text{pressure}} + \underbrace{\mu\nabla^2\vec u}_{\text{viscous}} + \underbrace{\rho\vec g}_{\text{gravity}}$$</div>
+        <p>Read left to right: mass times acceleration on one side, forces on the other. The acceleration has two parts — the local change at a point, and the <em>convective</em> change from being carried into a region where the velocity is different. That convective term is nonlinear, which is precisely why these equations are so hard.</p>
+        <div class="note"><span class="k">No general solution exists</span> The Navier–Stokes equations have no known general analytical solution — it remains an open problem in mathematics. A handful of simple geometries can be solved exactly; everything else needs the numerical treatment of Week 12.</div>
+
+        <h2 id="exact">Two exact solutions</h2>
+        <p><strong>Couette flow.</strong> Fluid between two parallel plates, one moving. With no pressure gradient the convective and unsteady terms vanish, the equation reduces to <span>$d^2u/dy^2 = 0$</span>, and the no-slip condition at each plate gives a straight-line velocity profile.</p>
+        <p><strong>Poiseuille flow.</strong> Steady laminar flow driven along a circular pipe by a pressure gradient. Solving in cylindrical coordinates with no-slip at the wall gives the classic parabolic profile:</p>
+        <div class="eqbox">$$u(r) = \frac{\Delta P}{4\mu L}\big(R^2-r^2\big) \qquad u_{max} = 2\bar u \qquad Q = \frac{\pi R^4\Delta P}{8\mu L}$$</div>
+        <p>Two results worth remembering: the centreline velocity is exactly <em>twice</em> the mean, and the flow rate goes as the <strong>fourth power</strong> of the radius. Halving a pipe's radius cuts the flow to one sixteenth at the same pressure drop — which is why arterial narrowing is so serious, and why pipe sizing dominates pumping costs.</p>
+
+        <div class="note"><span class="k">Where this leads</span> Week 6 applies the same viscous thinking to flow <em>around</em> bodies rather than through pipes, where the boundary layer becomes the whole story.</div>
+      </div>
+
+      <aside class="rail">
+        <h4>On this page</h4>
+        <ul>
+          <li><a href="#newton">Newton's law of viscosity</a></li>
+          <li><a href="#noslip">No-slip condition</a></li>
+          <li><a href="#continuity">Differential continuity</a></li>
+          <li><a href="#ns">Navier–Stokes</a></li>
+          <li><a href="#exact">Exact solutions</a></li>
+        </ul>
+        <h4>Key equations</h4>
+        <ul>
+          <li><span class="tag">eq</span><a href="equations.html#eq-newton-viscosity">Newton's law of viscosity</a></li>
+          <li><span class="tag">eq</span><a href="equations.html#eq-diff-continuity">Differential continuity</a></li>
+          <li><span class="tag">eq</span><a href="equations.html#eq-navier-stokes">Navier–Stokes</a></li>
+          <li><span class="tag">eq</span><a href="equations.html#eq-poiseuille">Hagen–Poiseuille</a></li>
+        </ul>
+        <h4>Related</h4>
+        <ul>
+          <li><span class="tag">def</span><a href="glossary.html#g-newtonian">Newtonian fluid</a></li>
+          <li><span class="tag">def</span><a href="glossary.html#g-no-slip">No-slip condition</a></li>
+          <li><span class="tag">def</span><a href="glossary.html#g-navier-stokes">Navier–Stokes</a></li>
+        </ul>
+      </aside>
+    </div>
+  </main>
+</div>
+<script src="../assets/katex/katex.min.js"></script>
+<script src="../assets/katex/auto-render.min.js"></script>
+<script src="subject.js"></script>
+<script src="../assets/hub.js"></script>
+</body>
+</html>

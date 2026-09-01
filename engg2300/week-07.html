@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="manifest" href="../manifest.webmanifest">
+<link rel="apple-touch-icon" href="../icons/apple-touch-icon.png">
+<meta name="theme-color" content="#161E2B">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<title>Week 7 — Viscous Flow in Pipes · ENGG2300</title>
+<link rel="stylesheet" href="../assets/styles.css">
+<link rel="stylesheet" href="../assets/katex/katex.min.css">
+</head>
+<body>
+<div class="shell">
+  <main class="main">
+    <div class="page has-rail">
+      <div class="content">
+        <div class="crumb"><a href="../index.html">Study hub</a> / <a href="index.html">ENGG2300</a> / Week 7</div>
+        <div class="eyebrow">Week 7 · Lecture notes</div>
+        <h1 class="title">Viscous Flow in Pipes</h1>
+        <p class="lede">Internal flow — bounded by solid surfaces on all sides. This is where the <span>$h_{loss}$</span> term from Week 4 finally gets a formula, and it is probably the most-used calculation in the whole subject: sizing a pipe, choosing a pump, or working out why the pressure at the far end of a network is too low.</p>
+
+        <h2 id="developing">Entrance region and fully developed flow</h2>
+        <p>Fluid enters a pipe with a roughly uniform velocity. Boundary layers grow from the wall inward, and once they meet at the centreline the profile stops changing with distance — the flow is <a class="gloss" href="glossary.html#g-fully-developed">fully developed</a>. The length taken to get there is the entry length.</p>
+        <p>This matters because the friction factor is only constant in the fully developed region, which is what the standard loss formula assumes. In laminar flow the developed profile is the parabola from Week 5; in turbulent flow it is much blunter, because mixing evens out the momentum across the section.</p>
+
+        <h2 id="darcy">Major losses — Darcy–Weisbach</h2>
+        <p>The head lost to wall friction along a straight run:</p>
+        <div class="eqbox">$$h_f = f\,\frac{L}{D}\,\frac{u^2}{2g} \qquad \Delta P = f\,\frac{L}{D}\,\frac{\rho u^2}{2}$$</div>
+        <p>Note the dependences: loss grows linearly with length, <em>inversely</em> with diameter, and with the <strong>square</strong> of velocity. Since <span>$u = Q/A \propto 1/D^2$</span>, the loss actually scales as <span>$D^{-5}$</span> at fixed flow rate — which is why going up one pipe size can cut pumping costs dramatically.</p>
+
+        <h2 id="friction">The friction factor</h2>
+        <p>Everything hinges on <span>$f$</span>, and it behaves quite differently in the two regimes.</p>
+        <p><strong>Laminar</strong> (<span>$Re \lesssim 2300$</span>) — derivable exactly from Hagen–Poiseuille:</p>
+        <div class="eqbox">$$f = \frac{64}{Re}$$</div>
+        <p>Roughness is irrelevant here: the wall irregularities sit inside the slow-moving fluid and never disturb the flow.</p>
+        <p><strong>Turbulent</strong> — now roughness matters, and <span>$f$</span> depends on both <span>$Re$</span> and the <a class="gloss" href="glossary.html#g-roughness">relative roughness</a> <span>$\varepsilon/D$</span>, through the Colebrook correlation:</p>
+        <div class="eqbox">$$\frac{1}{\sqrt f} = -2\log_{10}\!\left(\frac{\varepsilon/D}{3.7} + \frac{2.51}{Re\sqrt f}\right)$$</div>
+        <p>This is <em>implicit</em> — <span>$f$</span> appears on both sides — so it is solved by iteration, by an explicit approximation, or simply read off the <strong>Moody chart</strong>, which plots exactly this relationship. At high Reynolds number the curves flatten into the "fully rough" regime where <span>$f$</span> depends on roughness alone.</p>
+        <div class="note"><span class="k">Always compute Re first</span> The two regimes use entirely different formulas, and roughness only matters in one of them. Getting the regime wrong makes everything after it wrong.</div>
+
+        <h2 id="minor">Minor losses</h2>
+        <p>Every bend, valve, elbow, sudden expansion or contraction, entrance and exit costs additional head, because the flow separates and re-forms rather than simply rubbing along a wall. Each is given a loss coefficient <span>$K$</span> from tables:</p>
+        <div class="eqbox">$$h_L = K\,\frac{u^2}{2g} \qquad L_{eq} = \frac{KD}{f}$$</div>
+        <p>The second form re-expresses a fitting as the length of straight pipe that would cause the same loss, which is convenient when totalling up a system.</p>
+        <div class="note"><span class="k">"Minor" is a misnomer</span> In a long pipeline the friction losses dominate and the name fits. But in a short, fitting-heavy run — a pump manifold, say — the minor losses can easily exceed the major ones. Add them up; never assume they are negligible.</div>
+        <p>The total loss for a system is then simply the sum: <span>$h_{loss} = \sum h_f + \sum h_L$</span>, which feeds straight back into the extended Bernoulli equation of Week 4.</p>
+
+        <div class="note"><span class="k">Where this leads</span> Week 9 assembles these losses into whole systems with pumps and reservoirs; Week 8 first takes a detour into how experimental correlations like Colebrook's are built at all.</div>
+      </div>
+
+      <aside class="rail">
+        <h4>On this page</h4>
+        <ul>
+          <li><a href="#developing">Entrance region</a></li>
+          <li><a href="#darcy">Darcy–Weisbach</a></li>
+          <li><a href="#friction">Friction factor</a></li>
+          <li><a href="#minor">Minor losses</a></li>
+        </ul>
+        <h4>Key equations</h4>
+        <ul>
+          <li><span class="tag">eq</span><a href="equations.html#eq-darcy-weisbach">Darcy–Weisbach</a></li>
+          <li><span class="tag">eq</span><a href="equations.html#eq-friction-factor">Friction factor</a></li>
+          <li><span class="tag">eq</span><a href="equations.html#eq-minor-losses">Minor losses</a></li>
+        </ul>
+        <h4>Related</h4>
+        <ul>
+          <li><span class="tag">def</span><a href="glossary.html#g-friction-factor">Friction factor</a></li>
+          <li><span class="tag">def</span><a href="glossary.html#g-roughness">Relative roughness</a></li>
+          <li><span class="tag">def</span><a href="glossary.html#g-losses">Major &amp; minor losses</a></li>
+        </ul>
+      </aside>
+    </div>
+  </main>
+</div>
+<script src="../assets/katex/katex.min.js"></script>
+<script src="../assets/katex/auto-render.min.js"></script>
+<script src="subject.js"></script>
+<script src="../assets/hub.js"></script>
+</body>
+</html>

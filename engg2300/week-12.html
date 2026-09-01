@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="manifest" href="../manifest.webmanifest">
+<link rel="apple-touch-icon" href="../icons/apple-touch-icon.png">
+<meta name="theme-color" content="#161E2B">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<title>Week 12 — Introduction to CFD · ENGG2300</title>
+<link rel="stylesheet" href="../assets/styles.css">
+<link rel="stylesheet" href="../assets/katex/katex.min.css">
+</head>
+<body>
+<div class="shell">
+  <main class="main">
+    <div class="page has-rail">
+      <div class="content">
+        <div class="crumb"><a href="../index.html">Study hub</a> / <a href="index.html">ENGG2300</a> / Week 12</div>
+        <div class="eyebrow">Week 12 · Lecture notes</div>
+        <h1 class="title">Introduction to CFD</h1>
+        <p class="lede">Week 5 established that the Navier–Stokes equations have no general analytical solution, and every week since has worked around that with idealisations, empirical coefficients and charts. Computational fluid dynamics takes the other route: keep the full equations and solve them numerically.</p>
+
+        <h2 id="what">What CFD is, and when to use it</h2>
+        <p>CFD solves the governing equations — continuity, momentum, and energy or species where relevant — numerically over a domain divided into small cells. It earns its place when analytical solutions do not exist and experiments are impractical or unaffordable: a new design, a geometry too complex for a correlation, or a flow you simply cannot instrument.</p>
+        <p>It is not a replacement for understanding. Every result rests on the physical models chosen and the mesh used, so the fluid mechanics of the preceding eleven weeks is what tells you whether an answer is plausible.</p>
+
+        <h2 id="fvm">The finite volume method</h2>
+        <p>The <a class="gloss" href="glossary.html#g-fvm">finite volume method</a> divides the domain into control volumes and integrates the conservation equations over each one:</p>
+        <div class="eqbox">$$\frac{\partial}{\partial t}\!\int_V \rho\phi\,dV + \oint_S \rho\phi\,\vec u\!\cdot\!d\vec S = \oint_S \Gamma\nabla\phi\!\cdot\!d\vec S + \int_V S_\phi\,dV$$</div>
+        <p>In words: what accumulates inside a cell, plus what is carried out across its faces, equals what diffuses in plus what is generated inside. Setting <span>$\phi = 1$</span> recovers continuity; <span>$\phi = u,v,w$</span> gives the momentum equations; <span>$\phi = h$</span> gives energy.</p>
+        <p>Each cell contributes one algebraic equation, and the resulting system — millions of equations for a real model — is solved iteratively. The great merit of the finite volume approach is that conservation is enforced <em>cell by cell</em> by construction, so mass and momentum cannot quietly leak away.</p>
+
+        <h2 id="workflow">The workflow</h2>
+        <ol>
+          <li><strong>Geometry</strong> — build or import the fluid domain (the space the fluid occupies, not the solid), simplifying away detail that will not affect the answer.</li>
+          <li><strong>Mesh</strong> — divide it into cells, refining where gradients will be steep: near walls, around obstacles, through shear layers.</li>
+          <li><strong>Physics setup</strong> — material properties, the turbulence model, and boundary conditions on every boundary (velocity inlet, pressure outlet, wall, symmetry).</li>
+          <li><strong>Solve</strong> — initialise and iterate until convergence.</li>
+          <li><strong>Post-process</strong> — contours, vectors, streamlines and, more usefully, the integrated quantities you actually wanted: a drag force, a pressure drop, a flow split.</li>
+        </ol>
+
+        <h2 id="trust">Making the answer trustworthy</h2>
+        <p>A CFD run always produces a colourful picture. Three checks separate a result from a decoration:</p>
+        <ul>
+          <li><strong>Convergence</strong> — residuals have fallen far enough, global imbalances are small, and the quantity you care about has stopped changing with further iterations.</li>
+          <li><strong><a class="gloss" href="glossary.html#g-mesh-independence">Mesh independence</a></strong> — refine the mesh and the answer stops moving. If it is still changing, the mesh is dictating the result rather than the physics.</li>
+          <li><strong>Validation</strong> — compare against an analytical solution, published data or an experiment. Where the earlier weeks give an exact answer (Poiseuille flow, say), that is an excellent test case.</li>
+        </ul>
+        <div class="note"><span class="k">Converged is not correct</span> A converged solution on a bad mesh, or with an inappropriate turbulence model, converges confidently to the wrong answer. Convergence only says the solver finished — not that it solved the right problem.</div>
+
+        <div class="note"><span class="k">Where this leads</span> This is the end of ENGG2300. <a href="../mech3780/index.html">MECH3780 Fluid Mechanics 2 and CFD</a> picks up directly from here — turbomachinery, compressible flow, turbulence modelling and a much fuller treatment of ANSYS Fluent.</div>
+      </div>
+
+      <aside class="rail">
+        <h4>On this page</h4>
+        <ul>
+          <li><a href="#what">What CFD is</a></li>
+          <li><a href="#fvm">Finite volume method</a></li>
+          <li><a href="#workflow">The workflow</a></li>
+          <li><a href="#trust">Trusting the answer</a></li>
+        </ul>
+        <h4>Key equations</h4>
+        <ul>
+          <li><span class="tag">eq</span><a href="equations.html#eq-fvm">Finite volume discretisation</a></li>
+          <li><span class="tag">eq</span><a href="equations.html#eq-navier-stokes">Navier–Stokes</a></li>
+        </ul>
+        <h4>Related</h4>
+        <ul>
+          <li><span class="tag">def</span><a href="glossary.html#g-fvm">Finite volume method</a></li>
+          <li><span class="tag">def</span><a href="glossary.html#g-mesh-independence">Mesh independence</a></li>
+        </ul>
+      </aside>
+    </div>
+  </main>
+</div>
+<script src="../assets/katex/katex.min.js"></script>
+<script src="../assets/katex/auto-render.min.js"></script>
+<script src="subject.js"></script>
+<script src="../assets/hub.js"></script>
+</body>
+</html>

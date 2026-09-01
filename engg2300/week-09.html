@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="manifest" href="../manifest.webmanifest">
+<link rel="apple-touch-icon" href="../icons/apple-touch-icon.png">
+<meta name="theme-color" content="#161E2B">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<title>Week 9 — Pipe Systems 1 · ENGG2300</title>
+<link rel="stylesheet" href="../assets/styles.css">
+<link rel="stylesheet" href="../assets/katex/katex.min.css">
+</head>
+<body>
+<div class="shell">
+  <main class="main">
+    <div class="page has-rail">
+      <div class="content">
+        <div class="crumb"><a href="../index.html">Study hub</a> / <a href="index.html">ENGG2300</a> / Week 9</div>
+        <div class="eyebrow">Week 9 · Lecture notes</div>
+        <h1 class="title">Pipe Systems 1</h1>
+        <p class="lede">Everything so far assembles here. The extended Bernoulli equation supplies the framework, Week 7 supplies the losses, and the result is the analysis of a real installation — a reservoir, a pump, a run of pipe with fittings, and a delivery point.</p>
+
+        <h2 id="grade-lines">Energy and hydraulic grade lines</h2>
+        <p>A useful way to picture where head is going along a system:</p>
+        <div class="eqbox">$$EGL = \frac{P}{\rho g} + \frac{u^2}{2g} + z \qquad HGL = \frac{P}{\rho g} + z = EGL - \frac{u^2}{2g}$$</div>
+        <p>The <a class="gloss" href="glossary.html#g-egl">EGL</a> is the total head; the HGL sits one velocity head below it. Reading a system left to right:</p>
+        <ul>
+          <li>At a reservoir surface both lines meet the water level (the velocity is negligible and the pressure atmospheric).</li>
+          <li>Along a pipe the EGL slopes steadily downward — that slope <em>is</em> the friction loss.</li>
+          <li>At a fitting the EGL steps down; at a pump it <strong>jumps up</strong>; at a turbine it drops.</li>
+        </ul>
+        <div class="note"><span class="k">Reading a warning off the diagram</span> Where the HGL falls <em>below</em> the pipe, the pressure there is below atmospheric. Take it far enough below and the liquid reaches its vapour pressure and cavitates — which is destructive, and why pump suction lines are designed carefully.</div>
+
+        <h2 id="single">Single-pipe systems</h2>
+        <p>Write the extended Bernoulli equation between two convenient points — usually two reservoir surfaces, where the pressure and velocity terms vanish and only elevation remains:</p>
+        <div class="eqbox">$$z_1 + h_{pump} = z_2 + h_{turbine} + \sum h_f + \sum h_L$$</div>
+        <p>Everything then comes down to which quantity is unknown. The three classic problem types:</p>
+        <ol>
+          <li><strong>Find the head loss</strong>, given flow rate and geometry. Direct: compute <span>$Re$</span>, get <span>$f$</span>, apply Darcy–Weisbach.</li>
+          <li><strong>Find the flow rate</strong>, given the available head. <em>Iterative</em>, because <span>$f$</span> depends on <span>$Re$</span> which depends on the very velocity you are solving for. Guess <span>$f$</span> (0.02 is a reasonable start), solve for <span>$u$</span>, recompute <span>$Re$</span> and <span>$f$</span>, repeat — it converges in two or three passes.</li>
+          <li><strong>Find the diameter</strong>, given flow and allowable head loss. Also iterative, and usually finished by rounding up to the next commercially available size.</li>
+        </ol>
+
+        <h2 id="series-parallel">Pipes in series and parallel</h2>
+        <div class="eqbox">$$\text{Series: } Q = Q_1 = Q_2,\ \ h_L = h_{L1}+h_{L2} \qquad \text{Parallel: } h_L = h_{L1} = h_{L2},\ \ Q = Q_1+Q_2$$</div>
+        <p><strong>In series</strong> the same flow passes through every pipe, so the losses accumulate. <strong>In parallel</strong> each branch spans the same two junctions and therefore suffers the same head loss — so the flow distributes itself between branches precisely so as to equalise it. The larger, smoother or shorter branch takes more.</p>
+        <p>This is a direct analogue of resistors in a circuit, and the same intuition carries over.</p>
+
+        <h2 id="pumps">Pumps in a system</h2>
+        <p>A pump does not deliver a fixed flow. Its <strong>performance curve</strong> — head against flow rate, supplied by the manufacturer along with efficiency and power — falls as flow increases. The <strong>system curve</strong> is the head the pipework demands, a static lift plus losses growing roughly as <span>$Q^2$</span>. The pump settles where the two cross: the <a class="gloss" href="glossary.html#g-operating-point">operating point</a>.</p>
+        <p>Reading across from it gives the delivered flow, the head, the efficiency and hence the shaft power:</p>
+        <div class="eqbox">$$\dot W_{pump} = \frac{\rho g Q h_{pump}}{\eta_{pump}} \qquad \dot W_{turbine} = \eta_{turbine}\,\rho g Q h_{turbine}$$</div>
+        <p>Turbines are analysed the same way, with the sign of the head term reversed and the efficiency multiplying rather than dividing.</p>
+
+        <div class="note"><span class="k">Where this leads</span> Week 10 takes on systems where the equations can no longer be solved directly — branched networks and loops needing iteration.</div>
+      </div>
+
+      <aside class="rail">
+        <h4>On this page</h4>
+        <ul>
+          <li><a href="#grade-lines">EGL &amp; HGL</a></li>
+          <li><a href="#single">Single-pipe systems</a></li>
+          <li><a href="#series-parallel">Series &amp; parallel</a></li>
+          <li><a href="#pumps">Pumps in a system</a></li>
+        </ul>
+        <h4>Key equations</h4>
+        <ul>
+          <li><span class="tag">eq</span><a href="equations.html#eq-egl-hgl">EGL &amp; HGL</a></li>
+          <li><span class="tag">eq</span><a href="equations.html#eq-series-parallel">Series &amp; parallel</a></li>
+          <li><span class="tag">eq</span><a href="equations.html#eq-extended-bernoulli">Extended Bernoulli</a></li>
+        </ul>
+        <h4>Related</h4>
+        <ul>
+          <li><span class="tag">def</span><a href="glossary.html#g-egl">Energy grade line</a></li>
+          <li><span class="tag">def</span><a href="glossary.html#g-operating-point">Operating point</a></li>
+          <li><span class="tag">def</span><a href="glossary.html#g-losses">Head losses</a></li>
+        </ul>
+      </aside>
+    </div>
+  </main>
+</div>
+<script src="../assets/katex/katex.min.js"></script>
+<script src="../assets/katex/auto-render.min.js"></script>
+<script src="subject.js"></script>
+<script src="../assets/hub.js"></script>
+</body>
+</html>

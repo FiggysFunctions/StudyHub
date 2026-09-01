@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="manifest" href="../manifest.webmanifest">
+<link rel="apple-touch-icon" href="../icons/apple-touch-icon.png">
+<meta name="theme-color" content="#161E2B">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<title>Week 1 — Pressure Distribution in a Fluid · ENGG2300</title>
+<link rel="stylesheet" href="../assets/styles.css">
+<link rel="stylesheet" href="../assets/katex/katex.min.css">
+</head>
+<body>
+<div class="shell">
+  <main class="main">
+    <div class="page has-rail">
+      <div class="content">
+        <div class="crumb"><a href="../index.html">Study hub</a> / <a href="index.html">ENGG2300</a> / Week 1</div>
+        <div class="eyebrow">Week 1 · Lecture notes</div>
+        <h1 class="title">Pressure Distribution in a Fluid</h1>
+        <p class="lede">Fluid mechanics splits into statics — fluids at rest — and dynamics. Statics is the easier half and comes first, but it is not a toy: dams, manometers, hydraulic jacks and ship stability all sit here. This week sets up the properties we will use all semester, then works out how pressure varies through a fluid at rest.</p>
+
+        <h2 id="properties">Fluid properties</h2>
+        <p>A <strong>fluid</strong> deforms continuously under shear — liquids (molecules close but free to slide) and gases (molecules far apart and moving freely). Properties are <em>intensive</em> if they do not depend on how much substance there is (pressure, temperature) and <em>extensive</em> if they do (mass, volume).</p>
+        <div class="eqbox">$$\rho = \frac{m}{V} \qquad SG = \frac{\rho}{\rho_{H_2O}} \qquad \gamma_s = \rho g$$</div>
+        <p><a class="gloss" href="glossary.html#g-density">Density</a> is mass per unit volume; <strong>specific gravity</strong> compares it to water at 4 °C and so is dimensionless; <strong>specific weight</strong> is the weight of a unit volume.</p>
+
+        <h2 id="viscosity">Viscosity</h2>
+        <p><a class="gloss" href="glossary.html#g-viscosity">Viscosity</a> measures a fluid's resistance to flow, and comes from internal friction between layers forced to move relative to one another:</p>
+        <div class="eqbox">$$\nu = \frac{\mu}{\rho}$$</div>
+        <p>Dynamic viscosity <span>$\mu$</span> is in Pa·s (or kg/m·s); kinematic viscosity <span>$\nu$</span> is in m²/s (1 stoke = 1 cm²/s). Setting <span>$\mu = 0$</span> gives an <strong>inviscid</strong> flow — a useful fiction with no friction at the wall. Every real flow is viscous, which means it obeys the <a class="gloss" href="glossary.html#g-no-slip">no-slip condition</a>: the fluid touching a surface moves with that surface, and the velocity builds up as you move away from it.</p>
+
+        <h2 id="pressure">Pressure</h2>
+        <p><a class="gloss" href="glossary.html#g-pressure">Pressure</a> is a normal force per unit area — a fluid always pushes perpendicular to a boundary, never along it.</p>
+        <div class="eqbox">$$P = \frac{F_n}{A} \qquad [\text{Pa} = \text{N/m}^2]$$</div>
+        <p>Other units you will meet: 1 bar = 10⁵ Pa, 1 atm = 101.325 kPa = 760 mmHg, 1 psi ≈ 6.9 kPa. Pressure is nearly always quoted against a reference:</p>
+        <div class="eqbox">$$P_{abs} = P_{atm} + P_{gauge} \qquad P_{gauge} = P - P_{atm}$$</div>
+        <div class="note"><span class="k">Gauge or absolute?</span> A negative gauge pressure is a partial vacuum. Gauge is what a pressure gauge reads and what most of this course uses; absolute is what the gas laws need. Getting them confused is the classic error.</div>
+
+        <h2 id="hydrostatic">The hydrostatic equation</h2>
+        <p>Take a cylinder of stationary fluid of area <span>$A$</span> and height <span>$h$</span>. It is at rest, so the forces balance: the pressure on the bottom must support the pressure on the top plus the weight of the column, <span>$\rho A h g$</span>. Dividing through by <span>$A$</span>:</p>
+        <div class="eqbox">$$P_1 = P_2 + \rho g h \qquad \Delta P = \rho g h$$</div>
+        <p>Rearranged as <span>$h = \Delta P/\rho g$</span>, the height is called the pressure <a class="gloss" href="glossary.html#g-head">head</a> — a way of expressing pressure as a column of fluid that makes every term in Bernoulli's equation later share the same units.</p>
+        <div class="note"><span class="k">Two consequences worth internalising</span> Pressure in a connected, homogeneous, stationary fluid depends <em>only</em> on depth — so it is the same at every point on a given horizontal level, and it does <em>not</em> depend on the shape or width of the container. A tall thin tube and a wide reservoir at the same depth read the same pressure.</div>
+
+        <h2 id="pascal">Pascal's law and the hydraulic press</h2>
+        <p><a class="gloss" href="glossary.html#g-pascal">Pascal's law</a>: pressure applied to a confined fluid at rest is transmitted equally in every direction, and at a point the pressure is the same on every plane through it (<span>$P_x = P_y = P_s$</span>). The hydraulic press turns that into force multiplication:</p>
+        <div class="eqbox">$$P_1 = P_2 \;\Rightarrow\; \frac{F_1}{A_1} = \frac{F_2}{A_2} \;\Rightarrow\; F_2 = F_1\frac{A_2}{A_1}$$</div>
+        <p>A small force on a small piston produces a large force on a large one, in proportion to the area ratio — the principle behind car jacks and hydraulic brakes.</p>
+
+        <h2 id="measurement">Measuring pressure</h2>
+        <p>A <strong>barometer</strong> is a column of liquid with atmosphere on one side and a vacuum on the other, so <span>$P_{atm} = \rho g h$</span>. Mercury is used because its high density keeps the column manageable (about 760 mm rather than 10 m of water) and its vapour pressure is negligible, so the "vacuum" really is one.</p>
+        <p>A <strong>U-tube manometer</strong> measures a pressure difference by the height a denser fluid is displaced. Work along the tube from one end to the other, <em>adding</em> <span>$\rho g h$</span> whenever you descend and <em>subtracting</em> it whenever you rise:</p>
+        <div class="eqbox">$$P_A + \rho_1 g h_1 - \rho_{man} g h_2 = P_B$$</div>
+
+        <div class="note"><span class="k">Where this leads</span> Week 2 integrates this pressure distribution over submerged surfaces to get the forces on gates, dams and floating bodies.</div>
+      </div>
+
+      <aside class="rail">
+        <h4>On this page</h4>
+        <ul>
+          <li><a href="#properties">Fluid properties</a></li>
+          <li><a href="#viscosity">Viscosity</a></li>
+          <li><a href="#pressure">Pressure</a></li>
+          <li><a href="#hydrostatic">Hydrostatic equation</a></li>
+          <li><a href="#pascal">Pascal's law</a></li>
+          <li><a href="#measurement">Measuring pressure</a></li>
+        </ul>
+        <h4>Key equations</h4>
+        <ul>
+          <li><span class="tag">eq</span><a href="equations.html#eq-hydrostatic">Hydrostatic pressure</a></li>
+          <li><span class="tag">eq</span><a href="equations.html#eq-gauge">Gauge &amp; absolute</a></li>
+          <li><span class="tag">eq</span><a href="equations.html#eq-hydraulic-press">Hydraulic press</a></li>
+          <li><span class="tag">eq</span><a href="equations.html#eq-manometer">Manometer</a></li>
+        </ul>
+        <h4>Related</h4>
+        <ul>
+          <li><span class="tag">def</span><a href="glossary.html#g-pressure">Pressure</a></li>
+          <li><span class="tag">def</span><a href="glossary.html#g-viscosity">Viscosity</a></li>
+          <li><span class="tag">def</span><a href="glossary.html#g-head">Head</a></li>
+        </ul>
+      </aside>
+    </div>
+  </main>
+</div>
+<script src="../assets/katex/katex.min.js"></script>
+<script src="../assets/katex/auto-render.min.js"></script>
+<script src="subject.js"></script>
+<script src="../assets/hub.js"></script>
+</body>
+</html>

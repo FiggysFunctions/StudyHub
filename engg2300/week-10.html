@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="manifest" href="../manifest.webmanifest">
+<link rel="apple-touch-icon" href="../icons/apple-touch-icon.png">
+<meta name="theme-color" content="#161E2B">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<title>Week 10 — Pipe Systems 2: Networks · ENGG2300</title>
+<link rel="stylesheet" href="../assets/styles.css">
+<link rel="stylesheet" href="../assets/katex/katex.min.css">
+</head>
+<body>
+<div class="shell">
+  <main class="main">
+    <div class="page has-rail">
+      <div class="content">
+        <div class="crumb"><a href="../index.html">Study hub</a> / <a href="index.html">ENGG2300</a> / Week 10</div>
+        <div class="eyebrow">Week 10 · Lecture notes</div>
+        <h1 class="title">Pipe Systems 2 — Networks</h1>
+        <p class="lede">A real water supply is not one pipe but a mesh of them, with reservoirs and pumps scattered through it. The governing equations are the same, but there are now too many unknowns to solve directly — so we iterate.</p>
+
+        <h2 id="conditions">The two network conditions</h2>
+        <p>However complicated the layout, only two rules must hold:</p>
+        <div class="eqbox">$$\sum_{\text{node}} Q = 0 \qquad \sum_{\text{loop}} h_L = 0$$</div>
+        <p>Flow into a junction equals flow out (continuity), and the head change around any closed loop must total zero — otherwise you would return to the same point at a different pressure. These are exactly Kirchhoff's current and voltage laws with flow for current and head for voltage, and if you are comfortable with circuits the analogy carries you a long way.</p>
+
+        <h2 id="branched">Branched systems and the three-reservoir problem</h2>
+        <p>The classic case: three reservoirs at different elevations joined by pipes meeting at a single junction. The difficulty is that you do not know in advance whether the middle reservoir is feeding the junction or being fed by it.</p>
+        <p>The method is to guess the head at the junction:</p>
+        <ol>
+          <li>Assume a junction head <span>$H_J$</span>.</li>
+          <li>For each pipe, the head difference between its reservoir and <span>$H_J$</span> sets both the direction and the magnitude of its flow.</li>
+          <li>Sum the flows at the junction. If they do not cancel, adjust <span>$H_J$</span> — too much inflow means the guess was too low — and repeat.</li>
+        </ol>
+        <p>A sensible opening guess is the level of the middle reservoir, since that is the case where it carries no flow at all and it immediately tells you which way the discrepancy lies.</p>
+
+        <h2 id="hardy-cross">The Hardy Cross method</h2>
+        <p>For looped networks, the <a class="gloss" href="glossary.html#g-hardy-cross">Hardy Cross</a> method iterates on the flows themselves:</p>
+        <ol>
+          <li><strong>Assume a flow in every pipe</strong> that already satisfies continuity at each node — that constraint is maintained throughout, so only the loop condition has to be driven to zero.</li>
+          <li><strong>Pick a sign convention</strong> for each loop (clockwise positive is standard) and keep it absolutely consistent.</li>
+          <li><strong>Compute the head loss in each pipe</strong>, signed according to the assumed flow direction, and sum around the loop. A non-zero sum is the imbalance.</li>
+          <li><strong>Apply the correction</strong> to every pipe in the loop:</li>
+        </ol>
+        <div class="eqbox">$$\Delta Q = -\frac{\sum h_L}{n\sum\left|h_L/Q\right|} \qquad (n = 2\ \text{for Darcy–Weisbach})$$</div>
+        <ol start="5">
+          <li><strong>Repeat</strong> until the imbalance is acceptably small. Pipes shared between two loops receive both corrections.</li>
+        </ol>
+        <p>Because the same <span>$\Delta Q$</span> is applied to every pipe in a loop, continuity at the nodes is preserved automatically — which is the elegance of the method. The exponent <span>$n$</span> is 2 because head loss goes as <span>$Q^2$</span>; it changes if a different loss law is used.</p>
+        <div class="note"><span class="k">Where it usually goes wrong</span> Sign convention. A head loss must be counted negative when its assumed flow runs against the chosen positive direction. Get that inconsistent and the iteration will wander instead of converging.</div>
+
+        <h2 id="extensions">Loops with reservoirs and pumps</h2>
+        <p>Two common extensions. A loop containing a <strong>reservoir</strong> is handled by adding a pseudo-loop whose "head loss" includes the elevation difference between the two water surfaces. A loop containing a <strong>pump</strong> includes the pump head as a negative loss — energy added rather than lost — usually taken from a curve fitted to the manufacturer's data so it can be re-evaluated as the flow changes each iteration.</p>
+
+        <div class="note"><span class="k">Where this leads</span> Week 11 leaves single-phase flow behind, and Week 12 shows how all of this is done numerically in practice.</div>
+      </div>
+
+      <aside class="rail">
+        <h4>On this page</h4>
+        <ul>
+          <li><a href="#conditions">Network conditions</a></li>
+          <li><a href="#branched">Branched systems</a></li>
+          <li><a href="#hardy-cross">Hardy Cross method</a></li>
+          <li><a href="#extensions">Reservoirs &amp; pumps</a></li>
+        </ul>
+        <h4>Key equations</h4>
+        <ul>
+          <li><span class="tag">eq</span><a href="equations.html#eq-network">Network conditions</a></li>
+          <li><span class="tag">eq</span><a href="equations.html#eq-hardy-cross">Hardy Cross correction</a></li>
+          <li><span class="tag">eq</span><a href="equations.html#eq-series-parallel">Series &amp; parallel</a></li>
+        </ul>
+        <h4>Related</h4>
+        <ul>
+          <li><span class="tag">def</span><a href="glossary.html#g-hardy-cross">Hardy Cross method</a></li>
+          <li><span class="tag">def</span><a href="glossary.html#g-egl">Energy grade line</a></li>
+        </ul>
+      </aside>
+    </div>
+  </main>
+</div>
+<script src="../assets/katex/katex.min.js"></script>
+<script src="../assets/katex/auto-render.min.js"></script>
+<script src="subject.js"></script>
+<script src="../assets/hub.js"></script>
+</body>
+</html>

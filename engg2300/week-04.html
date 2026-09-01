@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="manifest" href="../manifest.webmanifest">
+<link rel="apple-touch-icon" href="../icons/apple-touch-icon.png">
+<meta name="theme-color" content="#161E2B">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<title>Week 4 — Flow Measurement &amp; the Extended Bernoulli Equation · ENGG2300</title>
+<link rel="stylesheet" href="../assets/styles.css">
+<link rel="stylesheet" href="../assets/katex/katex.min.css">
+</head>
+<body>
+<div class="shell">
+  <main class="main">
+    <div class="page has-rail">
+      <div class="content">
+        <div class="crumb"><a href="../index.html">Study hub</a> / <a href="index.html">ENGG2300</a> / Week 4</div>
+        <div class="eyebrow">Week 4 · Lecture notes</div>
+        <h1 class="title">Flow Measurement &amp; the Extended Bernoulli Equation</h1>
+        <p class="lede">Two halves. First, Bernoulli plus continuity turns a pressure difference into a flow rate — the principle behind every venturi and orifice meter — with empirical coefficients to bridge the gap to reality. Then Bernoulli itself is extended to admit the things it originally excluded: friction, pumps and turbines.</p>
+
+        <h2 id="principle">Measuring flow with Bernoulli</h2>
+        <p>Constrict a pipe and continuity forces the velocity up; Bernoulli then forces the pressure down. Measure that pressure drop and you can infer the flow rate. Combining the two equations between the upstream section and the throat gives the ideal discharge — and every meter in this section is a variation on it:</p>
+        <ul>
+          <li><strong>Venturi meter</strong> — a smooth contraction and a gradual expansion. Expensive but efficient, with little permanent pressure loss.</li>
+          <li><strong>Orifice plate</strong> — a plate with a hole. Cheap and simple, but the abrupt geometry causes a large permanent loss.</li>
+          <li><strong>Pitot tube</strong> — faces the flow so the fluid stagnates in it, converting all the velocity head to pressure. The difference between stagnation and static pressure gives the local velocity directly.</li>
+        </ul>
+
+        <h2 id="coefficients">The vena contracta and the three coefficients</h2>
+        <p>Ideal theory over-predicts, for two separate reasons. The jet keeps converging past the opening down to the <a class="gloss" href="glossary.html#g-vena-contracta">vena contracta</a>, whose area is smaller than the hole; and friction makes the real velocity lower than the ideal. Hence:</p>
+        <div class="eqbox">$$C_c = \frac{A_2}{A_o} \qquad C_v = \frac{u_{actual}}{u_{ideal}} \qquad C_d = C_c C_v$$</div>
+        <p>For a sharp-edged orifice, <span>$C_v \approx 0.97$–$0.99$</span>, <span>$C_c \approx 0.61$–$0.66$</span>, giving <span>$C_d \approx 0.6$–$0.65$</span>. The contraction dominates — which is why the <a class="gloss" href="glossary.html#g-discharge-coeff">discharge coefficient</a> is needed at all: we know the geometric hole area <span>$A_o$</span> but not the jet area <span>$A_2$</span>.</p>
+        <div class="eqbox">$$Q_{actual} = C_d A_o\sqrt{2gh} \qquad Q_{actual} = C_d A_o\sqrt{\frac{2(P_1-P_2)}{\rho\,[1-(A_o/A_1)^2]}}$$</div>
+        <p>The first form is for free discharge under a head; the second for a meter between two tappings, where the bracketed term corrects for the fact that the approach velocity is not negligible.</p>
+
+        <h2 id="extended">The extended Bernoulli equation</h2>
+        <p>Real systems have friction, and often a machine. Adding those terms to Bernoulli gives the engineering energy equation:</p>
+        <div class="eqbox">$$\frac{P_1}{\rho g} + \frac{\alpha_1 u_1^2}{2g} + z_1 + h_{pump} = \frac{P_2}{\rho g} + \frac{\alpha_2 u_2^2}{2g} + z_2 + h_{turbine} + h_{loss}$$</div>
+        <p>Signs matter and are worth stating plainly: <span>$h_{loss}$</span> is <em>always positive</em> in a viscous flow — friction never gives head back. A pump <strong>adds</strong> energy to the fluid; a turbine <strong>extracts</strong> it.</p>
+
+        <h2 id="alpha">The kinetic-energy correction factor</h2>
+        <p>The velocity head <span>$u^2/2g$</span> uses the mean velocity, but kinetic energy depends on <span>$u^2$</span> — and the mean of <span>$u^2$</span> is not the square of the mean unless the profile is flat. The factor <span>$\alpha$</span> repairs this:</p>
+        <ul>
+          <li><span>$\alpha \approx 2$</span> for laminar pipe flow (strongly parabolic profile),</li>
+          <li><span>$\alpha \approx 1.05$</span> for turbulent flow (much blunter profile).</li>
+        </ul>
+        <p>Because it is so close to one for turbulent flow, <span>$\alpha$</span> is routinely dropped there — but it is a real error in laminar problems.</p>
+
+        <h2 id="power">Pump and turbine power</h2>
+        <p>The hydraulic power exchanged with the fluid is <span>$\rho g Q h$</span>. Efficiency then relates that to the shaft:</p>
+        <div class="eqbox">$$\dot W_{pump} = \frac{\rho g Q h_{pump}}{\eta_{pump}} \qquad \dot W_{turbine} = \eta_{turbine}\,\rho g Q h_{turbine}$$</div>
+        <div class="note"><span class="k">Which way does efficiency go?</span> A pump must be <em>supplied</em> more shaft power than it delivers to the fluid, so divide. A turbine <em>delivers</em> less shaft power than the fluid gives up, so multiply. If your pump appears to need less power than the fluid gained, you have inverted it.</div>
+
+        <div class="note"><span class="k">Where this leads</span> <span>$h_{loss}$</span> has been a symbol so far. Weeks 5 and 7 explain where it comes from — first from the differential equations, then as a practical formula for pipes.</div>
+      </div>
+
+      <aside class="rail">
+        <h4>On this page</h4>
+        <ul>
+          <li><a href="#principle">Measuring flow</a></li>
+          <li><a href="#coefficients">Vena contracta</a></li>
+          <li><a href="#extended">Extended Bernoulli</a></li>
+          <li><a href="#alpha">KE correction factor</a></li>
+          <li><a href="#power">Pump &amp; turbine power</a></li>
+        </ul>
+        <h4>Key equations</h4>
+        <ul>
+          <li><span class="tag">eq</span><a href="equations.html#eq-orifice">Orifice &amp; venturi</a></li>
+          <li><span class="tag">eq</span><a href="equations.html#eq-discharge-coeff">Discharge coefficient</a></li>
+          <li><span class="tag">eq</span><a href="equations.html#eq-extended-bernoulli">Extended Bernoulli</a></li>
+          <li><span class="tag">eq</span><a href="equations.html#eq-pump-power">Pump &amp; turbine power</a></li>
+        </ul>
+        <h4>Related</h4>
+        <ul>
+          <li><span class="tag">def</span><a href="glossary.html#g-vena-contracta">Vena contracta</a></li>
+          <li><span class="tag">def</span><a href="glossary.html#g-ke-correction">KE correction factor</a></li>
+          <li><span class="tag">def</span><a href="glossary.html#g-losses">Head losses</a></li>
+        </ul>
+      </aside>
+    </div>
+  </main>
+</div>
+<script src="../assets/katex/katex.min.js"></script>
+<script src="../assets/katex/auto-render.min.js"></script>
+<script src="subject.js"></script>
+<script src="../assets/hub.js"></script>
+</body>
+</html>

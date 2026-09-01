@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="manifest" href="../manifest.webmanifest">
+<link rel="apple-touch-icon" href="../icons/apple-touch-icon.png">
+<meta name="theme-color" content="#161E2B">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<title>Week 6 — Boundary Layers, Lift &amp; Drag · ENGG2300</title>
+<link rel="stylesheet" href="../assets/styles.css">
+<link rel="stylesheet" href="../assets/katex/katex.min.css">
+</head>
+<body>
+<div class="shell">
+  <main class="main">
+    <div class="page has-rail">
+      <div class="content">
+        <div class="crumb"><a href="../index.html">Study hub</a> / <a href="index.html">ENGG2300</a> / Week 6</div>
+        <div class="eyebrow">Week 6 · Lecture notes</div>
+        <h1 class="title">Boundary Layers, Lift &amp; Drag</h1>
+        <p class="lede">External flow — around aerofoils, vehicles, buildings and bridges. The fluid force on a body splits into drag along the flow and lift across it, and both are dominated by what the thin viscous layer next to the surface is doing. Note the key result up front: if viscosity were zero, the drag would be zero too.</p>
+
+        <h2 id="bl">The boundary layer</h2>
+        <p>Because of the no-slip condition, the fluid at the surface is stationary while the free stream far away is not. The <a class="gloss" href="glossary.html#g-boundary-layer">boundary layer</a> is the thin region bridging the two, conventionally ending where the velocity reaches 99% of the free stream. It thickens along the surface, starting laminar and — if the body is long enough or the Reynolds number high enough — transitioning to turbulent.</p>
+        <p>Outside this layer viscous effects are negligible and the flow behaves as if inviscid, which is what makes Bernoulli usable there. Inside it, viscosity is everything.</p>
+
+        <h2 id="forces">Resolving the force</h2>
+        <p>Integrating pressure and shear stress over the whole surface gives a single resultant force, which we resolve relative to the oncoming flow:</p>
+        <ul>
+          <li><strong>Drag</strong> — the component parallel to the flow.</li>
+          <li><strong>Lift</strong> — the component perpendicular to it.</li>
+        </ul>
+        <p>A symmetric body at zero angle of attack produces no lift; tilting it or cambering it generates the pressure asymmetry that does.</p>
+        <p>Drag itself has two sources. <strong>Friction (skin) drag</strong> is the integrated wall shear stress. <strong>Pressure (form) drag</strong> comes from the pressure being lower behind the body than in front. Which dominates depends entirely on whether the flow separates.</p>
+
+        <h2 id="separation">Separation — the thing that matters most</h2>
+        <p>Past the widest point of a body the pressure rises in the flow direction. This <em>adverse pressure gradient</em> decelerates the already-slow fluid near the wall until it reverses and the boundary layer detaches, leaving a broad low-pressure <a class="gloss" href="glossary.html#g-separation">wake</a>. That wake is what produces large pressure drag.</p>
+        <div class="note"><span class="k">The counter-intuitive result</span> A <em>turbulent</em> boundary layer carries more momentum near the wall, so it resists the adverse gradient longer and separates further back. It has more skin friction but a much smaller wake — and for a bluff body the wake dominates, so tripping the layer turbulent <strong>reduces</strong> total drag. That is precisely what golf-ball dimples do.</div>
+        <p>The other lever is <strong>streamlining</strong>: a gradual taper keeps the pressure gradient gentle so the flow stays attached. A streamlined strut can produce the same drag as a circular cylinder many times thinner.</p>
+
+        <h2 id="coefficients">Drag and lift coefficients</h2>
+        <p>Rather than tabulate forces for every size and speed, non-dimensionalise by the <strong>dynamic pressure</strong> <span>$q = \tfrac12\rho u^2$</span> — the kinetic energy per unit volume of the oncoming stream — and a reference area:</p>
+        <div class="eqbox">$$F_D = C_D\,\tfrac12\rho u^2 A \qquad F_L = C_L\,\tfrac12\rho u^2 A$$</div>
+        <p>Both forces scale with the <em>square</em> of velocity, which is why drag rises so steeply with speed. The reference area is conventionally the <strong>frontal</strong> area for drag and the <strong>planform</strong> area for lift — using the wrong one is a common slip. The <a class="gloss" href="glossary.html#g-drag-coeff">coefficients</a> generally depend on Reynolds number and on shape, and are read from charts or measured in a tunnel.</p>
+        <p>A standard application is <strong>terminal velocity</strong>: a falling body accelerates until drag plus buoyancy balances weight, after which it descends at constant speed.</p>
+
+        <div class="note"><span class="k">Where this leads</span> Week 7 returns to internal flow, where the boundary layers from opposite walls meet and the whole pipe becomes viscous.</div>
+      </div>
+
+      <aside class="rail">
+        <h4>On this page</h4>
+        <ul>
+          <li><a href="#bl">The boundary layer</a></li>
+          <li><a href="#forces">Resolving the force</a></li>
+          <li><a href="#separation">Separation</a></li>
+          <li><a href="#coefficients">Drag &amp; lift coefficients</a></li>
+        </ul>
+        <h4>Key equations</h4>
+        <ul>
+          <li><span class="tag">eq</span><a href="equations.html#eq-drag-lift">Drag &amp; lift force</a></li>
+          <li><span class="tag">eq</span><a href="equations.html#eq-dynamic-pressure">Dynamic pressure</a></li>
+        </ul>
+        <h4>Related</h4>
+        <ul>
+          <li><span class="tag">def</span><a href="glossary.html#g-boundary-layer">Boundary layer</a></li>
+          <li><span class="tag">def</span><a href="glossary.html#g-separation">Flow separation</a></li>
+          <li><span class="tag">def</span><a href="glossary.html#g-drag-coeff">Drag coefficient</a></li>
+        </ul>
+      </aside>
+    </div>
+  </main>
+</div>
+<script src="../assets/katex/katex.min.js"></script>
+<script src="../assets/katex/auto-render.min.js"></script>
+<script src="subject.js"></script>
+<script src="../assets/hub.js"></script>
+</body>
+</html>

@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="manifest" href="../manifest.webmanifest">
+<link rel="apple-touch-icon" href="../icons/apple-touch-icon.png">
+<meta name="theme-color" content="#161E2B">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<title>Week 8 — Dimensional Analysis &amp; Similarity · ENGG2300</title>
+<link rel="stylesheet" href="../assets/styles.css">
+<link rel="stylesheet" href="../assets/katex/katex.min.css">
+</head>
+<body>
+<div class="shell">
+  <main class="main">
+    <div class="page has-rail">
+      <div class="content">
+        <div class="crumb"><a href="../index.html">Study hub</a> / <a href="index.html">ENGG2300</a> / Week 8</div>
+        <div class="eyebrow">Week 8 · Lecture notes</div>
+        <h1 class="title">Dimensional Analysis &amp; Similarity</h1>
+        <p class="lede">Because the Navier–Stokes equations rarely yield to analysis, much of fluid mechanics rests on experiment. Dimensional analysis is what makes that affordable: it collapses a long list of variables into a handful of dimensionless groups, turning an impossible test programme into a manageable one — and it is why a model in a towing tank can predict a full-size ship.</p>
+
+        <h2 id="dimensions">Dimensions and units</h2>
+        <p>A <em>dimension</em> is the physical nature of a quantity; a <em>unit</em> is the arbitrary yardstick we measure it in. Everything in this course reduces to the primary dimensions mass <span>$M$</span>, length <span>$L$</span>, time <span>$T$</span> and temperature <span>$\Theta$</span>. So for instance dynamic viscosity is <span>$[ML^{-1}T^{-1}]$</span> and kinematic viscosity <span>$[L^2T^{-1}]$</span>.</p>
+        <p>Any correct physical equation is <strong>dimensionally homogeneous</strong> — every additive term carries the same dimensions. Checking this is the fastest way to catch an algebra error.</p>
+
+        <h2 id="buckingham">The Buckingham Pi theorem</h2>
+        <p>If a problem involves <span>$k$</span> dimensional variables spanning <span>$r$</span> primary dimensions, it can be rewritten in terms of <span>$k-r$</span> dimensionless groups:</p>
+        <div class="eqbox">$$\Pi_1 = \phi(\Pi_2,\ \dots,\ \Pi_{k-r})$$</div>
+        <p>The procedure the course follows:</p>
+        <ol>
+          <li><strong>List the variables</strong> involved and count them — that is <span>$k$</span>.</li>
+          <li><strong>Write each in primary dimensions</strong>, and count how many distinct dimensions appear — that is <span>$r$</span>.</li>
+          <li><strong>Determine the number of groups</strong>, <span>$k-r$</span>.</li>
+          <li><strong>Choose <span>$r$</span> repeating variables</strong> that between them cover every dimension. Never choose the dependent variable, and a good default for fluid problems is a length, a density and a velocity (<span>$D$</span>, <span>$\rho$</span>, <span>$u$</span>).</li>
+          <li><strong>Combine each remaining variable</strong> with the repeating ones raised to unknown powers, and solve for the powers that make the group dimensionless.</li>
+          <li><strong>Check</strong> that every group really is dimensionless.</li>
+        </ol>
+        <div class="note"><span class="k">Why it pays</span> Suppose pressure drop depends on five variables. Testing ten values of each means 10⁵ experiments. Reduced to two dimensionless groups, ten values of one group against the other is 10 — and the result is universal rather than specific to your rig.</div>
+
+        <h2 id="groups">The common dimensionless groups</h2>
+        <p>Each compares inertia with a different competing effect, and each governs a different class of problem:</p>
+        <div class="eqbox">$$Re = \frac{\rho u L}{\mu} \qquad Fr = \frac{u}{\sqrt{gL}} \qquad Ma = \frac{u}{c} \qquad We = \frac{\rho u^2 L}{\sigma}$$</div>
+        <ul>
+          <li><strong>Reynolds</strong> — inertia vs viscosity. Governs pipe flow and most internal/submerged flows.</li>
+          <li><strong>Froude</strong> — inertia vs gravity. Governs anything with a free surface: ship hulls, spillways, open channels.</li>
+          <li><strong>Mach</strong> — speed vs the speed of sound. Governs compressible flow.</li>
+          <li><strong>Weber</strong> — inertia vs surface tension. Governs droplets, sprays and bubbles.</li>
+        </ul>
+
+        <h2 id="similarity">Similarity and scale models</h2>
+        <p>Three conditions, each building on the last:</p>
+        <ul>
+          <li><strong>Geometric similarity</strong> — model and prototype are the same shape, all lengths scaled by one factor (including roughness).</li>
+          <li><strong>Kinematic similarity</strong> — the velocity fields have the same shape, so streamline patterns match.</li>
+          <li><strong>Dynamic similarity</strong> — the force ratios match, which requires the governing dimensionless group to be equal in both.</li>
+        </ul>
+        <div class="eqbox">$$\Pi_{i,\text{model}} = \Pi_{i,\text{prototype}} \quad\Rightarrow\quad \frac{\rho_m u_m L_m}{\mu_m} = \frac{\rho_p u_p L_p}{\mu_p}$$</div>
+        <p>Match the group and any dimensionless result measured on the model — a drag coefficient, a pressure coefficient — applies directly to the prototype. That is how a 3 m model in a towing tank stands in for a destroyer.</p>
+        <div class="note"><span class="k">The practical difficulty</span> Matching Reynolds number on a small model demands a very high velocity, and some problems (a ship, which has both a free surface and viscous drag) need Froude <em>and</em> Reynolds matched at once — which is generally impossible in the same fluid. Real testing splits the effects and recombines them.</div>
+
+        <div class="note"><span class="k">Where this leads</span> Weeks 9 and 10 return to practice, applying the pipe-loss correlations that dimensional analysis justifies to whole systems and networks.</div>
+      </div>
+
+      <aside class="rail">
+        <h4>On this page</h4>
+        <ul>
+          <li><a href="#dimensions">Dimensions &amp; units</a></li>
+          <li><a href="#buckingham">Buckingham Pi</a></li>
+          <li><a href="#groups">Dimensionless groups</a></li>
+          <li><a href="#similarity">Similarity</a></li>
+        </ul>
+        <h4>Key equations</h4>
+        <ul>
+          <li><span class="tag">eq</span><a href="equations.html#eq-buckingham">Buckingham Pi theorem</a></li>
+          <li><span class="tag">eq</span><a href="equations.html#eq-dimensionless-groups">Dimensionless groups</a></li>
+          <li><span class="tag">eq</span><a href="equations.html#eq-similarity">Dynamic similarity</a></li>
+        </ul>
+        <h4>Related</h4>
+        <ul>
+          <li><span class="tag">def</span><a href="glossary.html#g-buckingham">Buckingham Pi</a></li>
+          <li><span class="tag">def</span><a href="glossary.html#g-similarity">Similarity</a></li>
+          <li><span class="tag">def</span><a href="glossary.html#g-reynolds">Reynolds number</a></li>
+        </ul>
+      </aside>
+    </div>
+  </main>
+</div>
+<script src="../assets/katex/katex.min.js"></script>
+<script src="../assets/katex/auto-render.min.js"></script>
+<script src="subject.js"></script>
+<script src="../assets/hub.js"></script>
+</body>
+</html>

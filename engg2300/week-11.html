@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="manifest" href="../manifest.webmanifest">
+<link rel="apple-touch-icon" href="../icons/apple-touch-icon.png">
+<meta name="theme-color" content="#161E2B">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<title>Week 11 — Multiphase Flow · ENGG2300</title>
+<link rel="stylesheet" href="../assets/styles.css">
+<link rel="stylesheet" href="../assets/katex/katex.min.css">
+</head>
+<body>
+<div class="shell">
+  <main class="main">
+    <div class="page has-rail">
+      <div class="content">
+        <div class="crumb"><a href="../index.html">Study hub</a> / <a href="index.html">ENGG2300</a> / Week 11</div>
+        <div class="eyebrow">Week 11 · Lecture notes</div>
+        <h1 class="title">Multiphase Flow</h1>
+        <p class="lede">Everything so far assumed one phase filling the pipe. Industry rarely obliges — oil and gas share a pipeline, steam and water share a boiler tube, slurries carry solids, and bubble columns and fluidised beds are built around the interaction. When two phases flow together the geometry they adopt becomes as important as the flow rates.</p>
+
+        <h2 id="describing">Describing a two-phase flow</h2>
+        <p>Single-phase flow needs one velocity. Two-phase flow needs to say how much of each phase there is <em>and</em> how the pipe is shared between them:</p>
+        <div class="eqbox">$$x = \frac{\dot m_G}{\dot m_G + \dot m_L} \qquad \alpha = \frac{A_G}{A} \qquad H_L = 1-\alpha$$</div>
+        <ul>
+          <li><strong>Quality</strong> <span>$x$</span> — the <em>mass</em> fraction that is gas.</li>
+          <li><strong><a class="gloss" href="glossary.html#g-void-fraction">Void fraction</a></strong> <span>$\alpha$</span> — the fraction of the pipe <em>cross-section</em> occupied by gas.</li>
+          <li><strong>Liquid holdup</strong> <span>$H_L$</span> — what remains, <span>$1-\alpha$</span>.</li>
+        </ul>
+        <div class="note"><span class="k">Quality is not void fraction</span> They are different quantities in different units, and they are not simply related — because the phases do not travel at the same speed. Gas is lighter and typically moves faster, so it occupies less of the pipe than its volumetric share would suggest. That difference is called <em>slip</em>.</div>
+
+        <h2 id="superficial">Superficial velocities</h2>
+        <p>Because we usually know the flow rates but not the in-situ areas, it is convenient to define the velocity each phase <em>would</em> have if it flowed alone through the whole pipe:</p>
+        <div class="eqbox">$$u_{SG} = \frac{Q_G}{A} \qquad u_{SL} = \frac{Q_L}{A} \qquad u_G = \frac{u_{SG}}{\alpha},\quad u_L = \frac{u_{SL}}{1-\alpha}$$</div>
+        <p>The <a class="gloss" href="glossary.html#g-superficial">superficial velocity</a> is not a real velocity — each phase only has part of the area, so the actual velocity is higher. But superficial velocities can be computed straight from measured flow rates, which is why they form the axes of every flow-regime map.</p>
+
+        <h2 id="regimes">Flow regimes</h2>
+        <p>The two phases arrange themselves into recognisable patterns, and which one you get depends on the flow rates, the pipe orientation and the fluid properties.</p>
+        <p><strong>Vertical upward flow</strong>, as the gas rate increases:</p>
+        <ul>
+          <li><strong>Bubble</strong> — discrete small bubbles dispersed through a continuous liquid.</li>
+          <li><strong>Slug</strong> — bubbles coalesce into large bullet-shaped "Taylor" bubbles nearly filling the pipe, separated by liquid slugs.</li>
+          <li><strong>Churn</strong> — the slugs break down into a chaotic, oscillating mess.</li>
+          <li><strong>Annular</strong> — liquid is driven to the wall as a film with a fast gas core up the middle, often carrying entrained droplets.</li>
+        </ul>
+        <p><strong>Horizontal flow</strong> adds gravity acting across the pipe rather than along it, so density difference separates the phases: <strong>stratified</strong> (smooth layers), <strong>wavy</strong>, <strong>plug</strong> and <strong>slug</strong>, before also reaching annular at high gas rates.</p>
+
+        <h2 id="maps">Flow-regime maps and why they matter</h2>
+        <p>Plotting superficial gas velocity against superficial liquid velocity divides the plane into regions, one per regime. Given the mass flow rate and quality you compute the two superficial velocities, plot the point, and read off the regime.</p>
+        <p>This is the first step of any two-phase calculation, because the regime controls almost everything downstream of it:</p>
+        <ul>
+          <li><strong>Pressure drop</strong> — annular and slug flow lose pressure very differently.</li>
+          <li><strong>Heat transfer</strong> — a wall wetted by liquid film behaves nothing like one exposed to gas.</li>
+          <li><strong>Stability and mechanical loading</strong> — slug flow delivers large intermittent momentum loads, which is a genuine design problem for pipelines and their supports.</li>
+        </ul>
+
+        <div class="note"><span class="k">Where this leads</span> Week 12 closes the course with the numerical methods used when the flow is too complex for any of the analytical treatments so far.</div>
+      </div>
+
+      <aside class="rail">
+        <h4>On this page</h4>
+        <ul>
+          <li><a href="#describing">Describing two-phase flow</a></li>
+          <li><a href="#superficial">Superficial velocities</a></li>
+          <li><a href="#regimes">Flow regimes</a></li>
+          <li><a href="#maps">Flow-regime maps</a></li>
+        </ul>
+        <h4>Key equations</h4>
+        <ul>
+          <li><span class="tag">eq</span><a href="equations.html#eq-quality-void">Quality &amp; void fraction</a></li>
+          <li><span class="tag">eq</span><a href="equations.html#eq-superficial">Superficial velocity</a></li>
+        </ul>
+        <h4>Related</h4>
+        <ul>
+          <li><span class="tag">def</span><a href="glossary.html#g-void-fraction">Void fraction</a></li>
+          <li><span class="tag">def</span><a href="glossary.html#g-superficial">Superficial velocity</a></li>
+          <li><span class="tag">def</span><a href="glossary.html#g-flow-regime">Flow regime</a></li>
+        </ul>
+      </aside>
+    </div>
+  </main>
+</div>
+<script src="../assets/katex/katex.min.js"></script>
+<script src="../assets/katex/auto-render.min.js"></script>
+<script src="subject.js"></script>
+<script src="../assets/hub.js"></script>
+</body>
+</html>

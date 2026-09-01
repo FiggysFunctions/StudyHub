@@ -18,7 +18,7 @@
 */
 "use strict";
 
-var CACHE = "studyhub-v13";
+var CACHE = "studyhub-v14";
 
 var PRECACHE = [
   "./",
@@ -55,6 +55,23 @@ var PRECACHE = [
   "assets/katex/katex.min.css",
   "assets/katex/katex.min.js",
   "assets/styles.css",
+  "engg2300/equations.html",
+  "engg2300/glossary.html",
+  "engg2300/index.html",
+  "engg2300/search.html",
+  "engg2300/subject.js",
+  "engg2300/week-01.html",
+  "engg2300/week-02.html",
+  "engg2300/week-03.html",
+  "engg2300/week-04.html",
+  "engg2300/week-05.html",
+  "engg2300/week-06.html",
+  "engg2300/week-07.html",
+  "engg2300/week-08.html",
+  "engg2300/week-09.html",
+  "engg2300/week-10.html",
+  "engg2300/week-11.html",
+  "engg2300/week-12.html",
   "engg2440/assessments.html",
   "engg2440/equations.html",
   "engg2440/glossary.html",

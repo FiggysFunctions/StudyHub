@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="manifest" href="../manifest.webmanifest">
+<link rel="apple-touch-icon" href="../icons/apple-touch-icon.png">
+<meta name="theme-color" content="#161E2B">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<title>Week 2 — Hydrostatic Forces &amp; Buoyancy · ENGG2300</title>
+<link rel="stylesheet" href="../assets/styles.css">
+<link rel="stylesheet" href="../assets/katex/katex.min.css">
+</head>
+<body>
+<div class="shell">
+  <main class="main">
+    <div class="page has-rail">
+      <div class="content">
+        <div class="crumb"><a href="../index.html">Study hub</a> / <a href="index.html">ENGG2300</a> / Week 2</div>
+        <div class="eyebrow">Week 2 · Lecture notes</div>
+        <h1 class="title">Hydrostatic Forces &amp; Buoyancy</h1>
+        <p class="lede">Week 1 gave the pressure at a point. Integrating that distribution over a surface gives the force on it — and, just as importantly, <em>where</em> that force acts. Dam walls, lock gates, tank sides and submerged hatches are all this calculation, and floating bodies are its natural extension.</p>
+
+        <h2 id="resultant">Resultant force on a plane surface</h2>
+        <p>Pressure varies linearly with depth, so the force on each strip of a submerged surface varies too. But the <em>average</em> pressure over a plane surface is exactly the pressure at its centroid, which makes the resultant force pleasingly simple:</p>
+        <div class="eqbox">$$F_R = P_C A = \rho g h_C A = \rho g\,y_C\sin\theta\,A$$</div>
+        <p>Here <span>$h_C$</span> is the vertical depth of the <a class="gloss" href="glossary.html#g-centroid">centroid</a> and <span>$y_C$</span> the distance to it measured <em>along</em> the inclined surface, the two related by <span>$h = y\sin\theta$</span>. The force acts normal to the surface.</p>
+
+        <h2 id="cop">Centre of pressure</h2>
+        <p>The force does <strong>not</strong> act through the centroid. Because the deeper strips carry more pressure, the line of action is pulled downward. Taking moments of the pressure distribution about the free surface and using the parallel-axis theorem gives the <a class="gloss" href="glossary.html#g-centre-pressure">centre of pressure</a>:</p>
+        <div class="eqbox">$$y_R = y_C + \frac{I_{xx,C}}{y_C A}$$</div>
+        <p>The correction term <span>$I_{xx,C}/y_C A$</span> is always positive, so the centre of pressure is always below the centroid. Notice it shrinks as <span>$y_C$</span> grows — submerge the same gate deeper and the pressure distribution across it becomes relatively more uniform, so the centre of pressure creeps toward the centroid.</p>
+        <div class="note"><span class="k">Only for horizontal surfaces</span> On a horizontal surface the pressure genuinely is uniform, so there the centre of pressure and the centroid coincide. In every other orientation they do not — and a moment balance about a hinge will expose the mistake.</div>
+
+        <h2 id="curved">Curved surfaces</h2>
+        <p>On a curved surface the pressure is normal to the surface everywhere, so its direction changes continuously and the forces cannot simply be summed. The trick is to resolve into components:</p>
+        <ul>
+          <li>The <strong>horizontal</strong> component equals the force on the vertical projection of the surface — computed exactly as for a plane surface.</li>
+          <li>The <strong>vertical</strong> component equals the weight of the fluid directly above the surface (real or imagined).</li>
+        </ul>
+        <p>Combine them into a resultant magnitude and direction. For a circular gate every pressure force passes through the centre of curvature, so the resultant does too — which often saves a moment calculation.</p>
+
+        <h2 id="buoyancy">Buoyancy and Archimedes' principle</h2>
+        <p>The pressure on the underside of an immersed body is greater than that on top, and the net upward force is the <a class="gloss" href="glossary.html#g-buoyancy">buoyant force</a>:</p>
+        <div class="eqbox">$$F_B = \rho g V_{disp}$$</div>
+        <p><strong>Archimedes' principle</strong>: it equals the weight of the fluid displaced, and it acts upward through the centroid of the displaced volume — the <em>centre of buoyancy</em>. A body floats when the buoyant force equals its weight, so a floating body displaces exactly its own weight of fluid.</p>
+
+        <h2 id="stability">Stability of floating bodies</h2>
+        <p>Floating is not the same as floating <em>stably</em>. If the centre of gravity G lies below the centre of buoyancy B, any tilt produces a righting couple and the body is unconditionally stable. But most ships have G above B, and they still float upright — because when the hull tilts, the displaced volume changes shape and B shifts sideways to B′.</p>
+        <p>The vertical through the new buoyant force crosses the original centreline at the <a class="gloss" href="glossary.html#g-metacentre">metacentre</a> M. The rule is then:</p>
+        <ul>
+          <li><strong>M above G</strong> — the couple rights the body. Stable.</li>
+          <li><strong>M below G</strong> — the couple worsens the tilt. Unstable; it capsizes.</li>
+        </ul>
+        <p>The distance GM is the <em>metacentric height</em>, and it is the number naval architects design to: too small and the vessel is tender, too large and it rolls uncomfortably fast.</p>
+
+        <div class="note"><span class="k">Where this leads</span> That completes fluid statics. From Week 3 the fluid moves, and we need conservation laws written for a control volume.</div>
+      </div>
+
+      <aside class="rail">
+        <h4>On this page</h4>
+        <ul>
+          <li><a href="#resultant">Resultant force</a></li>
+          <li><a href="#cop">Centre of pressure</a></li>
+          <li><a href="#curved">Curved surfaces</a></li>
+          <li><a href="#buoyancy">Buoyancy</a></li>
+          <li><a href="#stability">Stability</a></li>
+        </ul>
+        <h4>Key equations</h4>
+        <ul>
+          <li><span class="tag">eq</span><a href="equations.html#eq-hydrostatic-force">Force on a plane surface</a></li>
+          <li><span class="tag">eq</span><a href="equations.html#eq-centre-pressure">Centre of pressure</a></li>
+          <li><span class="tag">eq</span><a href="equations.html#eq-buoyancy">Buoyant force</a></li>
+        </ul>
+        <h4>Related</h4>
+        <ul>
+          <li><span class="tag">def</span><a href="glossary.html#g-centre-pressure">Centre of pressure</a></li>
+          <li><span class="tag">def</span><a href="glossary.html#g-buoyancy">Buoyancy</a></li>
+          <li><span class="tag">def</span><a href="glossary.html#g-metacentre">Metacentre</a></li>
+        </ul>
+      </aside>
+    </div>
+  </main>
+</div>
+<script src="../assets/katex/katex.min.js"></script>
+<script src="../assets/katex/auto-render.min.js"></script>
+<script src="subject.js"></script>
+<script src="../assets/hub.js"></script>
+</body>
+</html>

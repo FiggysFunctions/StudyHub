@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="manifest" href="../manifest.webmanifest">
+<link rel="apple-touch-icon" href="../icons/apple-touch-icon.png">
+<meta name="theme-color" content="#161E2B">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<title>Week 3 — Continuity &amp; the Bernoulli Equation · ENGG2300</title>
+<link rel="stylesheet" href="../assets/styles.css">
+<link rel="stylesheet" href="../assets/katex/katex.min.css">
+</head>
+<body>
+<div class="shell">
+  <main class="main">
+    <div class="page has-rail">
+      <div class="content">
+        <div class="crumb"><a href="../index.html">Study hub</a> / <a href="index.html">ENGG2300</a> / Week 3</div>
+        <div class="eyebrow">Week 3 · Lecture notes</div>
+        <h1 class="title">Continuity &amp; the Bernoulli Equation</h1>
+        <p class="lede">The fluid starts moving. Conservation of mass, momentum and energy still apply, but they are written for a <em>system</em> — a fixed lump of matter — and in fluids we would rather watch a fixed region of space. The Reynolds transport theorem makes that translation, and out of it fall continuity, the momentum equation, and Bernoulli.</p>
+
+        <h2 id="classifying">Classifying flows</h2>
+        <ul>
+          <li><strong>Steady or unsteady</strong> — does anything at a fixed point change with time? Most of this course assumes steady.</li>
+          <li><strong>Laminar or turbulent</strong> — orderly layers, or chaotic mixing. Decided by the <a class="gloss" href="glossary.html#g-reynolds">Reynolds number</a>.</li>
+          <li><strong>Viscous or inviscid</strong> — is friction being modelled or idealised away?</li>
+          <li><strong>Compressible or incompressible</strong> — liquids are effectively incompressible; so are gases below about Ma 0.3.</li>
+        </ul>
+        <div class="eqbox">$$Re = \frac{\rho u D}{\mu} = \frac{uD}{\nu}$$</div>
+        <p>The Reynolds number is the ratio of inertial to viscous forces. Low <span>$Re$</span>: viscous forces dominate and the flow is laminar. High <span>$Re$</span>: inertia dominates and it is turbulent. In pipes the transition sits near <span>$Re \approx 2300$</span>.</p>
+
+        <h2 id="streamlines">Streamlines and streamtubes</h2>
+        <p>A <a class="gloss" href="glossary.html#g-streamline">streamline</a> is a curve everywhere tangent to the velocity vector at an instant. Since the velocity is parallel to it by definition, <strong>no fluid can cross a streamline</strong>. Bundle a family of them and you get a <em>streamtube</em>, which behaves like a pipe with imaginary walls — the object Bernoulli's equation is applied along.</p>
+
+        <h2 id="rtt">The Reynolds transport theorem</h2>
+        <p>Physical laws (mass is conserved, <span>$F = ma$</span>) are statements about a <em>system</em>. The Reynolds transport theorem converts each into a statement about a <a class="gloss" href="glossary.html#g-control-volume">control volume</a>: the rate of change of a property for the system equals the rate of change stored inside the control volume plus the net rate it is carried out across the control surface. Apply it with B = mass and you get continuity; with B = momentum you get the momentum equation.</p>
+
+        <h2 id="continuity">Conservation of mass</h2>
+        <div class="eqbox">$$\dot m = \rho A u = \text{const} \qquad \rho_1A_1u_1 = \rho_2A_2u_2 \qquad \xrightarrow{\text{incompressible}} \qquad A_1u_1 = A_2u_2$$</div>
+        <p>For steady flow through a streamtube, what goes in must come out. If the density is also constant it cancels, leaving the volumetric flow rate constant — so a pipe that narrows must speed the flow up. That single fact drives every flow meter in Week 4.</p>
+
+        <h2 id="momentum">The momentum equation</h2>
+        <p>Newton's second law says force equals the rate of change of momentum. For a control volume at steady state:</p>
+        <div class="eqbox">$$\sum \vec F = \dot m\,(\vec u_{out} - \vec u_{in})$$</div>
+        <p>This is what gives the force on a pipe bend, the thrust of a jet, or the load on a turbine blade. Two cautions: it is a <strong>vector</strong> equation, so resolve into components and mind the signs; and the forces include pressure forces on the control surface as well as any reaction holding the object in place.</p>
+
+        <h2 id="bernoulli">The Bernoulli equation</h2>
+        <p>Apply energy conservation along a streamline with no friction, no shaft work, no heat transfer and no change in internal energy, and the result is:</p>
+        <div class="eqbox">$$\frac{P}{\rho g} + \frac{u^2}{2g} + z = \text{const} \qquad\text{or}\qquad P + \tfrac12\rho u^2 + \rho g z = \text{const}$$</div>
+        <p>In head form the three terms are the <strong>pressure head</strong>, the <strong>velocity head</strong> and the <strong>elevation head</strong>, and their sum — the total head — is constant along the streamline. Speed the flow up and the pressure must fall; that is the whole basis of a venturi, an aerofoil and a carburettor.</p>
+        <div class="note"><span class="k">Check the conditions every time</span> Bernoulli requires steady, incompressible, <em>inviscid</em> flow along a single streamline, with no pump or turbine in between. Real flows violate the friction condition immediately, which is exactly why Week 4 has to extend it.</div>
+
+        <div class="note"><span class="k">Where this leads</span> Week 4 uses Bernoulli to measure flow rate, then patches it for friction, pumps and turbines.</div>
+      </div>
+
+      <aside class="rail">
+        <h4>On this page</h4>
+        <ul>
+          <li><a href="#classifying">Classifying flows</a></li>
+          <li><a href="#streamlines">Streamlines</a></li>
+          <li><a href="#rtt">Reynolds transport theorem</a></li>
+          <li><a href="#continuity">Conservation of mass</a></li>
+          <li><a href="#momentum">Momentum equation</a></li>
+          <li><a href="#bernoulli">Bernoulli equation</a></li>
+        </ul>
+        <h4>Key equations</h4>
+        <ul>
+          <li><span class="tag">eq</span><a href="equations.html#eq-reynolds">Reynolds number</a></li>
+          <li><span class="tag">eq</span><a href="equations.html#eq-continuity">Continuity</a></li>
+          <li><span class="tag">eq</span><a href="equations.html#eq-momentum">Momentum equation</a></li>
+          <li><span class="tag">eq</span><a href="equations.html#eq-bernoulli">Bernoulli equation</a></li>
+        </ul>
+        <h4>Related</h4>
+        <ul>
+          <li><span class="tag">def</span><a href="glossary.html#g-reynolds">Reynolds number</a></li>
+          <li><span class="tag">def</span><a href="glossary.html#g-streamline">Streamline</a></li>
+          <li><span class="tag">def</span><a href="glossary.html#g-control-volume">Control volume</a></li>
+        </ul>
+      </aside>
+    </div>
+  </main>
+</div>
+<script src="../assets/katex/katex.min.js"></script>
+<script src="../assets/katex/auto-render.min.js"></script>
+<script src="subject.js"></script>
+<script src="../assets/hub.js"></script>
+</body>
+</html>
